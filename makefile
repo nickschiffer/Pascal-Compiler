@@ -5,7 +5,7 @@
 # For instructional purposes only.  No warranties.
 #
 COMPILER = Chapter3cpp
-SRCS =  Pascal.cpp \
+SRCS =  CPlusPlus.cpp \
         wci/Globals.cpp \
         wci/backend/Backend.cpp \
         wci/backend/BackendFactory.cpp \
@@ -16,16 +16,16 @@ SRCS =  Pascal.cpp \
         wci/frontend/Scanner.cpp \
         wci/frontend/Source.cpp \
         wci/frontend/Token.cpp \
-        wci/frontend/pascal/PascalError.cpp \
-        wci/frontend/pascal/PascalErrorHandler.cpp \
-        wci/frontend/pascal/PascalParserTD.cpp \
-        wci/frontend/pascal/PascalScanner.cpp \
-        wci/frontend/pascal/PascalToken.cpp \
-        wci/frontend/pascal/tokens/PascalErrorToken.cpp \
-        wci/frontend/pascal/tokens/PascalNumberToken.cpp \
-        wci/frontend/pascal/tokens/PascalSpecialSymbolToken.cpp \
-        wci/frontend/pascal/tokens/PascalStringToken.cpp \
-        wci/frontend/pascal/tokens/PascalWordToken.cpp \
+        wci/frontend/cPlusPlus/CPlusPlusError.cpp \
+        wci/frontend/cPlusPlus/CPlusPlusErrorHandler.cpp \
+        wci/frontend/cPlusPlus/CPlusPlusParserTD.cpp \
+        wci/frontend/cPlusPlus/CPlusPlusScanner.cpp \
+        wci/frontend/cPlusPlus/CPlusPlusToken.cpp \
+        wci/frontend/cPlusPlus/tokens/CPlusPlusErrorToken.cpp \
+        wci/frontend/cPlusPlus/tokens/CPlusPlusNumberToken.cpp \
+        wci/frontend/cPlusPlus/tokens/CPlusPlusSpecialSymbolToken.cpp \
+        wci/frontend/cPlusPlus/tokens/CPlusPlusStringToken.cpp \
+        wci/frontend/cPlusPlus/tokens/CPlusPlusWordToken.cpp \
         wci/message/Message.cpp \
         wci/message/MessageHandler.cpp
         
@@ -59,13 +59,13 @@ clean:
 $(COMPILER) : $(OBJS)
 	$(CC) -o $(COMPILER) $(OBJS)
 
-# Interpret a Pascal .pas program.
+# Interpret a CPlusPlus .pas program.
 # Example: make interpret src=hello.pas
 # runs the hello.pas program using the interpreter.
 interpret: $(COMPILER) $(src)
 	./$(COMPILER) execute $(PFLAGS) $(src)
 
-# Compile a Pascal .pas program.
+# Compile a CPlusPlus .pas program.
 # Example: make compile src=hello.pas
 # compiles the hello.pas program using the compiler.
 compile: $(COMPILER)
