@@ -25,120 +25,113 @@ using namespace wci::frontend;
  */
 enum class CPlusPlusTokenType
 {
-    // Reserved words.
-    AND, ARRAY, BEGIN, CASE, CONST, DIV, DO, DOWNTO, ELSE, END,
-    FILE, FOR, FUNCTION, GOTO, IF, IN, LABEL, MOD, NIL, NOT,
-    OF, OR, PACKED, PROCEDURE, PROGRAM, RECORD, REPEAT, SET,
-    THEN, TO, TYPE, UNTIL, VAR, WHILE, WITH,
+	// Reserved words.
+		AUTO, DOUBLE, INT, STRUCT,
+		BREAK, ELSE, LONG, SWITCH,
+		CASE, ENUM, NAMESPACE, TEMPLATE,
+		CHAR, EXTERN, OPERATOR, THIS,
+		CLASS, FLOAT, PROTECTED, THROW,
+		CONST, FOR, PUBLIC, UNION,
+		CONTINUE, GOTO, RETURN, VOID,
+		DO, IF, STATIC, WHILE,
+	//    AND, ARRAY, BEGIN, CASE, CONST, DIV, DO, DOWNTO, ELSE, END,
+	//    FILE, FOR, FUNCTION, GOTO, IF, IN, LABEL, MOD, NIL, NOT,
+	//    OF, OR, PACKED, PROCEDURE, PROGRAM, RECORD, REPEAT, SET,
+	//    THEN, TO, TYPE, UNTIL, VAR, WHILE, WITH,
 
-    // Special symbols.
-    PLUS, MINUS, STAR, SLASH, COLON_EQUALS,
-    DOT, COMMA, SEMICOLON, COLON, QUOTE,
-    EQUALS, NOT_EQUALS, LESS_THAN, LESS_EQUALS,
-    GREATER_EQUALS, GREATER_THAN, LEFT_PAREN, RIGHT_PAREN,
-    LEFT_BRACKET, RIGHT_BRACKET, LEFT_BRACE, RIGHT_BRACE,
-    UP_ARROW, DOT_DOT,
+	    // Special symbols.
 
-    IDENTIFIER, INTEGER, REAL, STRING,
-    ERROR, END_OF_FILE,
-};
+		TILDE, EXCLAMATION, AT_SIGN, PERCENTAGE, CARET, AND, STAR,
+		MINUS, PLUS, EQUALS, PIPE, FRONT_SLASH, COLON, SEMICOLON,
+		QUESTION_MARK, GREATER_THAN, LESS_THAN, PERIOD, COMMA,
+		SINGLE_QUOTE, DOUBLE_QUOTE, LEFT_PAREN, RIGHT_PAREN, LEFT_BRACKET,
+		RIGHT_BRACKET, LEFT_BRACE, RIGHT_BRACE, PLUS_PLUS, MINUS_MINUS,
+		LEFT_SHIFT, RIGHT_SHIFT, LESS_EQUALS, GREATER_EQUALS, PLUS_EQUALS,
+		MINUS_EQUALS, STAR_EQUALS, FRONT_SLASH_EQUALS, EQUALS_EQUALS,
+		PIPE_EQUALS, PERCENTAGE_EQUALS, AND_EQUALS, CARET_EQUALS,
+		EXCLAMATION_EQUALS, LEFT_SHIFT_EQUALS, RIGHT_SHIFT_EQUALS,
+		PIPE_PIPE, AND_AND, FRONT_SLASH_FRONT_SLASH, FRONT_SLASH_STAR,
+		STAR_FRONT_SLASH,
 
-constexpr CPlusPlusTokenType PT_AND = CPlusPlusTokenType::AND;
-constexpr CPlusPlusTokenType PT_ARRAY = CPlusPlusTokenType::ARRAY;
-constexpr CPlusPlusTokenType PT_BEGIN = CPlusPlusTokenType::BEGIN;
-constexpr CPlusPlusTokenType PT_CASE = CPlusPlusTokenType::CASE;
-constexpr CPlusPlusTokenType PT_CONST = CPlusPlusTokenType::CONST;
-constexpr CPlusPlusTokenType PT_DIV = CPlusPlusTokenType::DIV;
-constexpr CPlusPlusTokenType PT_DO = CPlusPlusTokenType::DO;
-constexpr CPlusPlusTokenType PT_DOWNTO = CPlusPlusTokenType::DOWNTO;
+	//    PLUS, MINUS, STAR, SLASH, COLON_EQUALS,
+	//    DOT, COMMA, SEMICOLON, COLON, QUOTE,
+	//    EQUALS, NOT_EQUALS, LESS_THAN, LESS_EQUALS,
+	//    GREATER_EQUALS, GREATER_THAN, LEFT_PAREN, RIGHT_PAREN,
+	//    LEFT_BRACKET, RIGHT_BRACKET, LEFT_BRACE, RIGHT_BRACE,
+	//    UP_ARROW, DOT_DOT,
 
-constexpr CPlusPlusTokenType PT_ELSE = CPlusPlusTokenType::ELSE;
-constexpr CPlusPlusTokenType PT_END = CPlusPlusTokenType::END;
-constexpr CPlusPlusTokenType PT_FILE = CPlusPlusTokenType::FILE;
-constexpr CPlusPlusTokenType PT_FOR = CPlusPlusTokenType::FOR;
-constexpr CPlusPlusTokenType PT_FUNCTION = CPlusPlusTokenType::FUNCTION;
-constexpr CPlusPlusTokenType PT_GOTO = CPlusPlusTokenType::GOTO;
-constexpr CPlusPlusTokenType PT_IF = CPlusPlusTokenType::IF;
-constexpr CPlusPlusTokenType PT_IN = CPlusPlusTokenType::IN;
+	    IDENTIFIER, INTEGER, REAL, STRING,
+	    ERROR, END_OF_FILE,
+	};
 
-constexpr CPlusPlusTokenType PT_LABEL = CPlusPlusTokenType::LABEL;
-constexpr CPlusPlusTokenType PT_MOD = CPlusPlusTokenType::MOD;
-constexpr CPlusPlusTokenType PT_NIL = CPlusPlusTokenType::NIL;
-constexpr CPlusPlusTokenType PT_NOT = CPlusPlusTokenType::NOT;
-constexpr CPlusPlusTokenType PT_OF = CPlusPlusTokenType::OF;
-constexpr CPlusPlusTokenType PT_OR = CPlusPlusTokenType::OR;
-constexpr CPlusPlusTokenType PT_PACKED = CPlusPlusTokenType::PACKED;
-constexpr CPlusPlusTokenType PT_PROCEDURE = CPlusPlusTokenType::PROCEDURE;
+	constexpr CPlusPlusTokenType CPPT_AUTO = CPlusPlusTokenType::AUTO;
+	constexpr CPlusPlusTokenType CPPT_DOUBLE = CPlusPlusTokenType::DOUBLE;
+	constexpr CPlusPlusTokenType CPPT_INT = CPlusPlusTokenType::INT;
+	constexpr CPlusPlusTokenType CPPT_STRUCT = CPlusPlusTokenType::STRUCT;
+	constexpr CPlusPlusTokenType CPPT_BREAK = CPlusPlusTokenType::BREAK;
+	constexpr CPlusPlusTokenType CPPT_ELSE = CPlusPlusTokenType::ELSE;
+	constexpr CPlusPlusTokenType CPPT_LONG = CPlusPlusTokenType::LONG;
+	constexpr CPlusPlusTokenType CPPT_SWITCH = CPlusPlusTokenType::SWITCH;
 
-constexpr CPlusPlusTokenType PT_PROGRAM = CPlusPlusTokenType::PROGRAM;
-constexpr CPlusPlusTokenType PT_RECORD = CPlusPlusTokenType::RECORD;
-constexpr CPlusPlusTokenType PT_REPEAT = CPlusPlusTokenType::REPEAT;
-constexpr CPlusPlusTokenType PT_SET = CPlusPlusTokenType::SET;
-constexpr CPlusPlusTokenType PT_THEN = CPlusPlusTokenType::THEN;
-constexpr CPlusPlusTokenType PT_TO = CPlusPlusTokenType::TO;
-constexpr CPlusPlusTokenType PT_TYPE = CPlusPlusTokenType::TYPE;
+	constexpr CPlusPlusTokenType CPPT_CASE = CPlusPlusTokenType::CASE;
+	constexpr CPlusPlusTokenType CPPT_ENUM = CPlusPlusTokenType::ENUM;
+	constexpr CPlusPlusTokenType CPPT_NAMESPACE = CPlusPlusTokenType::NAMESPACE;
+	constexpr CPlusPlusTokenType CPPT_TEMPLATE = CPlusPlusTokenType::TEMPLATE;
+	constexpr CPlusPlusTokenType CPPT_CHAR = CPlusPlusTokenType::CHAR;
+	constexpr CPlusPlusTokenType CPPT_EXTERN = CPlusPlusTokenType::EXTERN;
+	constexpr CPlusPlusTokenType CPPT_OPERATOR = CPlusPlusTokenType::OPERATOR;
+	constexpr CPlusPlusTokenType CPPT_THIS = CPlusPlusTokenType::THIS;
 
-constexpr CPlusPlusTokenType PT_UNTIL = CPlusPlusTokenType::UNTIL;
-constexpr CPlusPlusTokenType PT_VAR = CPlusPlusTokenType::VAR;
-constexpr CPlusPlusTokenType PT_WHILE = CPlusPlusTokenType::WHILE;
-constexpr CPlusPlusTokenType PT_WITH = CPlusPlusTokenType::WITH;
+	constexpr CPlusPlusTokenType CPPT_CLASS = CPlusPlusTokenType::CLASS;
+	constexpr CPlusPlusTokenType CPPT_FLOAT = CPlusPlusTokenType::FLOAT;
+	constexpr CPlusPlusTokenType CPPT_PROTECTED = CPlusPlusTokenType::PROTECTED;
+	constexpr CPlusPlusTokenType CPPT_THROW = CPlusPlusTokenType::THROW;
+	constexpr CPlusPlusTokenType CPPT_CONST = CPlusPlusTokenType::CONST;
+	constexpr CPlusPlusTokenType CPPT_FOR = CPlusPlusTokenType::FOR;
+	constexpr CPlusPlusTokenType CPPT_PUBLIC = CPlusPlusTokenType::PUBLIC;
+	constexpr CPlusPlusTokenType CPPT_UNION = CPlusPlusTokenType::UNION;
 
-constexpr CPlusPlusTokenType PT_PLUS = CPlusPlusTokenType::PLUS;
-constexpr CPlusPlusTokenType PT_MINUS = CPlusPlusTokenType::MINUS;
-constexpr CPlusPlusTokenType PT_STAR = CPlusPlusTokenType::STAR;
-constexpr CPlusPlusTokenType PT_SLASH = CPlusPlusTokenType::SLASH;
-constexpr CPlusPlusTokenType PT_COLON_EQUALS = CPlusPlusTokenType::COLON_EQUALS;
-constexpr CPlusPlusTokenType PT_DOT = CPlusPlusTokenType::DOT;
-constexpr CPlusPlusTokenType PT_COMMA = CPlusPlusTokenType::COMMA;
-constexpr CPlusPlusTokenType PT_SEMICOLON = CPlusPlusTokenType::SEMICOLON;
-constexpr CPlusPlusTokenType PT_COLON = CPlusPlusTokenType::COLON;
-constexpr CPlusPlusTokenType PT_QUOTE = CPlusPlusTokenType::QUOTE;
-constexpr CPlusPlusTokenType PT_EQUALS = CPlusPlusTokenType::EQUALS;
-constexpr CPlusPlusTokenType PT_NOT_EQUALS = CPlusPlusTokenType::NOT_EQUALS;
+	constexpr CPlusPlusTokenType CPPT_CONTINUE = CPlusPlusTokenType::CONTINUE;
+	constexpr CPlusPlusTokenType CPPT_GOTO = CPlusPlusTokenType::GOTO;
+	constexpr CPlusPlusTokenType CPPT_RETURN = CPlusPlusTokenType::RETURN;
+	constexpr CPlusPlusTokenType CPPT_VOID = CPlusPlusTokenType::VOID;
+	constexpr CPlusPlusTokenType CPPT_DO = CPlusPlusTokenType::DO;
+	constexpr CPlusPlusTokenType CPPT_IF = CPlusPlusTokenType::IF;
+	constexpr CPlusPlusTokenType CPPT_STATIC = CPlusPlusTokenType::STATIC;
+	constexpr CPlusPlusTokenType CPPT_WHILE = CPlusPlusTokenType::WHILE;
 
-constexpr CPlusPlusTokenType PT_LESS_THAN = CPlusPlusTokenType::LESS_THAN;
-constexpr CPlusPlusTokenType PT_LESS_EQUALS = CPlusPlusTokenType::LESS_EQUALS;
-constexpr CPlusPlusTokenType PT_GREATER_EQUALS = CPlusPlusTokenType::GREATER_EQUALS;
-constexpr CPlusPlusTokenType PT_GREATER_THAN = CPlusPlusTokenType::GREATER_THAN;
-constexpr CPlusPlusTokenType PT_LEFT_PAREN = CPlusPlusTokenType::LEFT_PAREN;
-constexpr CPlusPlusTokenType PT_RIGHT_PAREN = CPlusPlusTokenType::RIGHT_PAREN;
-constexpr CPlusPlusTokenType PT_LEFT_BRACKET = CPlusPlusTokenType::LEFT_BRACKET;
-constexpr CPlusPlusTokenType PT_RIGHT_BRACKET = CPlusPlusTokenType::RIGHT_BRACKET;
-constexpr CPlusPlusTokenType PT_LEFT_BRACE = CPlusPlusTokenType::LEFT_BRACE;
-constexpr CPlusPlusTokenType PT_RIGHT_BRACE = CPlusPlusTokenType::RIGHT_BRACE;
-constexpr CPlusPlusTokenType PT_UP_ARROW = CPlusPlusTokenType::UP_ARROW;
-constexpr CPlusPlusTokenType PT_DOT_DOT = CPlusPlusTokenType::DOT_DOT;
+	constexpr CPlusPlusTokenType CPPT_IDENTIFIER = CPlusPlusTokenType::IDENTIFIER;
+	constexpr CPlusPlusTokenType CPPT_INTEGER = CPlusPlusTokenType::INTEGER;
+	constexpr CPlusPlusTokenType CPPT_REAL = CPlusPlusTokenType::REAL;
+	constexpr CPlusPlusTokenType CPPT_STRING = CPlusPlusTokenType::STRING;
+	constexpr CPlusPlusTokenType CPPT_ERROR = CPlusPlusTokenType::ERROR;
+	constexpr CPlusPlusTokenType CPPT_END_OF_FILE = CPlusPlusTokenType::END_OF_FILE;
 
-constexpr CPlusPlusTokenType PT_IDENTIFIER = CPlusPlusTokenType::IDENTIFIER;
-constexpr CPlusPlusTokenType PT_INTEGER = CPlusPlusTokenType::INTEGER;
-constexpr CPlusPlusTokenType PT_REAL = CPlusPlusTokenType::REAL;
-constexpr CPlusPlusTokenType PT_STRING = CPlusPlusTokenType::STRING;
-constexpr CPlusPlusTokenType PT_ERROR = CPlusPlusTokenType::ERROR;
-constexpr CPlusPlusTokenType PT_END_OF_FILE = CPlusPlusTokenType::END_OF_FILE;
 
-class CPlusPlusToken : public Token
-{
-public:
-    static map<string, CPlusPlusTokenType> RESERVED_WORDS;
-    static map<string, CPlusPlusTokenType> SPECIAL_SYMBOLS;
-    static map<CPlusPlusTokenType, string> SPECIAL_SYMBOL_NAMES;
 
-protected:
-    /**
-     * Constructor.
-     * @param source the source from where to fetch the token's characters.
-     * @throw a string message if an error occurred.
-     */
-    CPlusPlusToken(Source *source) throw (string);
+	class CPlusPlusToken : public Token
+	{
+	public:
+	    static map<string, CPlusPlusTokenType> RESERVED_WORDS;
+	    static map<string, CPlusPlusTokenType> SPECIAL_SYMBOLS;
+	    static map<CPlusPlusTokenType, string> SPECIAL_SYMBOL_NAMES;
 
-private:
-    static bool INITIALIZED;
+	protected:
+	    /**
+	     * Constructor.
+	     * @param source the source from where to fetch the token's characters.
+	     * @throw a string message if an error occurred.
+	     */
+	    CPlusPlusToken(Source *source) throw (string);
 
-    /**
-     * Initialize the static maps.
-     */
-    static void initialize();
-};
+	private:
+	    static bool INITIALIZED;
+
+	    /**
+	     * Initialize the static maps.
+	     */
+	    static void initialize();
+	};
 
 }}}  // namespace wci::frontend::cPlusPlus
 

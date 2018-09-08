@@ -52,7 +52,7 @@ void CPlusPlusWordToken::extract() throw (string)
     else
     {
         // Identifier.
-        type = (TokenType) PT_IDENTIFIER;
+        type = (TokenType) CPPT_IDENTIFIER;
     }
 }
 
