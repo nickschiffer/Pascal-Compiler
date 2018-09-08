@@ -73,27 +73,33 @@ void CPlusPlusScanner::skip_white_space() throw (string)
 {
     char current_ch = current_char();
 
-    while (isspace(current_ch) || (current_ch == '{')) {
+    while (isspace(current_ch) || (current_ch == '/')) {
 
         // Start of a comment?
-        if (current_ch == '{')
-        {
-            do
-            {
-                current_ch = next_char();  // consume comment characters
-            } while ((current_ch != '}') &&
-                     (current_ch != Source::END_OF_FILE));
+        if (current_ch == '/'){
+            current_ch = next_char();
+            //Check for second character
+            if (current_ch == '/'){
+                while ((current_ch != Source::END_OF_LINE) && (current_ch != Source::END_OF_FILE)){
+                    current_ch = next_char();
+                }
+            }
+            else if (current_ch == '*') {
+                do {
+                    current_ch = next_char();
+                    if (current_ch == '*')
+                        current_ch = next_char();
+                        if (current_ch == '/') break;
+                } while (current_ch != Source::END_OF_FILE);
 
-            // Found closing '}'?
-            if (current_ch == '}')
-            {
-                current_ch = next_char();  // consume the '}'
+            }
+
+            else {
             }
         }
-
-        // Not a comment.
-        else current_ch = next_char();  // consume whitespace character
-    }
+        else {
+            current_ch = next_char();
+        }
 }
 
 }}} // namespace wci::frontend::cPlusPlus
