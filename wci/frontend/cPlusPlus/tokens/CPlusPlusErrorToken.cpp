@@ -20,7 +20,7 @@ CPlusPlusErrorToken::CPlusPlusErrorToken(Source *source, CPlusPlusErrorCode erro
     throw (string)
     : CPlusPlusToken(source)
 {
-    type = (TokenType) PT_ERROR;
+    type = (TokenType) CPPT_ERROR;
     text = token_text;
     value = (int) error_code;
 }
