@@ -107,35 +107,6 @@ enum class CPlusPlusTokenType
 	constexpr CPlusPlusTokenType CPPT_ERROR = CPlusPlusTokenType::ERROR;
 	constexpr CPlusPlusTokenType CPPT_END_OF_FILE = CPlusPlusTokenType::END_OF_FILE;
 
-	//constexpr CPlusPlusTokenType CPPT_VAR = CPlusPlusTokenType::VAR;
-	//constexpr CPlusPlusTokenType CPPT_WHILE = CPlusPlusTokenType::WHILE;
-	//constexpr CPlusPlusTokenType CPPT_WITH = CPlusPlusTokenType::WITH;
-	//
-	//constexpr CPlusPlusTokenType CPPT_PLUS = CPlusPlusTokenType::PLUS;
-	//constexpr CPlusPlusTokenType CPPT_MINUS = CPlusPlusTokenType::MINUS;
-	//constexpr CPlusPlusTokenType CPPT_STAR = CPlusPlusTokenType::STAR;
-	//constexpr CPlusPlusTokenType CPPT_SLASH = CPlusPlusTokenType::SLASH;
-	//constexpr CPlusPlusTokenType CPPT_COLON_EQUALS = CPlusPlusTokenType::COLON_EQUALS;
-	//constexpr CPlusPlusTokenType CPPT_DOT = CPlusPlusTokenType::DOT;
-	//constexpr CPlusPlusTokenType CPPT_COMMA = CPlusPlusTokenType::COMMA;
-	//constexpr CPlusPlusTokenType CPPT_SEMICOLON = CPlusPlusTokenType::SEMICOLON;
-	//constexpr CPlusPlusTokenType CPPT_COLON = CPlusPlusTokenType::COLON;
-	//constexpr CPlusPlusTokenType CPPT_QUOTE = CPlusPlusTokenType::QUOTE;
-	//constexpr CPlusPlusTokenType CPPT_EQUALS = CPlusPlusTokenType::EQUALS;
-	//constexpr CPlusPlusTokenType CPPT_NOT_EQUALS = CPlusPlusTokenType::NOT_EQUALS;
-	//
-	//constexpr CPlusPlusTokenType CPPT_LESS_THAN = CPlusPlusTokenType::LESS_THAN;
-	//constexpr CPlusPlusTokenType CPPT_LESS_EQUALS = CPlusPlusTokenType::LESS_EQUALS;
-	//constexpr CPlusPlusTokenType CPPT_GREATER_EQUALS = CPlusPlusTokenType::GREATER_EQUALS;
-	//constexpr CPlusPlusTokenType CPPT_GREATER_THAN = CPlusPlusTokenType::GREATER_THAN;
-	//constexpr CPlusPlusTokenType CPPT_LEFT_PAREN = CPlusPlusTokenType::LEFT_PAREN;
-	//constexpr CPlusPlusTokenType CPPT_RIGHT_PAREN = CPlusPlusTokenType::RIGHT_PAREN;
-	//constexpr CPlusPlusTokenType CPPT_LEFT_BRACKET = CPlusPlusTokenType::LEFT_BRACKET;
-	//constexpr CPlusPlusTokenType CPPT_RIGHT_BRACKET = CPlusPlusTokenType::RIGHT_BRACKET;
-	//constexpr CPlusPlusTokenType CPPT_LEFT_BRACE = CPlusPlusTokenType::LEFT_BRACE;
-	//constexpr CPlusPlusTokenType CPPT_RIGHT_BRACE = CPlusPlusTokenType::RIGHT_BRACE;
-	//constexpr CPlusPlusTokenType CPPT_UP_ARROW = CPlusPlusTokenType::UP_ARROW;
-	//constexpr CPlusPlusTokenType CPPT_DOT_DOT = CPlusPlusTokenType::DOT_DOT;
 
 
 	class CPlusPlusToken : public Token

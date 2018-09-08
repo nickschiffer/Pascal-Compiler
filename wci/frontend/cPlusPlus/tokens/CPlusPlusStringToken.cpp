@@ -59,12 +59,12 @@ void CPlusPlusStringToken::extract() throw (string)
     {
         next_char();  // consume final quote
         text += '\'';
-        type = (TokenType) PT_STRING;
+        type = (TokenType) CPPT_STRING;
         value = value_str;
     }
     else
     {
-        type = (TokenType) PT_ERROR;
+        type = (TokenType) CPPT_ERROR;
         value = (int) UNEXPECTED_EOF;
     }
 }
