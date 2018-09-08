@@ -31,12 +31,12 @@ void CPlusPlusToken::initialize()
     		 "CASE", "ENUM", "NAMESPACE", "TEMPLATE", "CHAR", "EXTERN", "OPERATOR", "THIS",
     		 "CLASS", "FLOAT", "PROTECTED", "THROW", "CONST", "FOR", "PUBLIC", "UNION",
     		 "CONTINUE", "GOTO", "RETURN", "VOID", "DO", "IF", "STATIC",
-    		 "WHILE", "VAR", "WHILE"
+    		 "WHILE"
     };
 
     vector<CPlusPlusTokenType> rw_keys =
     {
-    		CPlusPlusTokenType::AUTO,
+    				CPlusPlusTokenType::AUTO,
     		        CPlusPlusTokenType::DOUBLE,
     		        CPlusPlusTokenType::INT,
     		        CPlusPlusTokenType::STRUCT,
@@ -71,9 +71,8 @@ void CPlusPlusToken::initialize()
     		        CPlusPlusTokenType::IF,
     		        CPlusPlusTokenType::STATIC,
 
-    		        CPlusPlusTokenType::WHILE,
-    		        CPlusPlusTokenType::VAR,
     		        CPlusPlusTokenType::WHILE
+
     };
 
     for (int i = 0; i < rw_strings.size(); i++)
@@ -122,7 +121,7 @@ void CPlusPlusToken::initialize()
     				CPlusPlusTokenType::PLUS_PLUS,
     				CPlusPlusTokenType::MINUS_MINUS,
     				CPlusPlusTokenType::LEFT_SHIFT,
-    				CPlusPlusTokenTypE::RIGHT_SHIFT,
+    				CPlusPlusTokenType::RIGHT_SHIFT,
     				CPlusPlusTokenType::LESS_EQUALS,
     				CPlusPlusTokenType::GREATER_EQUALS,
     				CPlusPlusTokenType::PLUS_EQUALS,
