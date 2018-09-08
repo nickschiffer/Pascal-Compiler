@@ -51,7 +51,7 @@ Token *CPlusPlusScanner::extract_token() throw (string)
     {
         token = new CPlusPlusNumberToken(source);
     }
-    else if (current_ch == '\'')
+    else if (current_ch == '\"')
     {
         token = new CPlusPlusStringToken(source);
     }
@@ -87,9 +87,10 @@ void CPlusPlusScanner::skip_white_space() throw (string)
             else if (current_ch == '*') {
                 do {
                     current_ch = next_char();
-                    if (current_ch == '*')
+                    if (current_ch == '*'){
                         current_ch = next_char();
                         if (current_ch == '/') break;
+                    }
                 } while (current_ch != Source::END_OF_FILE);
 
             }
