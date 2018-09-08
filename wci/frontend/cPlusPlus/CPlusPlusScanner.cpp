@@ -100,6 +100,7 @@ void CPlusPlusScanner::skip_white_space() throw (string)
         else {
             current_ch = next_char();
         }
+    }
 }
 
 }}} // namespace wci::frontend::cPlusPlus
