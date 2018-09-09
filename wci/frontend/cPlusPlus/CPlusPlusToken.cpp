@@ -27,11 +27,11 @@ void CPlusPlusToken::initialize()
 
     vector<string> rw_strings =
     {
-    		"AUTO", "DOUBLE", "INT", "STRUCT", "BREAK", "ELSE", "LONG", "SWITCH",
-    		    		 "CASE", "ENUM", "NAMESPACE", "TEMPLATE", "CHAR", "EXTERN", "OPERATOR", "THIS",
-    		    		 "CLASS", "FLOAT", "PROTECTED", "THROW", "CONST", "FOR", "PUBLIC", "UNION",
-    		    		 "CONTINUE", "GOTO", "RETURN", "VOID", "DO", "IF", "STATIC",
-    		    		 "WHILE", "VAR", "WHILE"
+    		"auto", "double", "int", "struct", "break", "else", "long", "switch",
+    		    		 "case", "enum", "namespace", "template", "char", "extern", "operator", "this",
+    		    		 "class", "float", "protected", "throw", "const", "for", "public", "union",
+    		    		 "continue", "goto", "return", "void", "do", "if", "static",
+    		    		 "while", "var", "while"
     };
 
     vector<CPlusPlusTokenType> rw_keys =
@@ -82,7 +82,7 @@ void CPlusPlusToken::initialize()
     vector<string> ss_strings =
     {
     		"~", "!", "@", "%", "^", "&", "*", "-", "+", "=", "|", "/",
-    		            ":", ";", "?", "<", ">", ".", ",","'","\"","(",")","[","]", "{", "}",  "++", "--",
+    		            ":", ";", "?", ">", "<", ".", ",","'","\"","(",")","[","]", "{", "}",  "++", "--",
     		    		"<<",">>","<=", ">=","+=","-=", "*=", "/=", "==","|=","%=","&=","^=", "!=","<<=",">>=", "||",
     		    		"&&", "//", "/*", "*/"
     };

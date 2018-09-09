@@ -89,7 +89,10 @@ void CPlusPlusScanner::skip_white_space() throw (string)
                     current_ch = next_char();
                     if (current_ch == '*'){
                         current_ch = next_char();
-                        if (current_ch == '/') break;
+                        if (current_ch == '/'){ 
+                            current_ch = next_char();
+                            break;
+                        }
                     }
                 } while (current_ch != Source::END_OF_FILE);
 
