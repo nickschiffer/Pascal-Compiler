@@ -35,5 +35,5 @@
 .project
 .cproject
 .settings/
-/Debug/
+Debug/
 Chapter3cpp

@@ -6,8 +6,8 @@
  * <p>Copyright (c) 2017 by Ronald Mak</p>
  * <p>For instructional purposes only.  No warranties.</p>
  */
-#ifndef WCI_FRONTEND_PASCAL_TOKENS_PASCALNUMBERTOKEN_H_
-#define WCI_FRONTEND_PASCAL_TOKENS_PASCALNUMBERTOKEN_H_
+#ifndef WCI_FRONTEND_CPLUSPLUS_TOKENS_CPLUSPLUSNUMBERTOKEN_H_
+#define WCI_FRONTEND_CPLUSPLUS_TOKENS_CPLUSPLUSNUMBERTOKEN_H_
 
 #include <string>
 #include "../CPlusPlusToken.h"
@@ -75,4 +75,4 @@ private:
 
 }}}}  // namespace wci::frontend::cPlusPlus::tokens
 
-#endif /* WCI_FRONTEND_PASCAL_TOKENS_PASCALNUMBERTOKEN_H_ */
+#endif /* WCI_FRONTEND_CPLUSPLUS_TOKENS_CPLUSPLUSNUMBERTOKEN_H_ */

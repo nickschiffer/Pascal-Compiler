@@ -26,6 +26,7 @@ SRCS =  CPlusPlus.cpp \
         wci/frontend/cPlusPlus/tokens/CPlusPlusSpecialSymbolToken.cpp \
         wci/frontend/cPlusPlus/tokens/CPlusPlusStringToken.cpp \
         wci/frontend/cPlusPlus/tokens/CPlusPlusWordToken.cpp \
+        wci/frontend/cPlusPlus/tokens/CPlusPlusCharacterToken.cpp \
         wci/message/Message.cpp \
         wci/message/MessageHandler.cpp
         

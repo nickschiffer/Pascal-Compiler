@@ -15,6 +15,7 @@
 #include "tokens/CPlusPlusNumberToken.h"
 #include "tokens/CPlusPlusStringToken.h"
 #include "tokens/CPlusPlusSpecialSymbolToken.h"
+#include "tokens/CPlusPlusCharacterToken.h"
 #include "tokens/CPlusPlusErrorToken.h"
 
 namespace wci { namespace frontend { namespace cPlusPlus {
@@ -55,6 +56,10 @@ Token *CPlusPlusScanner::extract_token() throw (string)
     {
         token = new CPlusPlusStringToken(source);
     }
+    else if (current_ch == '\'')
+	{
+    	token = new CPlusPlusCharacterToken(source);
+	}
     else if (CPlusPlusToken::SPECIAL_SYMBOLS.find(string_ch)
                 != CPlusPlusToken::SPECIAL_SYMBOLS.end())
     {

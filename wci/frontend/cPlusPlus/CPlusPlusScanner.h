@@ -6,8 +6,8 @@
  * <p>Copyright (c) 2017 by Ronald Mak</p>
  * <p>For instructional purposes only.  No warranties.</p>
  */
-#ifndef WCI_FRONTEND_PASCAL_PASCALSCANNER_H_
-#define WCI_FRONTEND_PASCAL_PASCALSCANNER_H_
+#ifndef WCI_FRONTEND_CPLUSPLUS_CPLUSPLUSSCANNER_H_
+#define WCI_FRONTEND_CPLUSPLUS_CPLUSPLUSSCANNER_H_
 
 #include "../Scanner.h"
 #include "../Source.h"
@@ -45,4 +45,4 @@ private:
 
 }}} // namespace wci::frontend::cPlusPlus
 
-#endif /* WCI_FRONTEND_PASCAL_PASCALSCANNER_H_ */
+#endif /* WCI_FRONTEND_CPLUSPLUS_CPLUSPLUSSCANNER_H_ */
