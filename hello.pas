@@ -1,7 +1,10 @@
 PROGRAM hello (output);
 
-{Write 'Hello, world.' ten times.}
+//{Write 'Hello, world.' ten times.}
 
+// Hello world
+/* abcde * abc/de 
+*/
 VAR
     i : integer;
 

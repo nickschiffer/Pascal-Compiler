@@ -15,6 +15,7 @@
 #include "tokens/CPlusPlusNumberToken.h"
 #include "tokens/CPlusPlusStringToken.h"
 #include "tokens/CPlusPlusSpecialSymbolToken.h"
+#include "tokens/CPlusPlusCharacterToken.h"
 #include "tokens/CPlusPlusErrorToken.h"
 
 namespace wci { namespace frontend { namespace cPlusPlus {
@@ -25,6 +26,7 @@ using namespace wci::frontend::cPlusPlus::tokens;
 
 CPlusPlusScanner::CPlusPlusScanner(Source *source) : Scanner(source)
 {
+	extract_token();
 }
 
 Token *CPlusPlusScanner::extract_token() throw (string)
@@ -51,10 +53,15 @@ Token *CPlusPlusScanner::extract_token() throw (string)
     {
         token = new CPlusPlusNumberToken(source);
     }
-    else if (current_ch == '\'')
+    else if (current_ch == '\"')
     {
         token = new CPlusPlusStringToken(source);
     }
+    else if (current_ch == '\'')
+	{
+
+    	token = new CPlusPlusCharacterToken(source);
+	}
     else if (CPlusPlusToken::SPECIAL_SYMBOLS.find(string_ch)
                 != CPlusPlusToken::SPECIAL_SYMBOLS.end())
     {
@@ -73,26 +80,37 @@ void CPlusPlusScanner::skip_white_space() throw (string)
 {
     char current_ch = current_char();
 
-    while (isspace(current_ch) || (current_ch == '{')) {
+    while (isspace(current_ch) || (current_ch == '/')) {
 
         // Start of a comment?
-        if (current_ch == '{')
-        {
-            do
-            {
-                current_ch = next_char();  // consume comment characters
-            } while ((current_ch != '}') &&
-                     (current_ch != Source::END_OF_FILE));
+        if (current_ch == '/'){
+            current_ch = next_char();
+            //Check for second character
+            if (current_ch == '/'){
+                while ((current_ch != Source::END_OF_LINE) && (current_ch != Source::END_OF_FILE)){
+                    current_ch = next_char();
+                }
+            }
+            else if (current_ch == '*') {
+                do {
+                    current_ch = next_char();
+                    if (current_ch == '*'){
+                        current_ch = next_char();
+                        if (current_ch == '/'){ 
+                            current_ch = next_char();
+                            break;
+                        }
+                    }
+                } while (current_ch != Source::END_OF_FILE);
 
-            // Found closing '}'?
-            if (current_ch == '}')
-            {
-                current_ch = next_char();  // consume the '}'
+            }
+
+            else {
             }
         }
-
-        // Not a comment.
-        else current_ch = next_char();  // consume whitespace character
+        else {
+            current_ch = next_char();
+        }
     }
 }
 

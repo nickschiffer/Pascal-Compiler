@@ -42,11 +42,11 @@ void CPlusPlusWordToken::extract() throw (string)
 
     // Is it a reserved word or an identifier?
     string upper_case = to_upper(text);
-    if (CPlusPlusToken::RESERVED_WORDS.find(upper_case)
+    if (CPlusPlusToken::RESERVED_WORDS.find(text)
             != CPlusPlusToken::RESERVED_WORDS.end())
     {
         // Reserved word.
-        type = (TokenType) CPlusPlusToken::RESERVED_WORDS[upper_case];
+        type = (TokenType) CPlusPlusToken::RESERVED_WORDS[text];
         value = upper_case;
     }
     else

@@ -61,7 +61,7 @@ enum class CPlusPlusTokenType
 	//    UP_ARROW, DOT_DOT,
 
 	    IDENTIFIER, INTEGER, REAL, STRING,
-	    ERROR, END_OF_FILE,
+	    ERROR, END_OF_FILE,CHARACTER,
 	};
 
 	constexpr CPlusPlusTokenType CPPT_AUTO = CPlusPlusTokenType::AUTO;
@@ -106,6 +106,7 @@ enum class CPlusPlusTokenType
 	constexpr CPlusPlusTokenType CPPT_STRING = CPlusPlusTokenType::STRING;
 	constexpr CPlusPlusTokenType CPPT_ERROR = CPlusPlusTokenType::ERROR;
 	constexpr CPlusPlusTokenType CPPT_END_OF_FILE = CPlusPlusTokenType::END_OF_FILE;
+	constexpr CPlusPlusTokenType CPPT_CHARACTER = CPlusPlusTokenType::CHARACTER;
 
 
 

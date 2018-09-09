@@ -32,16 +32,30 @@ void CPlusPlusSpecialSymbolToken::extract() throw (string)
     switch (current_ch)
     {
         // Single-character special symbols.
-        case '+':  case '-':  case '*':  case '/':  case ',':
-        case ';':  case '\'': case '=':  case '(':  case ')':
-        case '[':  case ']':  case '{':  case '}':  case '^':
+        case '~': case '@': case ':':  case ';':  case '?': 
+        case '.': case ',': case '\'': case '\"': case '(': 
+        case ')': case '[': case ']':  case '{':  case '}':
+         
+
+
+
+
+
+
+
+
+
+
+        // case '+':  case '-':  case '*':  case '/':  case ',':
+        // case ';':  case '\'': case '=':  case '(':  case ')':
+        // case '[':  case ']':  case '{':  case '}':  case '^':
         {
             next_char();  // consume character
             break;
         }
 
-        // : or :=
-        case ':':
+        // = or ==
+        case '=':
         {
             current_ch = next_char();  // consume ':';
 
@@ -54,30 +68,87 @@ void CPlusPlusSpecialSymbolToken::extract() throw (string)
             break;
         }
 
-        // < or <= or <>
+        // + or ++
+        case '+':
+        {
+            current_ch = next_char();  // consume '+';
+
+            if (current_ch == '+')
+            {
+                text += current_ch;
+                next_char();  // consume '+'
+            }
+
+            break;
+        }
+
+        // - or -- or -=
+        case '-':
+        {
+            current_ch = next_char();  // consume '-';
+
+            if (current_ch == '=')
+            {
+                text += current_ch;
+                next_char();  // consume '='
+            }
+            else if (current_ch == '-'){
+                text += current_ch;
+                next_char();  // consume '-'
+            }
+
+            break;
+        }
+
+        // < or << or <<=
         case '<':
         {
             current_ch = next_char();  // consume '<';
 
-            if (current_ch == '=')
+            if (current_ch == '<')
             {
+                text += current_ch;
+                current_ch = next_char();  // consume '<'
+                if (current_ch == '='){
+                    text += current_ch;
+                    next_char();
+                }
+            }
+            else if (current_ch == '='){
                 text += current_ch;
                 next_char();  // consume '='
-            }
-            else if (current_ch == '>')
-            {
-                text += current_ch;
-                next_char();  // consume '>'
             }
 
             break;
         }
 
-        // > or >=
+        // > or >> or >>=
         case '>':
         {
             current_ch = next_char();  // consume '>';
 
+            if (current_ch == '>')
+            {
+                text += current_ch;
+                current_ch = next_char();  // consume '>'
+                if (current_ch == '='){
+                    text += current_ch;
+                    next_char();
+                }
+            }
+            else if (current_ch == '='){
+                text += current_ch;
+                next_char();  // consume '='
+            }
+
+            break;
+        }
+
+        // * or *=
+        case '*':
+        {
+            current_ch = next_char();  // consume '*';
+
             if (current_ch == '=')
             {
                 text += current_ch;
@@ -87,19 +158,99 @@ void CPlusPlusSpecialSymbolToken::extract() throw (string)
             break;
         }
 
-        // . or ..
-        case '.':
+        // / or /=
+        case '/':
         {
-            current_ch = next_char();  // consume '.';
+            current_ch = next_char();  // consume '/';
 
-            if (current_ch == '.')
+            if (current_ch == '=')
             {
                 text += current_ch;
-                next_char();  // consume '.'
+                next_char();  // consume '='
             }
 
             break;
         }
+
+        // | or |= or ||
+        case '|':
+        {
+            current_ch = next_char();  // consume '|';
+
+            if (current_ch == '=')
+            {
+                text += current_ch;
+                next_char();  // consume '='
+            }
+            else if (current_ch == '|'){
+                text += current_ch;
+                next_char();  // consume '|'
+            }
+
+            break;
+        }
+
+        // % or %=
+        case '%':
+        {
+            current_ch = next_char();  // consume '%';
+
+            if (current_ch == '=')
+            {
+                text += current_ch;
+                next_char();  // consume '='
+            }
+
+            break;
+        }
+
+        // & or &= or &&
+        case '&':
+        {
+            current_ch = next_char();  // consume '&';
+
+            if (current_ch == '=')
+            {
+                text += current_ch;
+                next_char();  // consume '='
+            }
+            else if (current_ch == '&'){
+                text += current_ch;
+                next_char();  // consume '&'
+            }
+
+            break;
+        }
+
+        // ^ or ^=
+        case '^':
+        {
+            current_ch = next_char();  // consume '^';
+
+            if (current_ch == '=')
+            {
+                text += current_ch;
+                next_char();  // consume '='
+            }
+
+            break;
+        }
+
+        // ! or !=
+        case '!':
+        {
+            current_ch = next_char();  // consume '!';
+
+            if (current_ch == '=')
+            {
+                text += current_ch;
+                next_char();  // consume '='
+            }
+
+            break;
+        }
+
+        
 
         default:
         {
