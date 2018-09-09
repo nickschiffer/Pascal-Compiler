@@ -39,11 +39,21 @@ void CPlusPlusStringToken::extract() throw (string)
             if (current_ch == 't')  current_ch = '\t';
             if (current_ch == 'n'){
                 text += "\n";
+                value_str += "\n";
                 current_ch = next_char();
             }
-            if (current_ch == '\"'){
-                text += "\"";
+            if (current_ch == '\\'){
                 current_ch = next_char();
+                if (current_ch == '\"'){
+                   text += "\"";
+                   value_str += "\"";
+                   current_ch = next_char(); 
+                }
+                
+                //current_ch = next_char();
+            }
+            else {
+
             } 
         }
 
@@ -59,10 +69,10 @@ void CPlusPlusStringToken::extract() throw (string)
         {
             while ((current_ch == '\"') && (peek_char() == '\"'))
             {
-                text += "''";
+                text += "\"";
                 value_str  += current_ch;  // append single-quote
                 current_ch = next_char();  // consume pair of quotes
-                current_ch = next_char();
+                //current_ch = next_char();
             }
         }
     } while ((current_ch != '\"') && (current_ch != Source::END_OF_FILE));
