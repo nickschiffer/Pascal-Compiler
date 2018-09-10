@@ -88,21 +88,21 @@ void CPlusPlusCharacterToken::extract() throw (string)
     }
     else
     {
-    	//cout<<"hello";
+    	
     	value_str += current_ch;
-    	//cout<<"["<<value_str<<"]";
+    	
     	current_ch = next_char(); // consume current char
     }
     if (current_ch == '\'')
     {
-    	//cout<<"in scanner=="<<current_ch;
+    	
     	next_char();  // consume final quote
     	text = value_str;
     	//text += '\"';
         type = (TokenType) CPPT_CHARACTER;
         value_str = "CHARACTER";
         value = value_str;
-        //cout<<"WHAT THE FUCK";
+        
     }
     else
     {
