@@ -136,6 +136,8 @@ void PascalError::initialize()
         "Missing TO or DOWNTO",
         "Missing UNTIL",
         "Missing variable",
+        "Missing right arrow",
+        "Missing otherwise",
         "Not a constant identifier",
         "Not a record variable",
         "Not a type identifier",
