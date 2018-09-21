@@ -69,6 +69,7 @@ void PascalError::initialize()
         PascalErrorCode::MISSING_TO_DOWNTO,
         PascalErrorCode::MISSING_UNTIL,
         PascalErrorCode::MISSING_VARIABLE,
+        PascalErrorCode::MISSING_RIGHT_ARROW,
         PascalErrorCode::NOT_CONSTANT_IDENTIFIER,
         PascalErrorCode::NOT_RECORD_VARIABLE,
         PascalErrorCode::NOT_TYPE_IDENTIFIER,
