@@ -70,6 +70,7 @@ void PascalError::initialize()
         PascalErrorCode::MISSING_UNTIL,
         PascalErrorCode::MISSING_VARIABLE,
         PascalErrorCode::MISSING_RIGHT_ARROW,
+        PascalErrorCode::MISSING_OTHERWISE,
         PascalErrorCode::NOT_CONSTANT_IDENTIFIER,
         PascalErrorCode::NOT_RECORD_VARIABLE,
         PascalErrorCode::NOT_TYPE_IDENTIFIER,

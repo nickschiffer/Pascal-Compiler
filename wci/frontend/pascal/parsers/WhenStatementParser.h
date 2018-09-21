@@ -39,8 +39,6 @@ public:
     ICodeNode *parse_statement(Token *token) throw (string);
 
 private:
-    // Synchronization set for starting a WHEN option constant.
-    static set<PascalTokenType> CONSTANT_START_SET;
 
     // Synchronization set for OF.
     static set<PascalTokenType> RIGHT_ARROW_SET;
@@ -53,66 +51,16 @@ private:
     static void initialize();
 
     /**
-     * Parse a CASE branch.
+     * Parse a WHEN branch.
      * @param token the current token.
-     * @param constant_set the set of CASE branch constants.
+     * @param constant_set the set of WHEN branch constants.
      * @return the root SELECT_BRANCH node of the subtree.
      * @throw a string message if an error occurred.
      */
     ICodeNode *parse_branch(Token *token)
         throw (string);
-
-    /**
-     * Parse a list of CASE branch constants.
-     * @param token the current token.
-     * @param constants_node the parent SELECT_CONSTANTS node.
-     * @param constant_set the set of CASE branch constants.
-     * @throw a string message if an error occurred.
-     */
-    void parse_constant_list(Token *token, ICodeNode *constants_node,
-                             set<int>& constant_set)
-        throw (string);
-
-    /**
-     * Parse a CASE branch constant.
-     * @param token the current token.
-     * @param constant_set the set of CASE branch constants.
-     * @return the constant node.
-     * @throw a string message if an error occurred.
-     */
-    ICodeNode *parse_constant(Token *token, set<int>& constant_set)
-        throw (string);
-
-    /**
-     * Parse an identifier CASE constant.
-     * @param value the current token value string.
-     * @param minus_sign true if there was a minus sign.
-     * @return the constant node.
-     * @throw a string message if an error occurred.
-     */
-    ICodeNode *parse_identifier_constant(Token *token, const bool minus_sign)
-        throw (string);
-
-    /**
-     * Parse an integer CASE constant.
-     * @param value the current token value string.
-     * @param minus_sign true if there was a minus sign.
-     * @return the constant node.
-     */
-    ICodeNode *parse_integer_constant(const string value,
-                                      const bool minus_sign);
-
-    /**
-     * Parse a character CASE constant.
-     * @param token the current token.
-     * @param value the token value string.
-     * @param sign the sign, if any.
-     * @return the constant node.
-     */
-    ICodeNode *parse_character_constant(Token *token, const string value,
-                                        const bool minus_sign);
 };
 
 }}}}  // namespace wci::frontend::pascal::parsers
 
-#endif /* CASESTATEMENTPARSER_H_ */
+#endif /* WHENSTATEMENTPARSER_H_ */

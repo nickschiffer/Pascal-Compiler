@@ -1,7 +1,7 @@
 /**
  * <h1>CaseStatementParser</h1>
  *
- * <p>Parse a Pascal CASE statement.</p>
+ * <p>Parse a Pascal WHEN statement.</p>
  *
  * <p>Copyright (c) 2017 by Ronald Mak</p>
  * <p>For instructional purposes only.  No warranties.</p>
@@ -27,11 +27,6 @@ using namespace wci::frontend::pascal;
 using namespace wci::intermediate;
 using namespace wci::intermediate::icodeimpl;
 
-set<PascalTokenType> WhenStatementParser::CONSTANT_START_SET =
-{
-    PT_IDENTIFIER, PT_INTEGER, PT_PLUS, PT_MINUS, PT_STRING,
-};
-
 set<PascalTokenType> WhenStatementParser::RIGHT_ARROW_SET;
 //set<PascalTokenType> WhenStatementParser::COMMA_SET;
 
@@ -51,13 +46,13 @@ void WhenStatementParser::initialize()
          it != StatementParser::STMT_START_SET.end();
          it++)
     {
-        
+        RIGHT_ARROW_SET.insert(*it);
     }
     for (it  = StatementParser::STMT_FOLLOW_SET.begin();
          it != StatementParser::STMT_FOLLOW_SET.end();
          it++)
     {
-        RIGHT_ARROW_SET.insert(*it);
+        
     }
 
     INITIALIZED = true;
@@ -82,17 +77,20 @@ ICodeNode *WhenStatementParser::parse_statement(Token *token) throw (string)
         when_node->add_child(parse_branch(token));
         when_node->add_child(expression_parser.parse_statement(token));
     }
-    //COnsume OTHERWISE
+    //Consume OTHERWISE
     if (token->get_type() == (TokenType) PT_OTHERWISE){
         token = next_token(token);
     }
+    else {
+        error_handler.flag(token, MISSING_OTHERWISE, this);
+    }
 
 
-    //Check for missing right arrow.
+    //Check for missing RIGHT_ARROW.
     token = synchronize(RIGHT_ARROW_SET);
     if (token->get_type() == (TokenType) PT_RIGHT_ARROW)
     {
-        token = next_token(token);  // consume the OF
+        token = next_token(token);  // consume the RIGHT_ARROW
     }
     else {
         error_handler.flag(token, MISSING_RIGHT_ARROW, this);
