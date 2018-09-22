@@ -52,12 +52,6 @@ Object WhenExecutor::execute(ICodeNode *node)
 
     vector<ICodeNode *> children = node->get_children();
 
-//    ICodeNode *expr_node = children[0];
-
-//    ICodeNode *then_stmt_node = children[1];
-
-//    ICodeNode *else_stmt_node = children.size() > 2 ? children[2] : nullptr;
-
     ExpressionExecutor expression_executor(this);
 
     StatementExecutor statement_executor(this);
@@ -66,15 +60,13 @@ Object WhenExecutor::execute(ICodeNode *node)
 
         vector<ICodeNode *> when_branch_children = when_branch->get_children();
 
-        // If when_branch_children.size() == 1...otherwise
+            if (when_branch_children.size() == 1){
 
-        if (when_branch_children.size() == 1){
+                auto *stmt_node = when_branch_children[0]; // If when_branch_children.size() == 1...otherwise
 
-            auto *stmt_node = when_branch_children[0];
+                statement_executor.execute(stmt_node);
 
-            statement_executor.execute(stmt_node);
-
-            ++execution_count;  // count the execution of the statement
+                ++execution_count;  // count the execution of the statement
 
             break;
 

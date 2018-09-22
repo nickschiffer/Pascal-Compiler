@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/Chapter8cpp",
-            "args": ["compile", "-ix", "when.txt"],
+            "args": ["execute", "-ix", "whenerrors.txt"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

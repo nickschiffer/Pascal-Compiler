@@ -3,8 +3,6 @@
  *
  * <p>Parse a Pascal WHEN statement.</p>
  *
- * <p>Copyright (c) 2017 by Ronald Mak</p>
- * <p>For instructional purposes only.  No warranties.</p>
  */
 #ifndef WHENSTATEMENTPARSER_H_
 #define WHENSTATEMENTPARSER_H_
@@ -31,7 +29,7 @@ public:
     WhenStatementParser(PascalParserTD *parent);
 
     /**
-     * Parse an IF statement.
+     * Parse an WHEN statement.
      * @param token the initial token.
      * @return the root node of the generated parse tree.
      * @throw a string message if an error occurred.

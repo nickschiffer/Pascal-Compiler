@@ -2,9 +2,6 @@
  * <h1>CaseStatementParser</h1>
  *
  * <p>Parse a Pascal WHEN statement.</p>
- *
- * <p>Copyright (c) 2017 by Ronald Mak</p>
- * <p>For instructional purposes only.  No warranties.</p>
  */
 #include <string>
 #include <set>
@@ -72,9 +69,10 @@ ICodeNode *WhenStatementParser::parse_statement(Token *token) throw (string)
     ICodeNode *when_node =
             ICodeFactory::create_icode_node((ICodeNodeType) NT_WHEN);
     while ((token != nullptr) && (token->get_type() != (TokenType) PT_OTHERWISE)){
-        // Parse the WHEN expression.
-        // The WHEN node adopts the expression subtree as its first child.
-        token = current_token();
+        token = current_token(); // Make sure Token isn't lost
+        if (token->get_type() == (TokenType) PT_END){
+            break;
+        }
         when_node->add_child(parse_branch(token));
     }
     //Consume OTHERWISE
@@ -83,6 +81,8 @@ ICodeNode *WhenStatementParser::parse_statement(Token *token) throw (string)
     }
     else {
         error_handler.flag(token, MISSING_OTHERWISE, this);
+        token = next_token(token); // Consume END
+        return when_node; // Leave Function
     }
 
 
@@ -96,7 +96,6 @@ ICodeNode *WhenStatementParser::parse_statement(Token *token) throw (string)
         error_handler.flag(token, MISSING_RIGHT_ARROW, this);
     }
 
-    //when_node->add_child(expression_parser.parse_statement(token));
     when_node->add_child(statement_parser.parse_statement(token));
 
     if (token->get_type() == (TokenType) PT_END){
@@ -105,15 +104,6 @@ ICodeNode *WhenStatementParser::parse_statement(Token *token) throw (string)
     else {
         error_handler.flag(token, MISSING_END, this);
     }
-
-    //token = synchronize(STMT_FOLLOW_SET);
-    // if (token->get_type() == (TokenType) PT_SEMICOLON){
-    //     token = next_token(token); //Consume Semicolon
-    // }
-    // else{
-    //     error_handler.flag(token, MISSING_SEMICOLON, this);
-    // }
-
 
     return when_node;
 }
@@ -143,7 +133,7 @@ ICodeNode *WhenStatementParser::parse_branch(Token *token)
         token = current_token();
         token = synchronize(STMT_FOLLOW_SET);
         if (token->get_type() == (TokenType) PT_SEMICOLON){
-            token = next_token(token); //Consume RIGHT_ARROW
+            token = next_token(token); //Consume SEMICOLON
         }
         else {
             error_handler.flag(token, MISSING_SEMICOLON, this);
