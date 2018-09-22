@@ -12,6 +12,7 @@
 #include "LoopExecutor.h"
 #include "IfExecutor.h"
 #include "SelectExecutor.h"
+#include "WhenExecutor.h"
 #include "../Executor.h"
 #include "../RuntimeError.h"
 #include "../../../Object.h"
@@ -70,6 +71,11 @@ Object StatementExecutor::execute(ICodeNode *node)
         {
             SelectExecutor select_executor(this);
             return select_executor.execute(node);
+        }
+        case NT_WHEN:
+        {
+            WhenExecutor when_executor(this);
+            return when_executor.execute(node);
         }
 
         case NT_NO_OP: return Object();  // empty
