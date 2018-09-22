@@ -34,7 +34,7 @@ using namespace wci::intermediate::icodeimpl;
 set<PascalTokenType> StatementParser::STMT_START_SET =
 {
     PT_BEGIN, PT_CASE, PT_FOR, PT_IF, PT_REPEAT, PT_WHILE,
-    PT_IDENTIFIER, PT_SEMICOLON,
+    PT_IDENTIFIER, PT_SEMICOLON, PT_WHEN
 };
 
 set<PascalTokenType> StatementParser::STMT_FOLLOW_SET =
