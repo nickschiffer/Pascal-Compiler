@@ -74,23 +74,8 @@ ICodeNode *WhenStatementParser::parse_statement(Token *token) throw (string)
     while ((token != nullptr) && (token->get_type() != (TokenType) PT_OTHERWISE)){
         // Parse the WHEN expression.
         // The WHEN node adopts the expression subtree as its first child.
-        when_node->add_child(expression_parser.parse_statement(token));
-
-        if (token->get_type() == (TokenType) PT_RIGHT_ARROW){
-            token = next_token(token); //Consume SEMICOLON
-        }
-        else {
-            error_handler.flag(token, MISSING_RIGHT_ARROW, this);
-        }
-
-        when_node->add_child(statement_parser.parse_statement(token));
-        token = synchronize(STMT_FOLLOW_SET);
-        if (token->get_type() == (TokenType) PT_SEMICOLON){
-            token = next_token(token); //Consume SEMICOLON
-        }
-        else {
-            error_handler.flag(token, MISSING_SEMICOLON, this);
-        }
+        token = current_token();
+        when_node->add_child(parse_branch(token));
     }
     //Consume OTHERWISE
     if (token->get_type() == (TokenType) PT_OTHERWISE){
@@ -139,23 +124,30 @@ ICodeNode *WhenStatementParser::parse_branch(Token *token)
     // Create an WHEN_BRANCH node.
     // The WHEN_BRANCH node adopts the EXPRESSION and STATEMENT node as its
     // first child.
+    token = current_token();
     ExpressionParser expression_parser(this);
     StatementParser statement_parser(this);
     ICodeNode *branch_node =
             ICodeFactory::create_icode_node((ICodeNodeType) NT_WHEN_BRANCH);
-    branch_node->add_child(expression_parser.parse_statement(token));
+        branch_node->add_child(expression_parser.parse_statement(token));
+        token = current_token();
+        token = synchronize(RIGHT_ARROW_SET);
+        if (token->get_type() == (TokenType) PT_RIGHT_ARROW){
+            token = next_token(token); //Consume RIGHT_ARROW
+        }
+        else {
+            error_handler.flag(token, MISSING_RIGHT_ARROW, this);
+        }
 
-    // Synchronize at the RIGHT_ARROW.
-    token = synchronize(RIGHT_ARROW_SET);
-    if (token->get_type() == (TokenType) PT_RIGHT_ARROW)
-    {
-        token = next_token(token);  // consume the RIGHT_ARROW
-    }
-    else {
-        error_handler.flag(token, MISSING_RIGHT_ARROW, this);
-    }
-
-    branch_node->add_child(statement_parser.parse_statement(token));
+        branch_node->add_child(statement_parser.parse_statement(token));
+        token = current_token();
+        token = synchronize(STMT_FOLLOW_SET);
+        if (token->get_type() == (TokenType) PT_SEMICOLON){
+            token = next_token(token); //Consume RIGHT_ARROW
+        }
+        else {
+            error_handler.flag(token, MISSING_SEMICOLON, this);
+        }
     return branch_node;
 }
 
