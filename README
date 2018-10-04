@@ -1,4 +1,4 @@
-This README file is for the C++ version of the Pascal compiler, Chapter 8.
+This README file is for the C++ version of the Pascal compiler, Chapter 10.
 
 The makefile enables you to compile the C++ version of the 
 Pascal compiler source files, and then run the Pascal compiler 

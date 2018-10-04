@@ -45,8 +45,6 @@ public:
 
     /**
      * Return the source character at the current position.
-     * Bug fix by Jonathan Pan [JP]: Do not skip the last source line
-     * if it does not end with a line feed.
      * @return the source character at the current position.
      * @throw a string message if an error occurred.
      */

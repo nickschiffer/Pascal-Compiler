@@ -44,8 +44,6 @@ void ICodeNodeImpl::initialize()
         NT_SELECT_BRANCH,
         NT_SELECT_CONSTANTS,
         NT_NO_OP,
-        NT_WHEN,
-        NT_WHEN_BRANCH,
 
         // Relational operators
         NT_EQ,
@@ -89,7 +87,7 @@ void ICodeNodeImpl::initialize()
 
         // Statements
         "COMPOUND", "ASSIGN", "LOOP", "TEST", "CALL", "PARAMETERS",
-        "IF", "SELECT", "SELECT_BRANCH", "SELECT_CONSTANTS", "NO_OP", "WHEN", "WHEN_BRANCH",
+        "IF", "SELECT", "SELECT_BRANCH", "SELECT_CONSTANTS", "NO_OP",
 
         // Relational operators
         "EQ", "NE", "LT", "LE", "GT", "GE", "NOT",
@@ -120,11 +118,12 @@ void ICodeNodeImpl::initialize()
         ICodeKeyImpl::ID,
         ICodeKeyImpl::LEVEL,
         ICodeKeyImpl::VALUE,
+        ICodeKeyImpl::TYPE_ID,
     };
 
     vector<string> key_names =
     {
-        "line", "id", "level", "value",
+        "line", "id", "level", "value", "type_id",
     };
 
     for (int i = 0; i < keys.size(); i++)
@@ -136,7 +135,7 @@ void ICodeNodeImpl::initialize()
 }
 
 ICodeNodeImpl::ICodeNodeImpl(const ICodeNodeType type)
-    : type(type), parent(nullptr)
+    : type(type), parent(nullptr), typespec(nullptr)
 {
     initialize();
 }
@@ -161,6 +160,10 @@ ICodeNodeImpl::~ICodeNodeImpl()
 ICodeNodeType ICodeNodeImpl::get_type() const { return type; }
 
 ICodeNode *ICodeNodeImpl::get_parent() { return parent; }
+
+TypeSpec *ICodeNodeImpl::get_typespec() const { return typespec; }
+
+void ICodeNodeImpl::set_typespec(TypeSpec *spec) { typespec = spec; }
 
 vector<ICodeNode *> ICodeNodeImpl::get_children() { return children; }
 
@@ -201,7 +204,8 @@ ICodeNode *ICodeNodeImpl::copy()
     for (map<ICodeKey, Object>::iterator it = contents.begin();
          it != contents.end(); it++)
     {
-        copy->set_attribute(it->first, it->second);
+        Object attribute = it->second;
+        copy->set_attribute(it->first, attribute);
     }
 
     return copy;
