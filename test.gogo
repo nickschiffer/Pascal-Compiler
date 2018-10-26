@@ -1,0 +1,26 @@
+var a int = 420
+var b double = 3.14
+
+func add(c int, d int) int {
+    return c + d
+}
+
+func useless() {
+
+}
+
+if a == (419 + 1) {
+    a = 10
+}
+
+else if a + 1 == 50 {
+    a = 0
+}
+
+while b < 10 {
+    b = b + 1
+}
+
+add(a, 10)
+
+useless()
