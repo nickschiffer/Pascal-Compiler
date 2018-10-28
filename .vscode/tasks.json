@@ -4,9 +4,13 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "echo",
+            "label": "antlr generate",
             "type": "shell",
-            "command": "echo Hello"
+            "command": "antlr4 -Dlanguage=Cpp *.g4 ",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ]
 }

@@ -20,11 +20,17 @@ public:
   virtual void enterStat(GoGoParser::StatContext *ctx) = 0;
   virtual void exitStat(GoGoParser::StatContext *ctx) = 0;
 
+  virtual void enterExpr(GoGoParser::ExprContext *ctx) = 0;
+  virtual void exitExpr(GoGoParser::ExprContext *ctx) = 0;
+
   virtual void enterDeclaration(GoGoParser::DeclarationContext *ctx) = 0;
   virtual void exitDeclaration(GoGoParser::DeclarationContext *ctx) = 0;
 
-  virtual void enterFunc_defintion(GoGoParser::Func_defintionContext *ctx) = 0;
-  virtual void exitFunc_defintion(GoGoParser::Func_defintionContext *ctx) = 0;
+  virtual void enterDeclaration_implicit(GoGoParser::Declaration_implicitContext *ctx) = 0;
+  virtual void exitDeclaration_implicit(GoGoParser::Declaration_implicitContext *ctx) = 0;
+
+  virtual void enterFunc_definition(GoGoParser::Func_definitionContext *ctx) = 0;
+  virtual void exitFunc_definition(GoGoParser::Func_definitionContext *ctx) = 0;
 
   virtual void enterFunc_call(GoGoParser::Func_callContext *ctx) = 0;
   virtual void exitFunc_call(GoGoParser::Func_callContext *ctx) = 0;
@@ -41,9 +47,6 @@ public:
   virtual void enterCompound_stmt(GoGoParser::Compound_stmtContext *ctx) = 0;
   virtual void exitCompound_stmt(GoGoParser::Compound_stmtContext *ctx) = 0;
 
-  virtual void enterExpr(GoGoParser::ExprContext *ctx) = 0;
-  virtual void exitExpr(GoGoParser::ExprContext *ctx) = 0;
-
   virtual void enterIf_stmt(GoGoParser::If_stmtContext *ctx) = 0;
   virtual void exitIf_stmt(GoGoParser::If_stmtContext *ctx) = 0;
 
@@ -53,11 +56,11 @@ public:
   virtual void enterWhile_loop_stmt(GoGoParser::While_loop_stmtContext *ctx) = 0;
   virtual void exitWhile_loop_stmt(GoGoParser::While_loop_stmtContext *ctx) = 0;
 
-  virtual void enterReturn_stmt(GoGoParser::Return_stmtContext *ctx) = 0;
-  virtual void exitReturn_stmt(GoGoParser::Return_stmtContext *ctx) = 0;
-
   virtual void enterAssignment_stmt(GoGoParser::Assignment_stmtContext *ctx) = 0;
   virtual void exitAssignment_stmt(GoGoParser::Assignment_stmtContext *ctx) = 0;
+
+  virtual void enterInc_dec(GoGoParser::Inc_decContext *ctx) = 0;
+  virtual void exitInc_dec(GoGoParser::Inc_decContext *ctx) = 0;
 
 
 };

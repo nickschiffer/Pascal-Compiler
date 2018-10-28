@@ -22,11 +22,17 @@ public:
   virtual void enterStat(GoGoParser::StatContext * /*ctx*/) override { }
   virtual void exitStat(GoGoParser::StatContext * /*ctx*/) override { }
 
+  virtual void enterExpr(GoGoParser::ExprContext * /*ctx*/) override { }
+  virtual void exitExpr(GoGoParser::ExprContext * /*ctx*/) override { }
+
   virtual void enterDeclaration(GoGoParser::DeclarationContext * /*ctx*/) override { }
   virtual void exitDeclaration(GoGoParser::DeclarationContext * /*ctx*/) override { }
 
-  virtual void enterFunc_defintion(GoGoParser::Func_defintionContext * /*ctx*/) override { }
-  virtual void exitFunc_defintion(GoGoParser::Func_defintionContext * /*ctx*/) override { }
+  virtual void enterDeclaration_implicit(GoGoParser::Declaration_implicitContext * /*ctx*/) override { }
+  virtual void exitDeclaration_implicit(GoGoParser::Declaration_implicitContext * /*ctx*/) override { }
+
+  virtual void enterFunc_definition(GoGoParser::Func_definitionContext * /*ctx*/) override { }
+  virtual void exitFunc_definition(GoGoParser::Func_definitionContext * /*ctx*/) override { }
 
   virtual void enterFunc_call(GoGoParser::Func_callContext * /*ctx*/) override { }
   virtual void exitFunc_call(GoGoParser::Func_callContext * /*ctx*/) override { }
@@ -43,9 +49,6 @@ public:
   virtual void enterCompound_stmt(GoGoParser::Compound_stmtContext * /*ctx*/) override { }
   virtual void exitCompound_stmt(GoGoParser::Compound_stmtContext * /*ctx*/) override { }
 
-  virtual void enterExpr(GoGoParser::ExprContext * /*ctx*/) override { }
-  virtual void exitExpr(GoGoParser::ExprContext * /*ctx*/) override { }
-
   virtual void enterIf_stmt(GoGoParser::If_stmtContext * /*ctx*/) override { }
   virtual void exitIf_stmt(GoGoParser::If_stmtContext * /*ctx*/) override { }
 
@@ -55,11 +58,11 @@ public:
   virtual void enterWhile_loop_stmt(GoGoParser::While_loop_stmtContext * /*ctx*/) override { }
   virtual void exitWhile_loop_stmt(GoGoParser::While_loop_stmtContext * /*ctx*/) override { }
 
-  virtual void enterReturn_stmt(GoGoParser::Return_stmtContext * /*ctx*/) override { }
-  virtual void exitReturn_stmt(GoGoParser::Return_stmtContext * /*ctx*/) override { }
-
   virtual void enterAssignment_stmt(GoGoParser::Assignment_stmtContext * /*ctx*/) override { }
   virtual void exitAssignment_stmt(GoGoParser::Assignment_stmtContext * /*ctx*/) override { }
+
+  virtual void enterInc_dec(GoGoParser::Inc_decContext * /*ctx*/) override { }
+  virtual void exitInc_dec(GoGoParser::Inc_decContext * /*ctx*/) override { }
 
 
   virtual void enterEveryRule(antlr4::ParserRuleContext * /*ctx*/) override { }
