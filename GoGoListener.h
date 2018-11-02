@@ -53,6 +53,9 @@ public:
   virtual void enterElse_stmt(GoGoParser::Else_stmtContext *ctx) = 0;
   virtual void exitElse_stmt(GoGoParser::Else_stmtContext *ctx) = 0;
 
+  virtual void enterElse_if_stmt(GoGoParser::Else_if_stmtContext *ctx) = 0;
+  virtual void exitElse_if_stmt(GoGoParser::Else_if_stmtContext *ctx) = 0;
+
   virtual void enterWhile_loop_stmt(GoGoParser::While_loop_stmtContext *ctx) = 0;
   virtual void exitWhile_loop_stmt(GoGoParser::While_loop_stmtContext *ctx) = 0;
 
@@ -61,6 +64,21 @@ public:
 
   virtual void enterInc_dec(GoGoParser::Inc_decContext *ctx) = 0;
   virtual void exitInc_dec(GoGoParser::Inc_decContext *ctx) = 0;
+
+  virtual void enterRtrn_stmt(GoGoParser::Rtrn_stmtContext *ctx) = 0;
+  virtual void exitRtrn_stmt(GoGoParser::Rtrn_stmtContext *ctx) = 0;
+
+  virtual void enterMul_div_op(GoGoParser::Mul_div_opContext *ctx) = 0;
+  virtual void exitMul_div_op(GoGoParser::Mul_div_opContext *ctx) = 0;
+
+  virtual void enterAdd_sub_op(GoGoParser::Add_sub_opContext *ctx) = 0;
+  virtual void exitAdd_sub_op(GoGoParser::Add_sub_opContext *ctx) = 0;
+
+  virtual void enterRel_op(GoGoParser::Rel_opContext *ctx) = 0;
+  virtual void exitRel_op(GoGoParser::Rel_opContext *ctx) = 0;
+
+  virtual void enterInc_dec_op(GoGoParser::Inc_dec_opContext *ctx) = 0;
+  virtual void exitInc_dec_op(GoGoParser::Inc_dec_opContext *ctx) = 0;
 
 
 };

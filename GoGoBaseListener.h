@@ -55,6 +55,9 @@ public:
   virtual void enterElse_stmt(GoGoParser::Else_stmtContext * /*ctx*/) override { }
   virtual void exitElse_stmt(GoGoParser::Else_stmtContext * /*ctx*/) override { }
 
+  virtual void enterElse_if_stmt(GoGoParser::Else_if_stmtContext * /*ctx*/) override { }
+  virtual void exitElse_if_stmt(GoGoParser::Else_if_stmtContext * /*ctx*/) override { }
+
   virtual void enterWhile_loop_stmt(GoGoParser::While_loop_stmtContext * /*ctx*/) override { }
   virtual void exitWhile_loop_stmt(GoGoParser::While_loop_stmtContext * /*ctx*/) override { }
 
@@ -63,6 +66,21 @@ public:
 
   virtual void enterInc_dec(GoGoParser::Inc_decContext * /*ctx*/) override { }
   virtual void exitInc_dec(GoGoParser::Inc_decContext * /*ctx*/) override { }
+
+  virtual void enterRtrn_stmt(GoGoParser::Rtrn_stmtContext * /*ctx*/) override { }
+  virtual void exitRtrn_stmt(GoGoParser::Rtrn_stmtContext * /*ctx*/) override { }
+
+  virtual void enterMul_div_op(GoGoParser::Mul_div_opContext * /*ctx*/) override { }
+  virtual void exitMul_div_op(GoGoParser::Mul_div_opContext * /*ctx*/) override { }
+
+  virtual void enterAdd_sub_op(GoGoParser::Add_sub_opContext * /*ctx*/) override { }
+  virtual void exitAdd_sub_op(GoGoParser::Add_sub_opContext * /*ctx*/) override { }
+
+  virtual void enterRel_op(GoGoParser::Rel_opContext * /*ctx*/) override { }
+  virtual void exitRel_op(GoGoParser::Rel_opContext * /*ctx*/) override { }
+
+  virtual void enterInc_dec_op(GoGoParser::Inc_dec_opContext * /*ctx*/) override { }
+  virtual void exitInc_dec_op(GoGoParser::Inc_dec_opContext * /*ctx*/) override { }
 
 
   virtual void enterEveryRule(antlr4::ParserRuleContext * /*ctx*/) override { }

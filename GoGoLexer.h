@@ -13,11 +13,11 @@ class  GoGoLexer : public antlr4::Lexer {
 public:
   enum {
     T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, 
-    T__7 = 8, T__8 = 9, T__9 = 10, T__10 = 11, T__11 = 12, T__12 = 13, T__13 = 14, 
-    T__14 = 15, T__15 = 16, T__16 = 17, T__17 = 18, T__18 = 19, T__19 = 20, 
-    T__20 = 21, T__21 = 22, T__22 = 23, T__23 = 24, T__24 = 25, T__25 = 26, 
-    T__26 = 27, TYPE = 28, DOUBLE = 29, ID = 30, INT = 31, NEWLINE = 32, 
-    WS = 33, COMMENT = 34
+    T__7 = 8, T__8 = 9, TYPE = 10, VAR = 11, FUNC = 12, IF = 13, ELSE = 14, 
+    ELSE_IF = 15, WHILE = 16, RETURN = 17, MUL_OP = 18, DIV_OP = 19, ADD_OP = 20, 
+    SUB_OP = 21, EQ_OP = 22, NE_OP = 23, LT_OP = 24, LE_OP = 25, GT_OP = 26, 
+    GE_OP = 27, INC_OP = 28, DEC_OP = 29, DOUBLE = 30, ID = 31, INT = 32, 
+    NEWLINE = 33, WS = 34
   };
 
   GoGoLexer(antlr4::CharStream *input);
