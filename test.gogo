@@ -1,26 +1,24 @@
-var a int = 420
-var b double = 3.14
+var a int = 415;
+var b double = 3.14;
 
 func add(c int, d int) int {
-    return c + d
+    return c + d;
 }
 
-func useless() {
 
-}
-
-if a == (419 + 1) {
-    a = 10
+if a == (419 + 6) {
+    a = 10;
 }
 
 else if a + 1 == 50 {
-    a = 0
+    a = 0;
+}
+else {
+    a++;
 }
 
 while b < 10 {
-    b = b + 1
+    b = b + 1;
 }
 
-add(a, 10)
-
-useless()
+add(a, 10);

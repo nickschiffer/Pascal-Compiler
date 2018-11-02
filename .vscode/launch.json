@@ -2,13 +2,32 @@
     // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "2.0.0",
+    "version": "0.2.0",
     "configurations": [
+        {
+            "type": "antlr-debug",
+            "request": "launch",
+            "name": "Run Parser",
+            "input": "test.gogo",
+            "grammar": "GoGo.g4",
+            "startRule": "prog",
+            "visualParseTree": true
+        },
         {
             "name": "antlr4-GoGo",
             "type": "antlr-debug",
             "request": "launch",
             "input": "test.gogo",
+            "grammar": "GoGo.g4",
+            "startRule": "prog",
+            "printParseTree": true,
+            "visualParseTree": true
+        },
+        {
+            "name": "antlr4-GoGo2",
+            "type": "antlr-debug",
+            "request": "launch",
+            "input": "test2.gogo",
             "grammar": "GoGo.g4",
             "startRule": "prog",
             "printParseTree": true,
