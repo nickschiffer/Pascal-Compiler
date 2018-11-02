@@ -1,0 +1,25 @@
+var a int = 415;
+var b double = 3.14;
+c := 2.55;
+
+func add(c int, d int) int {
+    return c + d;
+}
+
+
+if a == (419 + 6) {
+    a = 10;
+}
+
+else if a + 1 == 50 {
+    a = 0;
+}
+else {
+    a++;
+}
+
+while b < 10 {
+    b = b + 1;
+}
+
+add(a, 10);
