@@ -2,7 +2,7 @@
 // Generated from GoGo.g4 by ANTLR 4.7.1
 
 
-#include "GoGoListener.h"
+#include "GoGoVisitor.h"
 
 #include "GoGoParser.h"
 
@@ -50,16 +50,11 @@ size_t GoGoParser::ProgContext::getRuleIndex() const {
   return GoGoParser::RuleProg;
 }
 
-void GoGoParser::ProgContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterProg(this);
-}
-
-void GoGoParser::ProgContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitProg(this);
+antlrcpp::Any GoGoParser::ProgContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitProg(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 GoGoParser::ProgContext* GoGoParser::prog() {
@@ -108,63 +103,155 @@ GoGoParser::StatContext::StatContext(ParserRuleContext *parent, size_t invokingS
   : ParserRuleContext(parent, invokingState) {
 }
 
-GoGoParser::Inc_decContext* GoGoParser::StatContext::inc_dec() {
-  return getRuleContext<GoGoParser::Inc_decContext>(0);
-}
-
-GoGoParser::ExprContext* GoGoParser::StatContext::expr() {
-  return getRuleContext<GoGoParser::ExprContext>(0);
-}
-
-GoGoParser::Assignment_stmtContext* GoGoParser::StatContext::assignment_stmt() {
-  return getRuleContext<GoGoParser::Assignment_stmtContext>(0);
-}
-
-GoGoParser::DeclarationContext* GoGoParser::StatContext::declaration() {
-  return getRuleContext<GoGoParser::DeclarationContext>(0);
-}
-
-GoGoParser::Declaration_implicitContext* GoGoParser::StatContext::declaration_implicit() {
-  return getRuleContext<GoGoParser::Declaration_implicitContext>(0);
-}
-
-GoGoParser::If_stmtContext* GoGoParser::StatContext::if_stmt() {
-  return getRuleContext<GoGoParser::If_stmtContext>(0);
-}
-
-GoGoParser::Func_definitionContext* GoGoParser::StatContext::func_definition() {
-  return getRuleContext<GoGoParser::Func_definitionContext>(0);
-}
-
-GoGoParser::While_loop_stmtContext* GoGoParser::StatContext::while_loop_stmt() {
-  return getRuleContext<GoGoParser::While_loop_stmtContext>(0);
-}
-
-GoGoParser::Func_callContext* GoGoParser::StatContext::func_call() {
-  return getRuleContext<GoGoParser::Func_callContext>(0);
-}
-
-GoGoParser::Rtrn_stmtContext* GoGoParser::StatContext::rtrn_stmt() {
-  return getRuleContext<GoGoParser::Rtrn_stmtContext>(0);
-}
-
 
 size_t GoGoParser::StatContext::getRuleIndex() const {
   return GoGoParser::RuleStat;
 }
 
-void GoGoParser::StatContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterStat(this);
+void GoGoParser::StatContext::copyFrom(StatContext *ctx) {
+  ParserRuleContext::copyFrom(ctx);
 }
 
-void GoGoParser::StatContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitStat(this);
+//----------------- DeclareImpContext ------------------------------------------------------------------
+
+GoGoParser::Declaration_implicitContext* GoGoParser::DeclareImpContext::declaration_implicit() {
+  return getRuleContext<GoGoParser::Declaration_implicitContext>(0);
 }
 
+GoGoParser::DeclareImpContext::DeclareImpContext(StatContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any GoGoParser::DeclareImpContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitDeclareImp(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- WhileLoopContext ------------------------------------------------------------------
+
+GoGoParser::While_loop_stmtContext* GoGoParser::WhileLoopContext::while_loop_stmt() {
+  return getRuleContext<GoGoParser::While_loop_stmtContext>(0);
+}
+
+GoGoParser::WhileLoopContext::WhileLoopContext(StatContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any GoGoParser::WhileLoopContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitWhileLoop(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- ExpressionContext ------------------------------------------------------------------
+
+GoGoParser::ExprContext* GoGoParser::ExpressionContext::expr() {
+  return getRuleContext<GoGoParser::ExprContext>(0);
+}
+
+GoGoParser::ExpressionContext::ExpressionContext(StatContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any GoGoParser::ExpressionContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitExpression(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- DeclareContext ------------------------------------------------------------------
+
+GoGoParser::DeclarationContext* GoGoParser::DeclareContext::declaration() {
+  return getRuleContext<GoGoParser::DeclarationContext>(0);
+}
+
+GoGoParser::DeclareContext::DeclareContext(StatContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any GoGoParser::DeclareContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitDeclare(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- FuncCallContext ------------------------------------------------------------------
+
+GoGoParser::Func_callContext* GoGoParser::FuncCallContext::func_call() {
+  return getRuleContext<GoGoParser::Func_callContext>(0);
+}
+
+GoGoParser::FuncCallContext::FuncCallContext(StatContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any GoGoParser::FuncCallContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitFuncCall(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- IncDecContext ------------------------------------------------------------------
+
+GoGoParser::Inc_decContext* GoGoParser::IncDecContext::inc_dec() {
+  return getRuleContext<GoGoParser::Inc_decContext>(0);
+}
+
+GoGoParser::IncDecContext::IncDecContext(StatContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any GoGoParser::IncDecContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitIncDec(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- IfContext ------------------------------------------------------------------
+
+GoGoParser::If_stmtContext* GoGoParser::IfContext::if_stmt() {
+  return getRuleContext<GoGoParser::If_stmtContext>(0);
+}
+
+GoGoParser::IfContext::IfContext(StatContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any GoGoParser::IfContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitIf(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- ReturnContext ------------------------------------------------------------------
+
+GoGoParser::Rtrn_stmtContext* GoGoParser::ReturnContext::rtrn_stmt() {
+  return getRuleContext<GoGoParser::Rtrn_stmtContext>(0);
+}
+
+GoGoParser::ReturnContext::ReturnContext(StatContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any GoGoParser::ReturnContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitReturn(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- AssignContext ------------------------------------------------------------------
+
+GoGoParser::Assignment_stmtContext* GoGoParser::AssignContext::assignment_stmt() {
+  return getRuleContext<GoGoParser::Assignment_stmtContext>(0);
+}
+
+GoGoParser::AssignContext::AssignContext(StatContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any GoGoParser::AssignContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitAssign(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- FuncDefContext ------------------------------------------------------------------
+
+GoGoParser::Func_definitionContext* GoGoParser::FuncDefContext::func_definition() {
+  return getRuleContext<GoGoParser::Func_definitionContext>(0);
+}
+
+GoGoParser::FuncDefContext::FuncDefContext(StatContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any GoGoParser::FuncDefContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitFuncDef(this);
+  else
+    return visitor->visitChildren(this);
+}
 GoGoParser::StatContext* GoGoParser::stat() {
   StatContext *_localctx = _tracker.createInstance<StatContext>(_ctx, getState());
   enterRule(_localctx, 2, GoGoParser::RuleStat);
@@ -177,6 +264,7 @@ GoGoParser::StatContext* GoGoParser::stat() {
     _errHandler->sync(this);
     switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 1, _ctx)) {
     case 1: {
+      _localctx = dynamic_cast<StatContext *>(_tracker.createInstance<GoGoParser::IncDecContext>(_localctx));
       enterOuterAlt(_localctx, 1);
       setState(49);
       inc_dec();
@@ -186,6 +274,7 @@ GoGoParser::StatContext* GoGoParser::stat() {
     }
 
     case 2: {
+      _localctx = dynamic_cast<StatContext *>(_tracker.createInstance<GoGoParser::ExpressionContext>(_localctx));
       enterOuterAlt(_localctx, 2);
       setState(52);
       expr(0);
@@ -195,6 +284,7 @@ GoGoParser::StatContext* GoGoParser::stat() {
     }
 
     case 3: {
+      _localctx = dynamic_cast<StatContext *>(_tracker.createInstance<GoGoParser::AssignContext>(_localctx));
       enterOuterAlt(_localctx, 3);
       setState(55);
       assignment_stmt();
@@ -204,6 +294,7 @@ GoGoParser::StatContext* GoGoParser::stat() {
     }
 
     case 4: {
+      _localctx = dynamic_cast<StatContext *>(_tracker.createInstance<GoGoParser::DeclareContext>(_localctx));
       enterOuterAlt(_localctx, 4);
       setState(58);
       declaration();
@@ -213,6 +304,7 @@ GoGoParser::StatContext* GoGoParser::stat() {
     }
 
     case 5: {
+      _localctx = dynamic_cast<StatContext *>(_tracker.createInstance<GoGoParser::DeclareImpContext>(_localctx));
       enterOuterAlt(_localctx, 5);
       setState(61);
       declaration_implicit();
@@ -222,6 +314,7 @@ GoGoParser::StatContext* GoGoParser::stat() {
     }
 
     case 6: {
+      _localctx = dynamic_cast<StatContext *>(_tracker.createInstance<GoGoParser::IfContext>(_localctx));
       enterOuterAlt(_localctx, 6);
       setState(64);
       if_stmt(0);
@@ -229,6 +322,7 @@ GoGoParser::StatContext* GoGoParser::stat() {
     }
 
     case 7: {
+      _localctx = dynamic_cast<StatContext *>(_tracker.createInstance<GoGoParser::FuncDefContext>(_localctx));
       enterOuterAlt(_localctx, 7);
       setState(65);
       func_definition();
@@ -236,6 +330,7 @@ GoGoParser::StatContext* GoGoParser::stat() {
     }
 
     case 8: {
+      _localctx = dynamic_cast<StatContext *>(_tracker.createInstance<GoGoParser::WhileLoopContext>(_localctx));
       enterOuterAlt(_localctx, 8);
       setState(66);
       while_loop_stmt();
@@ -243,6 +338,7 @@ GoGoParser::StatContext* GoGoParser::stat() {
     }
 
     case 9: {
+      _localctx = dynamic_cast<StatContext *>(_tracker.createInstance<GoGoParser::FuncCallContext>(_localctx));
       enterOuterAlt(_localctx, 9);
       setState(67);
       func_call();
@@ -252,6 +348,7 @@ GoGoParser::StatContext* GoGoParser::stat() {
     }
 
     case 10: {
+      _localctx = dynamic_cast<StatContext *>(_tracker.createInstance<GoGoParser::ReturnContext>(_localctx));
       enterOuterAlt(_localctx, 10);
       setState(70);
       rtrn_stmt();
@@ -278,55 +375,137 @@ GoGoParser::ExprContext::ExprContext(ParserRuleContext *parent, size_t invokingS
   : ParserRuleContext(parent, invokingState) {
 }
 
-tree::TerminalNode* GoGoParser::ExprContext::INT() {
-  return getToken(GoGoParser::INT, 0);
-}
-
-tree::TerminalNode* GoGoParser::ExprContext::DOUBLE() {
-  return getToken(GoGoParser::DOUBLE, 0);
-}
-
-tree::TerminalNode* GoGoParser::ExprContext::ID() {
-  return getToken(GoGoParser::ID, 0);
-}
-
-std::vector<GoGoParser::ExprContext *> GoGoParser::ExprContext::expr() {
-  return getRuleContexts<GoGoParser::ExprContext>();
-}
-
-GoGoParser::ExprContext* GoGoParser::ExprContext::expr(size_t i) {
-  return getRuleContext<GoGoParser::ExprContext>(i);
-}
-
-GoGoParser::Mul_div_opContext* GoGoParser::ExprContext::mul_div_op() {
-  return getRuleContext<GoGoParser::Mul_div_opContext>(0);
-}
-
-GoGoParser::Add_sub_opContext* GoGoParser::ExprContext::add_sub_op() {
-  return getRuleContext<GoGoParser::Add_sub_opContext>(0);
-}
-
-GoGoParser::Rel_opContext* GoGoParser::ExprContext::rel_op() {
-  return getRuleContext<GoGoParser::Rel_opContext>(0);
-}
-
 
 size_t GoGoParser::ExprContext::getRuleIndex() const {
   return GoGoParser::RuleExpr;
 }
 
-void GoGoParser::ExprContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterExpr(this);
+void GoGoParser::ExprContext::copyFrom(ExprContext *ctx) {
+  ParserRuleContext::copyFrom(ctx);
 }
 
-void GoGoParser::ExprContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitExpr(this);
+//----------------- MulDivContext ------------------------------------------------------------------
+
+std::vector<GoGoParser::ExprContext *> GoGoParser::MulDivContext::expr() {
+  return getRuleContexts<GoGoParser::ExprContext>();
 }
 
+GoGoParser::ExprContext* GoGoParser::MulDivContext::expr(size_t i) {
+  return getRuleContext<GoGoParser::ExprContext>(i);
+}
+
+GoGoParser::Mul_div_opContext* GoGoParser::MulDivContext::mul_div_op() {
+  return getRuleContext<GoGoParser::Mul_div_opContext>(0);
+}
+
+GoGoParser::MulDivContext::MulDivContext(ExprContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any GoGoParser::MulDivContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitMulDiv(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- AddSubContext ------------------------------------------------------------------
+
+std::vector<GoGoParser::ExprContext *> GoGoParser::AddSubContext::expr() {
+  return getRuleContexts<GoGoParser::ExprContext>();
+}
+
+GoGoParser::ExprContext* GoGoParser::AddSubContext::expr(size_t i) {
+  return getRuleContext<GoGoParser::ExprContext>(i);
+}
+
+GoGoParser::Add_sub_opContext* GoGoParser::AddSubContext::add_sub_op() {
+  return getRuleContext<GoGoParser::Add_sub_opContext>(0);
+}
+
+GoGoParser::AddSubContext::AddSubContext(ExprContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any GoGoParser::AddSubContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitAddSub(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- DoubleContext ------------------------------------------------------------------
+
+tree::TerminalNode* GoGoParser::DoubleContext::DOUBLE() {
+  return getToken(GoGoParser::DOUBLE, 0);
+}
+
+GoGoParser::DoubleContext::DoubleContext(ExprContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any GoGoParser::DoubleContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitDouble(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- IdContext ------------------------------------------------------------------
+
+tree::TerminalNode* GoGoParser::IdContext::ID() {
+  return getToken(GoGoParser::ID, 0);
+}
+
+GoGoParser::IdContext::IdContext(ExprContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any GoGoParser::IdContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitId(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- IntContext ------------------------------------------------------------------
+
+tree::TerminalNode* GoGoParser::IntContext::INT() {
+  return getToken(GoGoParser::INT, 0);
+}
+
+GoGoParser::IntContext::IntContext(ExprContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any GoGoParser::IntContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitInt(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- PerensContext ------------------------------------------------------------------
+
+GoGoParser::ExprContext* GoGoParser::PerensContext::expr() {
+  return getRuleContext<GoGoParser::ExprContext>(0);
+}
+
+GoGoParser::PerensContext::PerensContext(ExprContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any GoGoParser::PerensContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitPerens(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- RelativeContext ------------------------------------------------------------------
+
+std::vector<GoGoParser::ExprContext *> GoGoParser::RelativeContext::expr() {
+  return getRuleContexts<GoGoParser::ExprContext>();
+}
+
+GoGoParser::ExprContext* GoGoParser::RelativeContext::expr(size_t i) {
+  return getRuleContext<GoGoParser::ExprContext>(i);
+}
+
+GoGoParser::Rel_opContext* GoGoParser::RelativeContext::rel_op() {
+  return getRuleContext<GoGoParser::Rel_opContext>(0);
+}
+
+GoGoParser::RelativeContext::RelativeContext(ExprContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any GoGoParser::RelativeContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitRelative(this);
+  else
+    return visitor->visitChildren(this);
+}
 
 GoGoParser::ExprContext* GoGoParser::expr() {
    return expr(0);
@@ -352,24 +531,37 @@ GoGoParser::ExprContext* GoGoParser::expr(int precedence) {
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case GoGoParser::INT: {
+        _localctx = _tracker.createInstance<IntContext>(_localctx);
+        _ctx = _localctx;
+        previousContext = _localctx;
+
         setState(76);
         match(GoGoParser::INT);
         break;
       }
 
       case GoGoParser::DOUBLE: {
+        _localctx = _tracker.createInstance<DoubleContext>(_localctx);
+        _ctx = _localctx;
+        previousContext = _localctx;
         setState(77);
         match(GoGoParser::DOUBLE);
         break;
       }
 
       case GoGoParser::ID: {
+        _localctx = _tracker.createInstance<IdContext>(_localctx);
+        _ctx = _localctx;
+        previousContext = _localctx;
         setState(78);
         match(GoGoParser::ID);
         break;
       }
 
       case GoGoParser::T__1: {
+        _localctx = _tracker.createInstance<PerensContext>(_localctx);
+        _ctx = _localctx;
+        previousContext = _localctx;
         setState(79);
         match(GoGoParser::T__1);
         setState(80);
@@ -395,8 +587,9 @@ GoGoParser::ExprContext* GoGoParser::expr(int precedence) {
         _errHandler->sync(this);
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 3, _ctx)) {
         case 1: {
-          _localctx = _tracker.createInstance<ExprContext>(parentContext, parentState);
-          pushNewRecursionContext(_localctx, startState, RuleExpr);
+          auto newContext = _tracker.createInstance<MulDivContext>(_tracker.createInstance<ExprContext>(parentContext, parentState));
+          _localctx = newContext;
+          pushNewRecursionContext(newContext, startState, RuleExpr);
           setState(85);
 
           if (!(precpred(_ctx, 7))) throw FailedPredicateException(this, "precpred(_ctx, 7)");
@@ -408,8 +601,9 @@ GoGoParser::ExprContext* GoGoParser::expr(int precedence) {
         }
 
         case 2: {
-          _localctx = _tracker.createInstance<ExprContext>(parentContext, parentState);
-          pushNewRecursionContext(_localctx, startState, RuleExpr);
+          auto newContext = _tracker.createInstance<AddSubContext>(_tracker.createInstance<ExprContext>(parentContext, parentState));
+          _localctx = newContext;
+          pushNewRecursionContext(newContext, startState, RuleExpr);
           setState(89);
 
           if (!(precpred(_ctx, 6))) throw FailedPredicateException(this, "precpred(_ctx, 6)");
@@ -421,8 +615,9 @@ GoGoParser::ExprContext* GoGoParser::expr(int precedence) {
         }
 
         case 3: {
-          _localctx = _tracker.createInstance<ExprContext>(parentContext, parentState);
-          pushNewRecursionContext(_localctx, startState, RuleExpr);
+          auto newContext = _tracker.createInstance<RelativeContext>(_tracker.createInstance<ExprContext>(parentContext, parentState));
+          _localctx = newContext;
+          pushNewRecursionContext(newContext, startState, RuleExpr);
           setState(93);
 
           if (!(precpred(_ctx, 1))) throw FailedPredicateException(this, "precpred(_ctx, 1)");
@@ -479,16 +674,11 @@ size_t GoGoParser::DeclarationContext::getRuleIndex() const {
   return GoGoParser::RuleDeclaration;
 }
 
-void GoGoParser::DeclarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterDeclaration(this);
-}
-
-void GoGoParser::DeclarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitDeclaration(this);
+antlrcpp::Any GoGoParser::DeclarationContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitDeclaration(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 GoGoParser::DeclarationContext* GoGoParser::declaration() {
@@ -554,16 +744,11 @@ size_t GoGoParser::Declaration_implicitContext::getRuleIndex() const {
   return GoGoParser::RuleDeclaration_implicit;
 }
 
-void GoGoParser::Declaration_implicitContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterDeclaration_implicit(this);
-}
-
-void GoGoParser::Declaration_implicitContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitDeclaration_implicit(this);
+antlrcpp::Any GoGoParser::Declaration_implicitContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitDeclaration_implicit(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 GoGoParser::Declaration_implicitContext* GoGoParser::declaration_implicit() {
@@ -633,16 +818,11 @@ size_t GoGoParser::Func_definitionContext::getRuleIndex() const {
   return GoGoParser::RuleFunc_definition;
 }
 
-void GoGoParser::Func_definitionContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterFunc_definition(this);
-}
-
-void GoGoParser::Func_definitionContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitFunc_definition(this);
+antlrcpp::Any GoGoParser::Func_definitionContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitFunc_definition(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 GoGoParser::Func_definitionContext* GoGoParser::func_definition() {
@@ -705,16 +885,11 @@ size_t GoGoParser::Func_callContext::getRuleIndex() const {
   return GoGoParser::RuleFunc_call;
 }
 
-void GoGoParser::Func_callContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterFunc_call(this);
-}
-
-void GoGoParser::Func_callContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitFunc_call(this);
+antlrcpp::Any GoGoParser::Func_callContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitFunc_call(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 GoGoParser::Func_callContext* GoGoParser::func_call() {
@@ -764,16 +939,11 @@ size_t GoGoParser::Func_call_paramsContext::getRuleIndex() const {
   return GoGoParser::RuleFunc_call_params;
 }
 
-void GoGoParser::Func_call_paramsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterFunc_call_params(this);
-}
-
-void GoGoParser::Func_call_paramsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitFunc_call_params(this);
+antlrcpp::Any GoGoParser::Func_call_paramsContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitFunc_call_params(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 GoGoParser::Func_call_paramsContext* GoGoParser::func_call_params() {
@@ -840,16 +1010,11 @@ size_t GoGoParser::ParamContext::getRuleIndex() const {
   return GoGoParser::RuleParam;
 }
 
-void GoGoParser::ParamContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterParam(this);
-}
-
-void GoGoParser::ParamContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitParam(this);
+antlrcpp::Any GoGoParser::ParamContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitParam(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 GoGoParser::ParamContext* GoGoParser::param() {
@@ -904,16 +1069,11 @@ size_t GoGoParser::ParamsContext::getRuleIndex() const {
   return GoGoParser::RuleParams;
 }
 
-void GoGoParser::ParamsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterParams(this);
-}
-
-void GoGoParser::ParamsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitParams(this);
+antlrcpp::Any GoGoParser::ParamsContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitParams(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 GoGoParser::ParamsContext* GoGoParser::params() {
@@ -978,16 +1138,11 @@ size_t GoGoParser::Compound_stmtContext::getRuleIndex() const {
   return GoGoParser::RuleCompound_stmt;
 }
 
-void GoGoParser::Compound_stmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterCompound_stmt(this);
-}
-
-void GoGoParser::Compound_stmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitCompound_stmt(this);
+antlrcpp::Any GoGoParser::Compound_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitCompound_stmt(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 GoGoParser::Compound_stmtContext* GoGoParser::compound_stmt() {
@@ -1094,16 +1249,11 @@ size_t GoGoParser::If_stmtContext::getRuleIndex() const {
   return GoGoParser::RuleIf_stmt;
 }
 
-void GoGoParser::If_stmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterIf_stmt(this);
-}
-
-void GoGoParser::If_stmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitIf_stmt(this);
+antlrcpp::Any GoGoParser::If_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitIf_stmt(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 
@@ -1202,16 +1352,11 @@ size_t GoGoParser::Else_stmtContext::getRuleIndex() const {
   return GoGoParser::RuleElse_stmt;
 }
 
-void GoGoParser::Else_stmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterElse_stmt(this);
-}
-
-void GoGoParser::Else_stmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitElse_stmt(this);
+antlrcpp::Any GoGoParser::Else_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitElse_stmt(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 GoGoParser::Else_stmtContext* GoGoParser::else_stmt() {
@@ -1261,16 +1406,11 @@ size_t GoGoParser::Else_if_stmtContext::getRuleIndex() const {
   return GoGoParser::RuleElse_if_stmt;
 }
 
-void GoGoParser::Else_if_stmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterElse_if_stmt(this);
-}
-
-void GoGoParser::Else_if_stmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitElse_if_stmt(this);
+antlrcpp::Any GoGoParser::Else_if_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitElse_if_stmt(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 GoGoParser::Else_if_stmtContext* GoGoParser::else_if_stmt() {
@@ -1322,16 +1462,11 @@ size_t GoGoParser::While_loop_stmtContext::getRuleIndex() const {
   return GoGoParser::RuleWhile_loop_stmt;
 }
 
-void GoGoParser::While_loop_stmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterWhile_loop_stmt(this);
-}
-
-void GoGoParser::While_loop_stmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitWhile_loop_stmt(this);
+antlrcpp::Any GoGoParser::While_loop_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitWhile_loop_stmt(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 GoGoParser::While_loop_stmtContext* GoGoParser::while_loop_stmt() {
@@ -1380,16 +1515,11 @@ size_t GoGoParser::Assignment_stmtContext::getRuleIndex() const {
   return GoGoParser::RuleAssignment_stmt;
 }
 
-void GoGoParser::Assignment_stmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterAssignment_stmt(this);
-}
-
-void GoGoParser::Assignment_stmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitAssignment_stmt(this);
+antlrcpp::Any GoGoParser::Assignment_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitAssignment_stmt(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 GoGoParser::Assignment_stmtContext* GoGoParser::assignment_stmt() {
@@ -1437,16 +1567,11 @@ size_t GoGoParser::Inc_decContext::getRuleIndex() const {
   return GoGoParser::RuleInc_dec;
 }
 
-void GoGoParser::Inc_decContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterInc_dec(this);
-}
-
-void GoGoParser::Inc_decContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitInc_dec(this);
+antlrcpp::Any GoGoParser::Inc_decContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitInc_dec(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 GoGoParser::Inc_decContext* GoGoParser::inc_dec() {
@@ -1492,16 +1617,11 @@ size_t GoGoParser::Rtrn_stmtContext::getRuleIndex() const {
   return GoGoParser::RuleRtrn_stmt;
 }
 
-void GoGoParser::Rtrn_stmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterRtrn_stmt(this);
-}
-
-void GoGoParser::Rtrn_stmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitRtrn_stmt(this);
+antlrcpp::Any GoGoParser::Rtrn_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitRtrn_stmt(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 GoGoParser::Rtrn_stmtContext* GoGoParser::rtrn_stmt() {
@@ -1547,16 +1667,11 @@ size_t GoGoParser::Mul_div_opContext::getRuleIndex() const {
   return GoGoParser::RuleMul_div_op;
 }
 
-void GoGoParser::Mul_div_opContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterMul_div_op(this);
-}
-
-void GoGoParser::Mul_div_opContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitMul_div_op(this);
+antlrcpp::Any GoGoParser::Mul_div_opContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitMul_div_op(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 GoGoParser::Mul_div_opContext* GoGoParser::mul_div_op() {
@@ -1610,16 +1725,11 @@ size_t GoGoParser::Add_sub_opContext::getRuleIndex() const {
   return GoGoParser::RuleAdd_sub_op;
 }
 
-void GoGoParser::Add_sub_opContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterAdd_sub_op(this);
-}
-
-void GoGoParser::Add_sub_opContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitAdd_sub_op(this);
+antlrcpp::Any GoGoParser::Add_sub_opContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitAdd_sub_op(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 GoGoParser::Add_sub_opContext* GoGoParser::add_sub_op() {
@@ -1689,16 +1799,11 @@ size_t GoGoParser::Rel_opContext::getRuleIndex() const {
   return GoGoParser::RuleRel_op;
 }
 
-void GoGoParser::Rel_opContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterRel_op(this);
-}
-
-void GoGoParser::Rel_opContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitRel_op(this);
+antlrcpp::Any GoGoParser::Rel_opContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitRel_op(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 GoGoParser::Rel_opContext* GoGoParser::rel_op() {
@@ -1756,16 +1861,11 @@ size_t GoGoParser::Inc_dec_opContext::getRuleIndex() const {
   return GoGoParser::RuleInc_dec_op;
 }
 
-void GoGoParser::Inc_dec_opContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterInc_dec_op(this);
-}
-
-void GoGoParser::Inc_dec_opContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<GoGoListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitInc_dec_op(this);
+antlrcpp::Any GoGoParser::Inc_dec_opContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitInc_dec_op(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 GoGoParser::Inc_dec_opContext* GoGoParser::inc_dec_op() {
@@ -1860,7 +1960,7 @@ std::vector<std::string> GoGoParser::_symbolicNames = {
   "", "", "", "", "", "", "", "", "", "", "TYPE", "VAR", "FUNC", "IF", "ELSE", 
   "ELSE_IF", "WHILE", "RETURN", "MUL_OP", "DIV_OP", "ADD_OP", "SUB_OP", 
   "EQ_OP", "NE_OP", "LT_OP", "LE_OP", "GT_OP", "GE_OP", "INC_OP", "DEC_OP", 
-  "DOUBLE", "ID", "INT", "NEWLINE", "WS"
+  "DOUBLE", "ID", "INT", "NEWLINE", "WS", "COMMENT"
 };
 
 dfa::Vocabulary GoGoParser::_vocabulary(_literalNames, _symbolicNames);
@@ -1883,7 +1983,7 @@ GoGoParser::Initializer::Initializer() {
 
   _serializedATN = {
     0x3, 0x608b, 0xa72a, 0x8133, 0xb9ed, 0x417c, 0x3be7, 0x7786, 0x5964, 
-    0x3, 0x24, 0xd2, 0x4, 0x2, 0x9, 0x2, 0x4, 0x3, 0x9, 0x3, 0x4, 0x4, 0x9, 
+    0x3, 0x25, 0xd2, 0x4, 0x2, 0x9, 0x2, 0x4, 0x3, 0x9, 0x3, 0x4, 0x4, 0x9, 
     0x4, 0x4, 0x5, 0x9, 0x5, 0x4, 0x6, 0x9, 0x6, 0x4, 0x7, 0x9, 0x7, 0x4, 
     0x8, 0x9, 0x8, 0x4, 0x9, 0x9, 0x9, 0x4, 0xa, 0x9, 0xa, 0x4, 0xb, 0x9, 
     0xb, 0x4, 0xc, 0x9, 0xc, 0x4, 0xd, 0x9, 0xd, 0x4, 0xe, 0x9, 0xe, 0x4, 

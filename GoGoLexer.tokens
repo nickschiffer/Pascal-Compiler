@@ -32,6 +32,7 @@ ID=31
 INT=32
 NEWLINE=33
 WS=34
+COMMENT=35
 ';'=1
 '('=2
 ')'=3

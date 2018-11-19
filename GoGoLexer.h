@@ -17,7 +17,7 @@ public:
     ELSE_IF = 15, WHILE = 16, RETURN = 17, MUL_OP = 18, DIV_OP = 19, ADD_OP = 20, 
     SUB_OP = 21, EQ_OP = 22, NE_OP = 23, LT_OP = 24, LE_OP = 25, GT_OP = 26, 
     GE_OP = 27, INC_OP = 28, DEC_OP = 29, DOUBLE = 30, ID = 31, INT = 32, 
-    NEWLINE = 33, WS = 34
+    NEWLINE = 33, WS = 34, COMMENT = 35
   };
 
   GoGoLexer(antlr4::CharStream *input);
