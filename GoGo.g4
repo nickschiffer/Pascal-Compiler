@@ -4,25 +4,25 @@ grammar GoGo;
 //TODO: Add Increment
 prog:   stat+ ; 
 
-stat:   inc_dec ';'
-    |   expr ';'          
-    |   assignment_stmt ';'
-    |   declaration ';'
-    |   declaration_implicit ';'
-    |   if_stmt
-    |   func_definition 
-    |   while_loop_stmt    
-    |   func_call ';'
-    |	rtrn_stmt ';'         
+stat:   inc_dec ';'					# incDec
+    |   expr ';'          			# expression
+    |   assignment_stmt ';'			# assign
+    |   declaration ';'				# declare
+    |   declaration_implicit ';'	# declareImp
+    |   if_stmt						# if
+    |   func_definition 			# funcDef
+    |   while_loop_stmt    			# whileLoop
+    |   func_call ';'				# funcCall
+    |	rtrn_stmt ';'         		# return
     ;
 
-expr:   expr mul_div_op expr   
-    |   expr add_sub_op expr   
-    |   INT
-    |   DOUBLE                    
-    |   ID                    
-    |   '(' expr ')'
-    |   expr rel_op  expr  
+expr:   expr mul_div_op expr   		# MulDiv
+    |   expr add_sub_op expr   		# AddSub
+    |   INT							# int
+    |   DOUBLE                    	# double
+    |   ID                    		# id
+    |   '(' expr ')'				# perens
+    |   expr rel_op  expr  			# relative
     ;
 
 declaration: VAR ID TYPE '=' (INT | DOUBLE) ; //from GO
@@ -69,29 +69,25 @@ ELSE_IF: 'else if';
 WHILE: 'while';
 RETURN: 'return';
 
-
-
-
 MUL_OP: '*';
 DIV_OP: '/';
 
 ADD_OP: '+';
 SUB_OP: '-';
 
-EQ_OP:  '==';
-NE_OP:  '!=';
-LT_OP:  '<';
-LE_OP:  '<=';
-GT_OP:  '>';
-GE_OP:  '>=';
+EQ_OP: '==';
+NE_OP: '!=';
+LT_OP: '<';
+LE_OP: '<=';
+GT_OP: '>';
+GE_OP: '>=';
 
 INC_OP: '++';
 DEC_OP: '--';
 
-
 DOUBLE:   INT '.' INT;      // match double datatype
-ID  :   [a-zA-Z]+ ;         // match identifiers <label id="code.tour.EXPR.3"/>
+ID  :   [a-zA-Z][a-zA-Z0-9]* ;         // match identifiers <label id="code.tour.EXPR.3"/>
 INT :   [0-9]+ ;            // match integers
 NEWLINE : '\r'? '\n' -> skip ;        // return newlines to parser (is end-statement signal)
 WS  :   ([ \t]+ | ' '+) -> skip ;    // toss out whitespace
-//COMMENT: ('//' .* NEWLINE | '/*' .* '*/') -> skip ; //skip comments
+COMMENT: ('//' .*? NEWLINE | '/*' .*? '*/') -> skip ; //skip comments
