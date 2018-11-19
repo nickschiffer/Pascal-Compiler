@@ -78,94 +78,20 @@ public:
   class  StatContext : public antlr4::ParserRuleContext {
   public:
     StatContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
-    StatContext() : antlr4::ParserRuleContext() { }
-    void copyFrom(StatContext *context);
-    using antlr4::ParserRuleContext::copyFrom;
-
     virtual size_t getRuleIndex() const override;
-
-   
-  };
-
-  class  DeclareImpContext : public StatContext {
-  public:
-    DeclareImpContext(StatContext *ctx);
-
-    Declaration_implicitContext *declaration_implicit();
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
-  class  WhileLoopContext : public StatContext {
-  public:
-    WhileLoopContext(StatContext *ctx);
-
-    While_loop_stmtContext *while_loop_stmt();
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
-  class  ExpressionContext : public StatContext {
-  public:
-    ExpressionContext(StatContext *ctx);
-
-    ExprContext *expr();
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
-  class  DeclareContext : public StatContext {
-  public:
-    DeclareContext(StatContext *ctx);
-
-    DeclarationContext *declaration();
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
-  class  FuncCallContext : public StatContext {
-  public:
-    FuncCallContext(StatContext *ctx);
-
-    Func_callContext *func_call();
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
-  class  IncDecContext : public StatContext {
-  public:
-    IncDecContext(StatContext *ctx);
-
     Inc_decContext *inc_dec();
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
-  class  IfContext : public StatContext {
-  public:
-    IfContext(StatContext *ctx);
-
-    If_stmtContext *if_stmt();
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
-  class  ReturnContext : public StatContext {
-  public:
-    ReturnContext(StatContext *ctx);
-
-    Rtrn_stmtContext *rtrn_stmt();
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
-  class  AssignContext : public StatContext {
-  public:
-    AssignContext(StatContext *ctx);
-
+    ExprContext *expr();
     Assignment_stmtContext *assignment_stmt();
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
-  class  FuncDefContext : public StatContext {
-  public:
-    FuncDefContext(StatContext *ctx);
-
+    DeclarationContext *declaration();
+    Declaration_implicitContext *declaration_implicit();
+    If_stmtContext *if_stmt();
     Func_definitionContext *func_definition();
+    While_loop_stmtContext *while_loop_stmt();
+    Func_callContext *func_call();
+    Rtrn_stmtContext *rtrn_stmt();
+
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
   };
 
   StatContext* stat();

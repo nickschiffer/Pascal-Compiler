@@ -21,25 +21,7 @@ public:
    */
     virtual antlrcpp::Any visitProg(GoGoParser::ProgContext *context) = 0;
 
-    virtual antlrcpp::Any visitIncDec(GoGoParser::IncDecContext *context) = 0;
-
-    virtual antlrcpp::Any visitExpression(GoGoParser::ExpressionContext *context) = 0;
-
-    virtual antlrcpp::Any visitAssign(GoGoParser::AssignContext *context) = 0;
-
-    virtual antlrcpp::Any visitDeclare(GoGoParser::DeclareContext *context) = 0;
-
-    virtual antlrcpp::Any visitDeclareImp(GoGoParser::DeclareImpContext *context) = 0;
-
-    virtual antlrcpp::Any visitIf(GoGoParser::IfContext *context) = 0;
-
-    virtual antlrcpp::Any visitFuncDef(GoGoParser::FuncDefContext *context) = 0;
-
-    virtual antlrcpp::Any visitWhileLoop(GoGoParser::WhileLoopContext *context) = 0;
-
-    virtual antlrcpp::Any visitFuncCall(GoGoParser::FuncCallContext *context) = 0;
-
-    virtual antlrcpp::Any visitReturn(GoGoParser::ReturnContext *context) = 0;
+    virtual antlrcpp::Any visitStat(GoGoParser::StatContext *context) = 0;
 
     virtual antlrcpp::Any visitParens(GoGoParser::ParensContext *context) = 0;
 

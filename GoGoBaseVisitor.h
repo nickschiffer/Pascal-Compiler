@@ -19,43 +19,7 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitIncDec(GoGoParser::IncDecContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitExpression(GoGoParser::ExpressionContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitAssign(GoGoParser::AssignContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitDeclare(GoGoParser::DeclareContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitDeclareImp(GoGoParser::DeclareImpContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitIf(GoGoParser::IfContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitFuncDef(GoGoParser::FuncDefContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitWhileLoop(GoGoParser::WhileLoopContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitFuncCall(GoGoParser::FuncCallContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitReturn(GoGoParser::ReturnContext *ctx) override {
+  virtual antlrcpp::Any visitStat(GoGoParser::StatContext *ctx) override {
     return visitChildren(ctx);
   }
 

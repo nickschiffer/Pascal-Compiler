@@ -3,16 +3,16 @@ grammar GoGo;
 /** The start rule; begin parsing here. */
 prog:   stat+ ; 
 
-stat:   inc_dec ';'					# incDec
-    |   expr ';'          			# expression
-    |   assignment_stmt ';'			# assign
-    |   declaration ';'				# declare
-    |   declaration_implicit ';'	# declareImp
-    |   if_stmt						# if
-    |   func_definition 			# funcDef
-    |   while_loop_stmt    			# whileLoop
-    |   func_call ';'				# funcCall
-    |	rtrn_stmt ';'         		# return
+stat:   inc_dec ';'					
+    |   expr ';'          			
+    |   assignment_stmt ';'			
+    |   declaration ';'				
+    |   declaration_implicit ';'	
+    |   if_stmt						
+    |   func_definition 			
+    |   while_loop_stmt    			
+    |   func_call ';'				
+    |	rtrn_stmt ';'         		
     ;
 
 expr:   expr mul_div_op expr   		# MulDiv

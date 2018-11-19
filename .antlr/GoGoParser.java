@@ -144,75 +144,40 @@ public class GoGoParser extends Parser {
 	}
 
 	public static class StatContext extends ParserRuleContext {
+		public Inc_decContext inc_dec() {
+			return getRuleContext(Inc_decContext.class,0);
+		}
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public Assignment_stmtContext assignment_stmt() {
+			return getRuleContext(Assignment_stmtContext.class,0);
+		}
+		public DeclarationContext declaration() {
+			return getRuleContext(DeclarationContext.class,0);
+		}
+		public Declaration_implicitContext declaration_implicit() {
+			return getRuleContext(Declaration_implicitContext.class,0);
+		}
+		public If_stmtContext if_stmt() {
+			return getRuleContext(If_stmtContext.class,0);
+		}
+		public Func_definitionContext func_definition() {
+			return getRuleContext(Func_definitionContext.class,0);
+		}
+		public While_loop_stmtContext while_loop_stmt() {
+			return getRuleContext(While_loop_stmtContext.class,0);
+		}
+		public Func_callContext func_call() {
+			return getRuleContext(Func_callContext.class,0);
+		}
+		public Rtrn_stmtContext rtrn_stmt() {
+			return getRuleContext(Rtrn_stmtContext.class,0);
+		}
 		public StatContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_stat; }
-	 
-		public StatContext() { }
-		public void copyFrom(StatContext ctx) {
-			super.copyFrom(ctx);
-		}
-	}
-	public static class DeclareImpContext extends StatContext {
-		public Declaration_implicitContext declaration_implicit() {
-			return getRuleContext(Declaration_implicitContext.class,0);
-		}
-		public DeclareImpContext(StatContext ctx) { copyFrom(ctx); }
-	}
-	public static class WhileLoopContext extends StatContext {
-		public While_loop_stmtContext while_loop_stmt() {
-			return getRuleContext(While_loop_stmtContext.class,0);
-		}
-		public WhileLoopContext(StatContext ctx) { copyFrom(ctx); }
-	}
-	public static class ExpressionContext extends StatContext {
-		public ExprContext expr() {
-			return getRuleContext(ExprContext.class,0);
-		}
-		public ExpressionContext(StatContext ctx) { copyFrom(ctx); }
-	}
-	public static class DeclareContext extends StatContext {
-		public DeclarationContext declaration() {
-			return getRuleContext(DeclarationContext.class,0);
-		}
-		public DeclareContext(StatContext ctx) { copyFrom(ctx); }
-	}
-	public static class FuncCallContext extends StatContext {
-		public Func_callContext func_call() {
-			return getRuleContext(Func_callContext.class,0);
-		}
-		public FuncCallContext(StatContext ctx) { copyFrom(ctx); }
-	}
-	public static class IncDecContext extends StatContext {
-		public Inc_decContext inc_dec() {
-			return getRuleContext(Inc_decContext.class,0);
-		}
-		public IncDecContext(StatContext ctx) { copyFrom(ctx); }
-	}
-	public static class IfContext extends StatContext {
-		public If_stmtContext if_stmt() {
-			return getRuleContext(If_stmtContext.class,0);
-		}
-		public IfContext(StatContext ctx) { copyFrom(ctx); }
-	}
-	public static class ReturnContext extends StatContext {
-		public Rtrn_stmtContext rtrn_stmt() {
-			return getRuleContext(Rtrn_stmtContext.class,0);
-		}
-		public ReturnContext(StatContext ctx) { copyFrom(ctx); }
-	}
-	public static class AssignContext extends StatContext {
-		public Assignment_stmtContext assignment_stmt() {
-			return getRuleContext(Assignment_stmtContext.class,0);
-		}
-		public AssignContext(StatContext ctx) { copyFrom(ctx); }
-	}
-	public static class FuncDefContext extends StatContext {
-		public Func_definitionContext func_definition() {
-			return getRuleContext(Func_definitionContext.class,0);
-		}
-		public FuncDefContext(StatContext ctx) { copyFrom(ctx); }
 	}
 
 	public final StatContext stat() throws RecognitionException {
@@ -223,7 +188,6 @@ public class GoGoParser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 			case 1:
-				_localctx = new IncDecContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(49);
@@ -233,7 +197,6 @@ public class GoGoParser extends Parser {
 				}
 				break;
 			case 2:
-				_localctx = new ExpressionContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(52);
@@ -243,7 +206,6 @@ public class GoGoParser extends Parser {
 				}
 				break;
 			case 3:
-				_localctx = new AssignContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(55);
@@ -253,7 +215,6 @@ public class GoGoParser extends Parser {
 				}
 				break;
 			case 4:
-				_localctx = new DeclareContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(58);
@@ -263,7 +224,6 @@ public class GoGoParser extends Parser {
 				}
 				break;
 			case 5:
-				_localctx = new DeclareImpContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
 				setState(61);
@@ -273,7 +233,6 @@ public class GoGoParser extends Parser {
 				}
 				break;
 			case 6:
-				_localctx = new IfContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
 				setState(64);
@@ -281,7 +240,6 @@ public class GoGoParser extends Parser {
 				}
 				break;
 			case 7:
-				_localctx = new FuncDefContext(_localctx);
 				enterOuterAlt(_localctx, 7);
 				{
 				setState(65);
@@ -289,7 +247,6 @@ public class GoGoParser extends Parser {
 				}
 				break;
 			case 8:
-				_localctx = new WhileLoopContext(_localctx);
 				enterOuterAlt(_localctx, 8);
 				{
 				setState(66);
@@ -297,7 +254,6 @@ public class GoGoParser extends Parser {
 				}
 				break;
 			case 9:
-				_localctx = new FuncCallContext(_localctx);
 				enterOuterAlt(_localctx, 9);
 				{
 				setState(67);
@@ -307,7 +263,6 @@ public class GoGoParser extends Parser {
 				}
 				break;
 			case 10:
-				_localctx = new ReturnContext(_localctx);
 				enterOuterAlt(_localctx, 10);
 				{
 				setState(70);
