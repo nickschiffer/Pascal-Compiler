@@ -384,6 +384,20 @@ void GoGoParser::ExprContext::copyFrom(ExprContext *ctx) {
   ParserRuleContext::copyFrom(ctx);
 }
 
+//----------------- ParensContext ------------------------------------------------------------------
+
+GoGoParser::ExprContext* GoGoParser::ParensContext::expr() {
+  return getRuleContext<GoGoParser::ExprContext>(0);
+}
+
+GoGoParser::ParensContext::ParensContext(ExprContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any GoGoParser::ParensContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
+    return parserVisitor->visitParens(this);
+  else
+    return visitor->visitChildren(this);
+}
 //----------------- MulDivContext ------------------------------------------------------------------
 
 std::vector<GoGoParser::ExprContext *> GoGoParser::MulDivContext::expr() {
@@ -470,20 +484,6 @@ antlrcpp::Any GoGoParser::IntContext::accept(tree::ParseTreeVisitor *visitor) {
   else
     return visitor->visitChildren(this);
 }
-//----------------- PerensContext ------------------------------------------------------------------
-
-GoGoParser::ExprContext* GoGoParser::PerensContext::expr() {
-  return getRuleContext<GoGoParser::ExprContext>(0);
-}
-
-GoGoParser::PerensContext::PerensContext(ExprContext *ctx) { copyFrom(ctx); }
-
-antlrcpp::Any GoGoParser::PerensContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<GoGoVisitor*>(visitor))
-    return parserVisitor->visitPerens(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- RelativeContext ------------------------------------------------------------------
 
 std::vector<GoGoParser::ExprContext *> GoGoParser::RelativeContext::expr() {
@@ -559,7 +559,7 @@ GoGoParser::ExprContext* GoGoParser::expr(int precedence) {
       }
 
       case GoGoParser::T__1: {
-        _localctx = _tracker.createInstance<PerensContext>(_localctx);
+        _localctx = _tracker.createInstance<ParensContext>(_localctx);
         _ctx = _localctx;
         previousContext = _localctx;
         setState(79);

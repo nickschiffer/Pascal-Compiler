@@ -183,6 +183,14 @@ public:
    
   };
 
+  class  ParensContext : public ExprContext {
+  public:
+    ParensContext(ExprContext *ctx);
+
+    ExprContext *expr();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
   class  MulDivContext : public ExprContext {
   public:
     MulDivContext(ExprContext *ctx);
@@ -224,14 +232,6 @@ public:
     IntContext(ExprContext *ctx);
 
     antlr4::tree::TerminalNode *INT();
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
-  class  PerensContext : public ExprContext {
-  public:
-    PerensContext(ExprContext *ctx);
-
-    ExprContext *expr();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 

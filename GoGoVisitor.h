@@ -41,6 +41,8 @@ public:
 
     virtual antlrcpp::Any visitReturn(GoGoParser::ReturnContext *context) = 0;
 
+    virtual antlrcpp::Any visitParens(GoGoParser::ParensContext *context) = 0;
+
     virtual antlrcpp::Any visitMulDiv(GoGoParser::MulDivContext *context) = 0;
 
     virtual antlrcpp::Any visitAddSub(GoGoParser::AddSubContext *context) = 0;
@@ -50,8 +52,6 @@ public:
     virtual antlrcpp::Any visitId(GoGoParser::IdContext *context) = 0;
 
     virtual antlrcpp::Any visitInt(GoGoParser::IntContext *context) = 0;
-
-    virtual antlrcpp::Any visitPerens(GoGoParser::PerensContext *context) = 0;
 
     virtual antlrcpp::Any visitRelative(GoGoParser::RelativeContext *context) = 0;
 

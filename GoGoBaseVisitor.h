@@ -59,6 +59,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitParens(GoGoParser::ParensContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitMulDiv(GoGoParser::MulDivContext *ctx) override {
     return visitChildren(ctx);
   }
@@ -76,10 +80,6 @@ public:
   }
 
   virtual antlrcpp::Any visitInt(GoGoParser::IntContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitPerens(GoGoParser::PerensContext *ctx) override {
     return visitChildren(ctx);
   }
 

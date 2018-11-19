@@ -20,7 +20,7 @@ public class GoGoParser extends Parser {
 		TYPE=10, VAR=11, FUNC=12, IF=13, ELSE=14, ELSE_IF=15, WHILE=16, RETURN=17, 
 		MUL_OP=18, DIV_OP=19, ADD_OP=20, SUB_OP=21, EQ_OP=22, NE_OP=23, LT_OP=24, 
 		LE_OP=25, GT_OP=26, GE_OP=27, INC_OP=28, DEC_OP=29, DOUBLE=30, ID=31, 
-		INT=32, NEWLINE=33, WS=34;
+		INT=32, NEWLINE=33, WS=34, COMMENT=35;
 	public static final int
 		RULE_prog = 0, RULE_stat = 1, RULE_expr = 2, RULE_declaration = 3, RULE_declaration_implicit = 4, 
 		RULE_func_definition = 5, RULE_func_call = 6, RULE_func_call_params = 7, 
@@ -45,7 +45,7 @@ public class GoGoParser extends Parser {
 		null, null, null, null, null, null, null, null, null, null, "TYPE", "VAR", 
 		"FUNC", "IF", "ELSE", "ELSE_IF", "WHILE", "RETURN", "MUL_OP", "DIV_OP", 
 		"ADD_OP", "SUB_OP", "EQ_OP", "NE_OP", "LT_OP", "LE_OP", "GT_OP", "GE_OP", 
-		"INC_OP", "DEC_OP", "DOUBLE", "ID", "INT", "NEWLINE", "WS"
+		"INC_OP", "DEC_OP", "DOUBLE", "ID", "INT", "NEWLINE", "WS", "COMMENT"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -144,40 +144,75 @@ public class GoGoParser extends Parser {
 	}
 
 	public static class StatContext extends ParserRuleContext {
-		public Inc_decContext inc_dec() {
-			return getRuleContext(Inc_decContext.class,0);
-		}
-		public ExprContext expr() {
-			return getRuleContext(ExprContext.class,0);
-		}
-		public Assignment_stmtContext assignment_stmt() {
-			return getRuleContext(Assignment_stmtContext.class,0);
-		}
-		public DeclarationContext declaration() {
-			return getRuleContext(DeclarationContext.class,0);
-		}
-		public Declaration_implicitContext declaration_implicit() {
-			return getRuleContext(Declaration_implicitContext.class,0);
-		}
-		public If_stmtContext if_stmt() {
-			return getRuleContext(If_stmtContext.class,0);
-		}
-		public Func_definitionContext func_definition() {
-			return getRuleContext(Func_definitionContext.class,0);
-		}
-		public While_loop_stmtContext while_loop_stmt() {
-			return getRuleContext(While_loop_stmtContext.class,0);
-		}
-		public Func_callContext func_call() {
-			return getRuleContext(Func_callContext.class,0);
-		}
-		public Rtrn_stmtContext rtrn_stmt() {
-			return getRuleContext(Rtrn_stmtContext.class,0);
-		}
 		public StatContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_stat; }
+	 
+		public StatContext() { }
+		public void copyFrom(StatContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class DeclareImpContext extends StatContext {
+		public Declaration_implicitContext declaration_implicit() {
+			return getRuleContext(Declaration_implicitContext.class,0);
+		}
+		public DeclareImpContext(StatContext ctx) { copyFrom(ctx); }
+	}
+	public static class WhileLoopContext extends StatContext {
+		public While_loop_stmtContext while_loop_stmt() {
+			return getRuleContext(While_loop_stmtContext.class,0);
+		}
+		public WhileLoopContext(StatContext ctx) { copyFrom(ctx); }
+	}
+	public static class ExpressionContext extends StatContext {
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public ExpressionContext(StatContext ctx) { copyFrom(ctx); }
+	}
+	public static class DeclareContext extends StatContext {
+		public DeclarationContext declaration() {
+			return getRuleContext(DeclarationContext.class,0);
+		}
+		public DeclareContext(StatContext ctx) { copyFrom(ctx); }
+	}
+	public static class FuncCallContext extends StatContext {
+		public Func_callContext func_call() {
+			return getRuleContext(Func_callContext.class,0);
+		}
+		public FuncCallContext(StatContext ctx) { copyFrom(ctx); }
+	}
+	public static class IncDecContext extends StatContext {
+		public Inc_decContext inc_dec() {
+			return getRuleContext(Inc_decContext.class,0);
+		}
+		public IncDecContext(StatContext ctx) { copyFrom(ctx); }
+	}
+	public static class IfContext extends StatContext {
+		public If_stmtContext if_stmt() {
+			return getRuleContext(If_stmtContext.class,0);
+		}
+		public IfContext(StatContext ctx) { copyFrom(ctx); }
+	}
+	public static class ReturnContext extends StatContext {
+		public Rtrn_stmtContext rtrn_stmt() {
+			return getRuleContext(Rtrn_stmtContext.class,0);
+		}
+		public ReturnContext(StatContext ctx) { copyFrom(ctx); }
+	}
+	public static class AssignContext extends StatContext {
+		public Assignment_stmtContext assignment_stmt() {
+			return getRuleContext(Assignment_stmtContext.class,0);
+		}
+		public AssignContext(StatContext ctx) { copyFrom(ctx); }
+	}
+	public static class FuncDefContext extends StatContext {
+		public Func_definitionContext func_definition() {
+			return getRuleContext(Func_definitionContext.class,0);
+		}
+		public FuncDefContext(StatContext ctx) { copyFrom(ctx); }
 	}
 
 	public final StatContext stat() throws RecognitionException {
@@ -188,6 +223,7 @@ public class GoGoParser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 			case 1:
+				_localctx = new IncDecContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(49);
@@ -197,6 +233,7 @@ public class GoGoParser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new ExpressionContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(52);
@@ -206,6 +243,7 @@ public class GoGoParser extends Parser {
 				}
 				break;
 			case 3:
+				_localctx = new AssignContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(55);
@@ -215,6 +253,7 @@ public class GoGoParser extends Parser {
 				}
 				break;
 			case 4:
+				_localctx = new DeclareContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(58);
@@ -224,6 +263,7 @@ public class GoGoParser extends Parser {
 				}
 				break;
 			case 5:
+				_localctx = new DeclareImpContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
 				setState(61);
@@ -233,6 +273,7 @@ public class GoGoParser extends Parser {
 				}
 				break;
 			case 6:
+				_localctx = new IfContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
 				setState(64);
@@ -240,6 +281,7 @@ public class GoGoParser extends Parser {
 				}
 				break;
 			case 7:
+				_localctx = new FuncDefContext(_localctx);
 				enterOuterAlt(_localctx, 7);
 				{
 				setState(65);
@@ -247,6 +289,7 @@ public class GoGoParser extends Parser {
 				}
 				break;
 			case 8:
+				_localctx = new WhileLoopContext(_localctx);
 				enterOuterAlt(_localctx, 8);
 				{
 				setState(66);
@@ -254,6 +297,7 @@ public class GoGoParser extends Parser {
 				}
 				break;
 			case 9:
+				_localctx = new FuncCallContext(_localctx);
 				enterOuterAlt(_localctx, 9);
 				{
 				setState(67);
@@ -263,6 +307,7 @@ public class GoGoParser extends Parser {
 				}
 				break;
 			case 10:
+				_localctx = new ReturnContext(_localctx);
 				enterOuterAlt(_localctx, 10);
 				{
 				setState(70);
@@ -285,9 +330,23 @@ public class GoGoParser extends Parser {
 	}
 
 	public static class ExprContext extends ParserRuleContext {
-		public TerminalNode INT() { return getToken(GoGoParser.INT, 0); }
-		public TerminalNode DOUBLE() { return getToken(GoGoParser.DOUBLE, 0); }
-		public TerminalNode ID() { return getToken(GoGoParser.ID, 0); }
+		public ExprContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_expr; }
+	 
+		public ExprContext() { }
+		public void copyFrom(ExprContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class ParensContext extends ExprContext {
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public ParensContext(ExprContext ctx) { copyFrom(ctx); }
+	}
+	public static class MulDivContext extends ExprContext {
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
@@ -297,16 +356,43 @@ public class GoGoParser extends Parser {
 		public Mul_div_opContext mul_div_op() {
 			return getRuleContext(Mul_div_opContext.class,0);
 		}
+		public MulDivContext(ExprContext ctx) { copyFrom(ctx); }
+	}
+	public static class AddSubContext extends ExprContext {
+		public List<ExprContext> expr() {
+			return getRuleContexts(ExprContext.class);
+		}
+		public ExprContext expr(int i) {
+			return getRuleContext(ExprContext.class,i);
+		}
 		public Add_sub_opContext add_sub_op() {
 			return getRuleContext(Add_sub_opContext.class,0);
+		}
+		public AddSubContext(ExprContext ctx) { copyFrom(ctx); }
+	}
+	public static class DoubleContext extends ExprContext {
+		public TerminalNode DOUBLE() { return getToken(GoGoParser.DOUBLE, 0); }
+		public DoubleContext(ExprContext ctx) { copyFrom(ctx); }
+	}
+	public static class IdContext extends ExprContext {
+		public TerminalNode ID() { return getToken(GoGoParser.ID, 0); }
+		public IdContext(ExprContext ctx) { copyFrom(ctx); }
+	}
+	public static class IntContext extends ExprContext {
+		public TerminalNode INT() { return getToken(GoGoParser.INT, 0); }
+		public IntContext(ExprContext ctx) { copyFrom(ctx); }
+	}
+	public static class RelativeContext extends ExprContext {
+		public List<ExprContext> expr() {
+			return getRuleContexts(ExprContext.class);
+		}
+		public ExprContext expr(int i) {
+			return getRuleContext(ExprContext.class,i);
 		}
 		public Rel_opContext rel_op() {
 			return getRuleContext(Rel_opContext.class,0);
 		}
-		public ExprContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_expr; }
+		public RelativeContext(ExprContext ctx) { copyFrom(ctx); }
 	}
 
 	public final ExprContext expr() throws RecognitionException {
@@ -329,24 +415,37 @@ public class GoGoParser extends Parser {
 			switch (_input.LA(1)) {
 			case INT:
 				{
+				_localctx = new IntContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+
 				setState(76);
 				match(INT);
 				}
 				break;
 			case DOUBLE:
 				{
+				_localctx = new DoubleContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(77);
 				match(DOUBLE);
 				}
 				break;
 			case ID:
 				{
+				_localctx = new IdContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(78);
 				match(ID);
 				}
 				break;
 			case T__1:
 				{
+				_localctx = new ParensContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(79);
 				match(T__1);
 				setState(80);
@@ -372,7 +471,7 @@ public class GoGoParser extends Parser {
 					switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 					case 1:
 						{
-						_localctx = new ExprContext(_parentctx, _parentState);
+						_localctx = new MulDivContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(85);
 						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
@@ -384,7 +483,7 @@ public class GoGoParser extends Parser {
 						break;
 					case 2:
 						{
-						_localctx = new ExprContext(_parentctx, _parentState);
+						_localctx = new AddSubContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(89);
 						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
@@ -396,7 +495,7 @@ public class GoGoParser extends Parser {
 						break;
 					case 3:
 						{
-						_localctx = new ExprContext(_parentctx, _parentState);
+						_localctx = new RelativeContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(93);
 						if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
@@ -1360,7 +1459,7 @@ public class GoGoParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3$\u00d2\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3%\u00d2\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\3\2\6\2\60\n\2\r\2"+

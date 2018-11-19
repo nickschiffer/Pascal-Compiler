@@ -1,7 +1,6 @@
 grammar GoGo;
 
 /** The start rule; begin parsing here. */
-//TODO: Add Increment
 prog:   stat+ ; 
 
 stat:   inc_dec ';'					# incDec
@@ -21,7 +20,7 @@ expr:   expr mul_div_op expr   		# MulDiv
     |   INT							# int
     |   DOUBLE                    	# double
     |   ID                    		# id
-    |   '(' expr ')'				# perens
+    |   '(' expr ')'				# parens
     |   expr rel_op  expr  			# relative
     ;
 
