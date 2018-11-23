@@ -1,4 +1,7 @@
 
+#include "wci/intermediate/TypeSpec.h"
+using namespace wci::intermediate;
+
 // Generated from GoGo.g4 by ANTLR 4.7.1
 
 #pragma once
@@ -21,12 +24,13 @@ public:
   };
 
   enum {
-    RuleProg = 0, RuleStat = 1, RuleExpr = 2, RuleDeclaration = 3, RuleDeclaration_implicit = 4, 
-    RuleFunc_definition = 5, RuleFunc_call = 6, RuleFunc_call_params = 7, 
-    RuleParam = 8, RuleParams = 9, RuleCompound_stmt = 10, RuleIf_stmt = 11, 
-    RuleElse_stmt = 12, RuleElse_if_stmt = 13, RuleWhile_loop_stmt = 14, 
-    RuleAssignment_stmt = 15, RuleInc_dec = 16, RuleRtrn_stmt = 17, RuleMul_div_op = 18, 
-    RuleAdd_sub_op = 19, RuleRel_op = 20, RuleInc_dec_op = 21
+    RuleProg = 0, RuleStat = 1, RuleExpr = 2, RuleVariable = 3, RuleNumber = 4, 
+    RuleDeclaration = 5, RuleDeclaration_implicit = 6, RuleFunc_definition = 7, 
+    RuleFunc_call = 8, RuleFunc_call_params = 9, RuleParam = 10, RuleParams = 11, 
+    RuleCompound_stmt = 12, RuleIf_stmt = 13, RuleElse_stmt = 14, RuleElse_if_stmt = 15, 
+    RuleWhile_loop_stmt = 16, RuleAssignment_stmt = 17, RuleInc_dec = 18, 
+    RuleRtrn_stmt = 19, RuleMul_div_op = 20, RuleAdd_sub_op = 21, RuleRel_op = 22, 
+    RuleInc_dec_op = 23
   };
 
   GoGoParser(antlr4::TokenStream *input);
@@ -42,6 +46,8 @@ public:
   class ProgContext;
   class StatContext;
   class ExprContext;
+  class VariableContext;
+  class NumberContext;
   class DeclarationContext;
   class Declaration_implicitContext;
   class Func_definitionContext;
@@ -98,6 +104,7 @@ public:
 
   class  ExprContext : public antlr4::ParserRuleContext {
   public:
+    TypeSpec * type = nullptr;
     ExprContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
     ExprContext() : antlr4::ParserRuleContext() { }
@@ -107,6 +114,14 @@ public:
     virtual size_t getRuleIndex() const override;
 
    
+  };
+
+  class  VarExprContext : public ExprContext {
+  public:
+    VarExprContext(ExprContext *ctx);
+
+    VariableContext *variable();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  ParensContext : public ExprContext {
@@ -137,27 +152,11 @@ public:
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
-  class  DoubleContext : public ExprContext {
+  class  NumberExprContext : public ExprContext {
   public:
-    DoubleContext(ExprContext *ctx);
+    NumberExprContext(ExprContext *ctx);
 
-    antlr4::tree::TerminalNode *DOUBLE();
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
-  class  IdContext : public ExprContext {
-  public:
-    IdContext(ExprContext *ctx);
-
-    antlr4::tree::TerminalNode *ID();
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
-  class  IntContext : public ExprContext {
-  public:
-    IntContext(ExprContext *ctx);
-
-    antlr4::tree::TerminalNode *INT();
+    NumberContext *number();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
@@ -173,6 +172,50 @@ public:
 
   ExprContext* expr();
   ExprContext* expr(int precedence);
+  class  VariableContext : public antlr4::ParserRuleContext {
+  public:
+    VariableContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *ID();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  VariableContext* variable();
+
+  class  NumberContext : public antlr4::ParserRuleContext {
+  public:
+    TypeSpec * type = nullptr;
+    NumberContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+   
+    NumberContext() : antlr4::ParserRuleContext() { }
+    void copyFrom(NumberContext *context);
+    using antlr4::ParserRuleContext::copyFrom;
+
+    virtual size_t getRuleIndex() const override;
+
+   
+  };
+
+  class  DoubleConstContext : public NumberContext {
+  public:
+    DoubleConstContext(NumberContext *ctx);
+
+    antlr4::tree::TerminalNode *DOUBLE();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  IntegerConstContext : public NumberContext {
+  public:
+    IntegerConstContext(NumberContext *ctx);
+
+    antlr4::tree::TerminalNode *INT();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  NumberContext* number();
+
   class  DeclarationContext : public antlr4::ParserRuleContext {
   public:
     DeclarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);

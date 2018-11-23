@@ -15,13 +15,20 @@ stat:   inc_dec ';'
     |	rtrn_stmt ';'         		
     ;
 
-expr:   expr mul_div_op expr   		# MulDiv
+expr locals [ TypeSpec *type = nullptr ]
+    :   expr mul_div_op expr   		# MulDiv
     |   expr add_sub_op expr   		# AddSub
-    |   INT							# int
-    |   DOUBLE                    	# double
-    |   ID                    		# id
+    |   number                      # numberExpr
+    |   variable               		# varExpr
     |   '(' expr ')'				# parens
     |   expr rel_op  expr  			# relative
+    ;
+
+variable : ID ;
+
+number locals [ TypeSpec *type = nullptr ]
+    : INT       #integerConst
+    | DOUBLE    #doubleConst
     ;
 
 declaration: VAR ID TYPE '=' (INT | DOUBLE) ; //from GO

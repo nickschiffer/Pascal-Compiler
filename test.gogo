@@ -3,9 +3,10 @@ var b double = 3.14;
 c := 2.55;
 
 func add(c int, d int) int {
-    return c + d;
+    return c * d;
 }
 
+a = 3 * 4;
 
 if a == (419 + 6) {
     a = 10;

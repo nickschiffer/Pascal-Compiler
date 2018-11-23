@@ -182,6 +182,107 @@ antlrcpp::Any Pass1Visitor::visitDeclaration_implicit(GoGoParser::Declaration_im
     }
 
     return visitChildren(ctx); //nullptr
-
 }
 
+antlrcpp::Any Pass1Visitor::visitMulDiv(GoGoParser::MulDivContext *ctx) {
+//    cout << "=== visitMulDuv: " + ctx->getText() << endl;
+
+    auto value = visitChildren(ctx);
+
+    TypeSpec *type1 = ctx->expr(0)->type;
+    TypeSpec *type2 = ctx->expr(1)->type;
+
+    bool integer_mode =    (type1 == Predefined::integer_type)
+                        && (type2 == Predefined::integer_type);
+    bool real_mode    =    (type1 == Predefined::real_type)
+                        && (type2 == Predefined::real_type);
+
+    TypeSpec *type = integer_mode ? Predefined::integer_type
+                   : real_mode    ? Predefined::real_type
+                   :                nullptr;
+    ctx->type = type;
+
+    return value;    
+}
+
+antlrcpp::Any Pass1Visitor::visitAddSub(GoGoParser::AddSubContext *ctx) {
+//    cout << "=== visitAddSub: " + ctx->getText() << endl;
+
+    auto value = visitChildren(ctx);
+
+    TypeSpec *type1 = ctx->expr(0)->type;
+    TypeSpec *type2 = ctx->expr(1)->type;
+
+    bool integer_mode =    (type1 == Predefined::integer_type)
+                        && (type2 == Predefined::integer_type);
+    bool real_mode    =    (type1 == Predefined::real_type)
+                        && (type2 == Predefined::real_type);
+
+    TypeSpec *type = integer_mode ? Predefined::integer_type
+                   : real_mode    ? Predefined::real_type
+                   :                nullptr;
+    ctx->type = type;
+
+    return value;
+}
+
+antlrcpp::Any Pass1Visitor::visitVarExpr(GoGoParser::VarExprContext *ctx) {
+//    cout << "=== visitVariableExpr: " + ctx->getText() << endl;
+
+    string variable_name = ctx->variable()->ID()->toString();
+    SymTabEntry *variable_id = symtab_stack->lookup(variable_name);
+
+    ctx->type = variable_id->get_typespec();
+    return visitChildren(ctx);
+}
+
+antlrcpp::Any Pass1Visitor::visitNumberExpr(GoGoParser::NumberExprContext *ctx) {
+//    cout << "=== visitUnsignedNumberExpr: " + ctx->getText() << endl;
+
+    auto value = visit(ctx->number());
+    ctx->type = ctx->number()->type;
+    return value;
+}
+
+antlrcpp::Any Pass1Visitor::visitIntegerConst(GoGoParser::IntegerConstContext *ctx) {
+//    cout << "=== visitIntegerConst: " + ctx->getText() << endl;
+
+    ctx->type = Predefined::integer_type;
+    return visitChildren(ctx);
+}
+
+antlrcpp::Any Pass1Visitor::visitDoubleConst(GoGoParser::DoubleConstContext *ctx) {
+//    cout << "=== visitFloatConst: " + ctx->getText() << endl;
+
+    ctx->type = Predefined::real_type;
+    return visitChildren(ctx);
+}
+
+antlrcpp::Any Pass1Visitor::visitParens(GoGoParser::ParensContext *ctx) {
+//    cout << "=== visitParenExpr: " + ctx->getText() << endl;
+
+    auto value = visitChildren(ctx);
+    ctx->type = ctx->expr()->type;
+    return value;
+}
+
+antlrcpp::Any Pass1Visitor::visitRelative(GoGoParser::RelativeContext *ctx) {
+//    cout << "=== visitRelative: " + ctx->getText() << endl;
+
+    auto value = visitChildren(ctx);
+
+    TypeSpec *type1 = ctx->expr(0)->type;
+    TypeSpec *type2 = ctx->expr(1)->type;
+
+    bool integer_mode =    (type1 == Predefined::integer_type)
+                        && (type2 == Predefined::integer_type);
+    bool real_mode    =    (type1 == Predefined::real_type)
+                        && (type2 == Predefined::real_type);
+
+    TypeSpec *type = integer_mode ? Predefined::integer_type
+                   : real_mode    ? Predefined::real_type
+                   :                nullptr;
+    ctx->type = type;
+
+    return value;    
+}

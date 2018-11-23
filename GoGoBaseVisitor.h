@@ -23,6 +23,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitVarExpr(GoGoParser::VarExprContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitParens(GoGoParser::ParensContext *ctx) override {
     return visitChildren(ctx);
   }
@@ -35,19 +39,23 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitDouble(GoGoParser::DoubleContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitId(GoGoParser::IdContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitInt(GoGoParser::IntContext *ctx) override {
+  virtual antlrcpp::Any visitNumberExpr(GoGoParser::NumberExprContext *ctx) override {
     return visitChildren(ctx);
   }
 
   virtual antlrcpp::Any visitRelative(GoGoParser::RelativeContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitVariable(GoGoParser::VariableContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitIntegerConst(GoGoParser::IntegerConstContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitDoubleConst(GoGoParser::DoubleConstContext *ctx) override {
     return visitChildren(ctx);
   }
 

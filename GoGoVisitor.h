@@ -23,19 +23,23 @@ public:
 
     virtual antlrcpp::Any visitStat(GoGoParser::StatContext *context) = 0;
 
+    virtual antlrcpp::Any visitVarExpr(GoGoParser::VarExprContext *context) = 0;
+
     virtual antlrcpp::Any visitParens(GoGoParser::ParensContext *context) = 0;
 
     virtual antlrcpp::Any visitMulDiv(GoGoParser::MulDivContext *context) = 0;
 
     virtual antlrcpp::Any visitAddSub(GoGoParser::AddSubContext *context) = 0;
 
-    virtual antlrcpp::Any visitDouble(GoGoParser::DoubleContext *context) = 0;
-
-    virtual antlrcpp::Any visitId(GoGoParser::IdContext *context) = 0;
-
-    virtual antlrcpp::Any visitInt(GoGoParser::IntContext *context) = 0;
+    virtual antlrcpp::Any visitNumberExpr(GoGoParser::NumberExprContext *context) = 0;
 
     virtual antlrcpp::Any visitRelative(GoGoParser::RelativeContext *context) = 0;
+
+    virtual antlrcpp::Any visitVariable(GoGoParser::VariableContext *context) = 0;
+
+    virtual antlrcpp::Any visitIntegerConst(GoGoParser::IntegerConstContext *context) = 0;
+
+    virtual antlrcpp::Any visitDoubleConst(GoGoParser::DoubleConstContext *context) = 0;
 
     virtual antlrcpp::Any visitDeclaration(GoGoParser::DeclarationContext *context) = 0;
 

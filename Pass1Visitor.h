@@ -33,9 +33,10 @@ public:
     antlrcpp::Any visitDeclaration_implicit(GoGoParser::Declaration_implicitContext *ctx) override;
     antlrcpp::Any visitMulDiv(GoGoParser::MulDivContext *ctx) override;
     antlrcpp::Any visitAddSub(GoGoParser::AddSubContext *ctx) override;
-    antlrcpp::Any visitDouble(GoGoParser::DoubleContext *ctx) override;
-    antlrcpp::Any visitId(GoGoParser::IdContext *ctx) override;
-    antlrcpp::Any visitInt(GoGoParser::IntContext *ctx) override;
+    antlrcpp::Any visitVarExpr(GoGoParser::VarExprContext *ctx) override;
+    antlrcpp::Any visitNumberExpr(GoGoParser::NumberExprContext *ctx) override;
+    antlrcpp::Any visitIntegerConst(GoGoParser::IntegerConstContext *ctx) override;
+    antlrcpp::Any visitDoubleConst(GoGoParser::DoubleConstContext *ctx) override;
     antlrcpp::Any visitParens(GoGoParser::ParensContext *ctx) override;
     antlrcpp::Any visitRelative(GoGoParser::RelativeContext *ctx) override;
 
