@@ -32,9 +32,9 @@ int main(int argc, const char *args[])
     Pass1Visitor *pass1 = new Pass1Visitor();
     pass1->visit(tree);
 
-   ostream& j_file = pass1->get_assembly_file();
+    ostream& j_file = pass1->get_assembly_file();
 
-   delete tree;
+    //delete tree;
 
     // cout << "Tokens:" << endl;
     // tokens.fill();

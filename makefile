@@ -35,7 +35,7 @@ INCLUDE_LIB = /usr/lib
 
 LIB = antlr4-runtime
 
-CFLAGS = -std=c++0x -I$(INCLUDE_DIR) -L$(INCLUDE_LIB) -l$(LIB)
+CFLAGS = -g -w -std=c++0x -I$(INCLUDE_DIR) -L$(INCLUDE_LIB) -l$(LIB)
 
 GoGo : $(SRCS)
 	$(CC) -o $(OUTPUT) $(CFLAGS) $(SRCS)

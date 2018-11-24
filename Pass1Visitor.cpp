@@ -20,7 +20,7 @@ Pass1Visitor::Pass1Visitor()
     symtab_stack = SymTabFactory::create_symtab_stack();
     Predefined::initialize(symtab_stack);
 
-    //cout << "=== Pass1Visitor(): symtab stack initialized." << endl;
+    cout << "=== Pass1Visitor(): symtab stack initialized." << endl;
 }
 
 Pass1Visitor::~Pass1Visitor() {}
@@ -74,7 +74,7 @@ antlrcpp::Any Pass1Visitor::visitProg(GoGoParser::ProgContext *ctx)
 
 
 
-//    cout << "=== visitProg: Printing xref table." << endl;
+     cout << "=== visitProg: Printing xref table." << endl;
 
     // Print the cross-reference table.
     CrossReferencer cross_referencer;
@@ -84,13 +84,14 @@ antlrcpp::Any Pass1Visitor::visitProg(GoGoParser::ProgContext *ctx)
 }
 
 antlrcpp::Any Pass1Visitor::visitDeclaration(GoGoParser::DeclarationContext *ctx){
-    
+    cout << "=== Declaration: " + ctx->getText() << endl;
+
+    variable_id_list.resize(0);
+
     string variable_name = ctx->ID()->toString();
     SymTabEntry *variable_id = symtab_stack->enter_local(variable_name);
     variable_id->set_definition((Definition) DF_VARIABLE);
     variable_id_list.push_back(variable_id);
-
-    //    cout << "=== visitTypeId: " + ctx->getText() << endl;
 
     TypeSpec *type;
     string type_indicator;
@@ -127,12 +128,14 @@ antlrcpp::Any Pass1Visitor::visitDeclaration(GoGoParser::DeclarationContext *ctx
 
 antlrcpp::Any Pass1Visitor::visitDeclaration_implicit(GoGoParser::Declaration_implicitContext *ctx){
 
+    variable_id_list.resize(0);
+
     string variable_name = ctx->ID()->toString();
     SymTabEntry *variable_id = symtab_stack->enter_local(variable_name);
     variable_id->set_definition((Definition) DF_VARIABLE);
     variable_id_list.push_back(variable_id);
 
-    //    cout << "=== visitTypeId: " + ctx->getText() << endl;
+        cout << "=== DeclarationExplicit: " + ctx->getText() << endl;
 
     TypeSpec *type;
     string type_indicator;
@@ -147,12 +150,12 @@ antlrcpp::Any Pass1Visitor::visitDeclaration_implicit(GoGoParser::Declaration_im
             type_name = "Jank";
         }
         else {
-            type_name = ctx->DOUBLE()->toString();
+            type_name = "double";
         }
 
     }
     else{
-        type_name = ctx->INT()->toString();
+        type_name = "int";
     }
 
 
@@ -185,7 +188,7 @@ antlrcpp::Any Pass1Visitor::visitDeclaration_implicit(GoGoParser::Declaration_im
 }
 
 antlrcpp::Any Pass1Visitor::visitMulDiv(GoGoParser::MulDivContext *ctx) {
-//    cout << "=== visitMulDuv: " + ctx->getText() << endl;
+    cout << "=== visitMulDiv: " + ctx->getText() << endl;
 
     auto value = visitChildren(ctx);
 
@@ -206,7 +209,7 @@ antlrcpp::Any Pass1Visitor::visitMulDiv(GoGoParser::MulDivContext *ctx) {
 }
 
 antlrcpp::Any Pass1Visitor::visitAddSub(GoGoParser::AddSubContext *ctx) {
-//    cout << "=== visitAddSub: " + ctx->getText() << endl;
+    cout << "=== visitAddSub: " + ctx->getText() << endl;
 
     auto value = visitChildren(ctx);
 
@@ -227,7 +230,7 @@ antlrcpp::Any Pass1Visitor::visitAddSub(GoGoParser::AddSubContext *ctx) {
 }
 
 antlrcpp::Any Pass1Visitor::visitVarExpr(GoGoParser::VarExprContext *ctx) {
-//    cout << "=== visitVariableExpr: " + ctx->getText() << endl;
+    cout << "=== visitVariableExpr: " + ctx->getText() << endl;
 
     string variable_name = ctx->variable()->ID()->toString();
     SymTabEntry *variable_id = symtab_stack->lookup(variable_name);
@@ -237,7 +240,7 @@ antlrcpp::Any Pass1Visitor::visitVarExpr(GoGoParser::VarExprContext *ctx) {
 }
 
 antlrcpp::Any Pass1Visitor::visitNumberExpr(GoGoParser::NumberExprContext *ctx) {
-//    cout << "=== visitUnsignedNumberExpr: " + ctx->getText() << endl;
+    cout << "=== visitUnsignedNumberExpr: " + ctx->getText() << endl;
 
     auto value = visit(ctx->number());
     ctx->type = ctx->number()->type;
@@ -245,21 +248,21 @@ antlrcpp::Any Pass1Visitor::visitNumberExpr(GoGoParser::NumberExprContext *ctx) 
 }
 
 antlrcpp::Any Pass1Visitor::visitIntegerConst(GoGoParser::IntegerConstContext *ctx) {
-//    cout << "=== visitIntegerConst: " + ctx->getText() << endl;
+    cout << "=== visitIntegerConst: " + ctx->getText() << endl;
 
     ctx->type = Predefined::integer_type;
     return visitChildren(ctx);
 }
 
 antlrcpp::Any Pass1Visitor::visitDoubleConst(GoGoParser::DoubleConstContext *ctx) {
-//    cout << "=== visitFloatConst: " + ctx->getText() << endl;
+    cout << "=== visitFloatConst: " + ctx->getText() << endl;
 
     ctx->type = Predefined::real_type;
     return visitChildren(ctx);
 }
 
 antlrcpp::Any Pass1Visitor::visitParens(GoGoParser::ParensContext *ctx) {
-//    cout << "=== visitParenExpr: " + ctx->getText() << endl;
+    cout << "=== visitParenExpr: " + ctx->getText() << endl;
 
     auto value = visitChildren(ctx);
     ctx->type = ctx->expr()->type;
@@ -267,7 +270,7 @@ antlrcpp::Any Pass1Visitor::visitParens(GoGoParser::ParensContext *ctx) {
 }
 
 antlrcpp::Any Pass1Visitor::visitRelative(GoGoParser::RelativeContext *ctx) {
-//    cout << "=== visitRelative: " + ctx->getText() << endl;
+    cout << "=== visitRelative: " + ctx->getText() << endl;
 
     auto value = visitChildren(ctx);
 
