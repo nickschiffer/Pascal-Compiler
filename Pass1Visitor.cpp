@@ -86,6 +86,8 @@ antlrcpp::Any Pass1Visitor::visitProg(GoGoParser::ProgContext *ctx)
 antlrcpp::Any Pass1Visitor::visitDeclaration(GoGoParser::DeclarationContext *ctx){
     cout << "=== Declaration: " + ctx->getText() << endl;
 
+    //j_file << endl << "; " + ctx->getText() << endl << endl;
+
     variable_id_list.resize(0);
 
     string variable_name = ctx->ID()->toString();
@@ -142,7 +144,7 @@ antlrcpp::Any Pass1Visitor::visitDeclaration_implicit(GoGoParser::Declaration_im
     string type_name;
 
 
-    //hopefully this returns a nullptr
+    //hopefully this returns a nullptr (It does!)
     auto typenode = ctx->INT();
     if (typenode == nullptr){
         typenode = ctx->DOUBLE();

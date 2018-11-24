@@ -11,6 +11,7 @@ SRCS =  main.cpp \
 		GoGoParser.cpp \
 		GoGoVisitor.cpp \
 		Pass1Visitor.cpp \
+        Pass2Visitor.cpp \
         wci/Globals.cpp \
         wci/intermediate/ICodeFactory.cpp \
         wci/intermediate/SymTabFactory.cpp \

@@ -3,10 +3,13 @@ var b double = 3.14;
 turkey := 99;
 chicken := 2.56;
 
-a = (3 * 4);
+b = 8 * 5 + 5;
 
-a = 3 * 4;
+a = 3 * 6;
 
+c = turkey / a;
+
+/*
 if a == (419 + 6) {
     a = 10;
 }
@@ -21,3 +24,4 @@ else {
 while b < 10 {
     b = b + 1;
 }
+*/

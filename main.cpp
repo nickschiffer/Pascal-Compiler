@@ -12,6 +12,7 @@
 #include "GoGoLexer.h"
 #include "GoGoParser.h"
 #include "Pass1Visitor.h"
+#include "Pass2Visitor.h"
 
 using namespace antlrcpp;
 using namespace antlr4;
@@ -34,6 +35,9 @@ int main(int argc, const char *args[])
 
     ostream& j_file = pass1->get_assembly_file();
 
+    Pass2Visitor *pass2 = new Pass2Visitor(j_file);
+    pass2->visit(tree);
+    
     //delete tree;
 
     // cout << "Tokens:" << endl;
