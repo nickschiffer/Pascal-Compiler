@@ -36,7 +36,7 @@ antlrcpp::Any Pass2Visitor::visitProg(GoGoParser::ProgContext *ctx)
     j_file << "\tinvokenonvirtual PascalTextIn/<init>()V" << endl;
     j_file << "\tputstatic        " + program_name
            << "/_standardIn LPascalTextIn;" << endl;
-
+    
     auto value = visitChildren(ctx);
 
     // Emit the main program epilogue.
@@ -246,36 +246,117 @@ antlrcpp::Any Pass2Visitor::visitDoubleConst(GoGoParser::DoubleConstContext *ctx
     return visitChildren(ctx);
 }
 
-// antlrcpp::Any Pass2Visitor::visitRelative(GoGoParser::RelativeContext *ctx)
-// {
-//     auto value = visitChildren(ctx);
+antlrcpp::Any Pass2Visitor::visitRelative(GoGoParser::RelativeContext *ctx)
+{
+    auto value = visitChildren(ctx);
 
-//     TypeSpec *type1 = ctx->expr(0)->type;
-//     TypeSpec *type2 = ctx->expr(1)->type;
+    TypeSpec *type1 = ctx->expr(0)->type;
+    TypeSpec *type2 = ctx->expr(1)->type;
 
-//     bool integer_mode =    (type1 == Predefined::integer_type)
-//                         && (type2 == Predefined::integer_type);
-//     bool real_mode    =    (type1 == Predefined::real_type)
-//                         && (type2 == Predefined::real_type);
+    bool integer_mode =    (type1 == Predefined::integer_type)
+                        && (type2 == Predefined::integer_type);
+    bool real_mode    =    (type1 == Predefined::real_type)
+                        && (type2 == Predefined::real_type);
 
-//     string op = ctx->rel_op()->getText();
-//     string opcode;
+    string op = ctx->rel_op()->getText();
+    string opcode;
 
-//     if (op == "+")
-//     {
-//         opcode = integer_mode ? "iadd"
-//                : real_mode    ? "fadd"
-//                :                "????";
-//     }
-//     else
-//     {
-//         opcode = integer_mode ? "isub"
-//                : real_mode    ? "fsub"
-//                :                "????";
-//     }
+    if(integer_mode) {
+        if(op == "==")
+            j_file << "\tif_icmpeq L0" << to_string(labelCounter) << endl;
+        else if (op == "!=")
+            j_file << "\tif_icmpne L0" << to_string(labelCounter) << endl;
+        else if (op == "<")
+            j_file << "\tif_icmplt L0" << to_string(labelCounter) << endl;
+        else if (op == "<=")
+            j_file << "\tif_icmple L0" << to_string(labelCounter) << endl;
+        else if (op == ">")
+            j_file << "\tif_icmpgt L0" << to_string(labelCounter) << endl;
+        else if (op == ">=")
+            j_file << "\tif_icmpge L0" << to_string(labelCounter) << endl;
+        
+        j_file << "\ticonst_0" << endl;
+        j_file << "\tgoto L0" << to_string(labelCounter + 1) << endl;
+        j_file << "L0" << to_string(labelCounter) << ":" << endl;
+        j_file << "\ticonst_1" << endl;
+        j_file << "L0" << to_string(labelCounter + 1) << ":" << endl;
+        labelCounter += 2;  
+    }
 
-//     // Emit an add or subtract instruction.
-//     j_file << "\t" << opcode << endl;
+        if(real_mode) {
+            j_file << "\tdcmp" << endl;
 
-//     return value;
-// }
+            if(op == "==") 
+                j_file << "\tifeq L0" << to_string(labelCounter) << endl;
+            if(op == "!=")
+                j_file << "\tifne L0" << to_string(labelCounter) << endl;
+            if(op == "<")
+                j_file << "\tiflt L0" << to_string(labelCounter) << endl;
+            if(op == "<=")
+                j_file << "\tifle L0" << to_string(labelCounter) << endl;
+            if(op == ">")
+                j_file << "\tifgt L0" << to_string(labelCounter) << endl;
+            if(op == ">=")
+                j_file << "\tifge L0" << to_string(labelCounter) << endl;
+
+        j_file << "\ticonst_0" << endl;
+        j_file << "\tgoto L0" << to_string(labelCounter + 1) << endl;
+        j_file << "L0" << to_string(labelCounter) << ":" << endl;
+        j_file << "\ticonst_1" << endl;
+        j_file << "L0" << to_string(labelCounter + 1) << ":" << endl;
+        labelCounter += 2;
+        }
+
+    return value;
+}
+
+antlrcpp::Any Pass2Visitor::visitIf_stmt(GoGoParser::If_stmtContext *ctx)
+{
+
+    if(ctx->else_stmt() != nullptr) {
+        hasElse = true;
+        visit(ctx->if_stmt());
+    }
+
+    if(ctx->expr() != nullptr) {
+        visit(ctx->expr());
+        j_file << "\tifeq L0" << to_string(labelCounter) << endl;
+    }
+
+    if(ctx->compound_stmt() != nullptr) //then
+        visit(ctx->compound_stmt());
+    
+    if(hasElse && (ctx->expr() == nullptr))
+        j_file << "\tgoto L0" << to_string(labelCounter + 1) << endl;
+
+    if(ctx->else_stmt() != nullptr)
+        j_file << "L0" << to_string(labelCounter) << ":" << endl;
+
+    if(!hasElse) {
+        j_file << "L0" << to_string(labelCounter) << ":" << endl;
+        labelCounter++;
+    }
+
+    if(ctx->else_stmt() != nullptr) {
+        visit(ctx->else_stmt());
+        j_file << "L0" << to_string(labelCounter + 1) << ":" << endl;
+    }
+
+    if(ctx->if_stmt() != nullptr)
+        labelCounter += 2;
+
+    return nullptr;
+}
+
+antlrcpp::Any Pass2Visitor::visitWhile_loop_stmt(GoGoParser::While_loop_stmtContext *ctx)
+{
+    j_file << "L0" << labelCounter << ":" << endl;
+    labelCounter++;
+    auto value = visit(ctx->expr());    
+    j_file << "\tifeq " << "L0" << labelCounter << endl;
+    visit(ctx->compound_stmt());
+    j_file << "L0" << labelCounter << ":" << endl;
+    labelCounter++;
+    return value;
+
+}

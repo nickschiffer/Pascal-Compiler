@@ -49,28 +49,88 @@
 	ldc	2.56
 	putstatic	LetsGo/chicken F
 
-; b=8*5+5;
-
-	ldc	8
-	ldc	5
-	imul
-	ldc	5
-	iadd
-	putstatic	LetsGo/b I
-
-; a=3*6;
+; a=(3+5*(9-1)*2);
 
 	ldc	3
-	ldc	6
+	ldc	5
+	ldc	9
+	ldc	1
+	isub
 	imul
+	ldc	2
+	imul
+	iadd
 	putstatic	LetsGo/a I
 
-; c=turkey/a;
+; ifa==(419+6){a=10;}
+
+	getstatic	LetsGo/a I
+	ldc	419
+	ldc	6
+	iadd
+	if_icmpeq L01
+	iconst_0
+	goto L02
+L01:
+	iconst_1
+L02:
+	ifeq L03
+
+; a=10;
+
+	ldc	10
+	putstatic	LetsGo/a I
+L03:
+
+; ifturkey>12{a=a+1;}else{a=a+2;}
 
 	getstatic	LetsGo/turkey I
+	ldc	12
+	if_icmpgt L04
+	iconst_0
+	goto L05
+L04:
+	iconst_1
+L05:
+	ifeq L06
+
+; a=a+1;
+
 	getstatic	LetsGo/a I
-	idpv
-	putstatic	LetsGo/c I
+	ldc	1
+	iadd
+	putstatic	LetsGo/a I
+	goto L07
+L06:
+
+; a=a+2;
+
+	getstatic	LetsGo/a I
+	ldc	2
+	iadd
+	putstatic	LetsGo/a I
+L07:
+
+; whilea>=10{a=a+1;}
+
+L08:
+	getstatic	LetsGo/a I
+	ldc	10
+	if_icmpge L09
+	iconst_0
+	goto L010
+L09:
+	iconst_1
+L010:
+	ifeq L011
+
+; a=a+1;
+
+	getstatic	LetsGo/a I
+	ldc	1
+	iadd
+	putstatic	LetsGo/a I
+L011:
 
 	getstatic     LetsGo/_runTimer LRunTimer;
 	invokevirtual RunTimer.printElapsedTime()V

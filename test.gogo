@@ -1,27 +1,21 @@
+
 var a int = 415;
 var b double = 3.14;
 turkey := 99;
 chicken := 2.56;
 
-b = 8 * 5 + 5;
+a = (3 + 5 * (9 - 1) * 2);
 
-a = 3 * 6;
-
-c = turkey / a;
-
-/*
 if a == (419 + 6) {
     a = 10;
 }
 
-else if a + 1 == 50 {
-    a = 0;
-}
-else {
-    a++;
+if turkey > 12 {
+    a = a + 1;
+} else {
+    a = a + 2;
 }
 
-while b < 10 {
-    b = b + 1;
+while a >= 10 {
+    a = a + 1;
 }
-*/

@@ -20,6 +20,8 @@ class Pass2Visitor : public GoGoBaseVisitor
 private:
 	string program_name;
 	ostream& j_file;
+    int labelCounter = 1;
+    bool hasElse = false;
 
 public:
 	Pass2Visitor(ostream& j_file);
@@ -37,7 +39,9 @@ public:
     antlrcpp::Any visitVarExpr(GoGoParser::VarExprContext *ctx) override;
     antlrcpp::Any visitIntegerConst(GoGoParser::IntegerConstContext *ctx) override;
     antlrcpp::Any visitDoubleConst(GoGoParser::DoubleConstContext *ctx) override;
-    //antlrcpp::Any visitRelative(GoGoParser::RelativeContext *ctx) override;
+    antlrcpp::Any visitRelative(GoGoParser::RelativeContext *ctx) override;
+    antlrcpp::Any visitIf_stmt(GoGoParser::If_stmtContext *ctx) override;
+    antlrcpp::Any visitWhile_loop_stmt(GoGoParser::While_loop_stmtContext *ctx) override;
 };
 
 #endif /* PASS2VISITOR_H_ */
