@@ -71,6 +71,10 @@ public:
 
     virtual antlrcpp::Any visitRtrn_stmt(GoGoParser::Rtrn_stmtContext *context) = 0;
 
+    virtual antlrcpp::Any visitPrint_stmt(GoGoParser::Print_stmtContext *context) = 0;
+
+    virtual antlrcpp::Any visitPrintf_stmt(GoGoParser::Printf_stmtContext *context) = 0;
+
     virtual antlrcpp::Any visitMul_div_op(GoGoParser::Mul_div_opContext *context) = 0;
 
     virtual antlrcpp::Any visitAdd_sub_op(GoGoParser::Add_sub_opContext *context) = 0;

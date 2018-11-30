@@ -27,6 +27,7 @@ public:
     virtual ~Pass1Visitor();
 
     ostream& get_assembly_file();
+    SymTabStack* get_symtab_stack() {return symtab_stack;}
     //to keep
     antlrcpp::Any visitProg(GoGoParser::ProgContext *ctx) override;
     antlrcpp::Any visitDeclaration(GoGoParser::DeclarationContext *ctx) override;        

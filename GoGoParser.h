@@ -1,9 +1,7 @@
 
+// Generated from GoGo.g4 by ANTLR 4.7.1
 #include "wci/intermediate/TypeSpec.h"
 using namespace wci::intermediate;
-
-// Generated from GoGo.g4 by ANTLR 4.7.1
-
 #pragma once
 
 
@@ -17,10 +15,10 @@ public:
   enum {
     T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, 
     T__7 = 8, T__8 = 9, TYPE = 10, VAR = 11, FUNC = 12, IF = 13, ELSE = 14, 
-    ELSE_IF = 15, WHILE = 16, RETURN = 17, MUL_OP = 18, DIV_OP = 19, ADD_OP = 20, 
-    SUB_OP = 21, EQ_OP = 22, NE_OP = 23, LT_OP = 24, LE_OP = 25, GT_OP = 26, 
-    GE_OP = 27, INC_OP = 28, DEC_OP = 29, DOUBLE = 30, ID = 31, INT = 32, 
-    NEWLINE = 33, WS = 34, COMMENT = 35
+    ELSE_IF = 15, WHILE = 16, RETURN = 17, PRINT = 18, PRINTF = 19, MUL_OP = 20, 
+    DIV_OP = 21, ADD_OP = 22, SUB_OP = 23, EQ_OP = 24, NE_OP = 25, LT_OP = 26, 
+    LE_OP = 27, GT_OP = 28, GE_OP = 29, INC_OP = 30, DEC_OP = 31, DOUBLE = 32, 
+    ID = 33, INT = 34, STRING = 35, NEWLINE = 36, WS = 37, COMMENT = 38
   };
 
   enum {
@@ -29,8 +27,8 @@ public:
     RuleFunc_call = 8, RuleFunc_call_params = 9, RuleParam = 10, RuleParams = 11, 
     RuleCompound_stmt = 12, RuleIf_stmt = 13, RuleElse_stmt = 14, RuleElse_if_stmt = 15, 
     RuleWhile_loop_stmt = 16, RuleAssignment_stmt = 17, RuleInc_dec = 18, 
-    RuleRtrn_stmt = 19, RuleMul_div_op = 20, RuleAdd_sub_op = 21, RuleRel_op = 22, 
-    RuleInc_dec_op = 23
+    RuleRtrn_stmt = 19, RulePrint_stmt = 20, RulePrintf_stmt = 21, RuleMul_div_op = 22, 
+    RuleAdd_sub_op = 23, RuleRel_op = 24, RuleInc_dec_op = 25
   };
 
   GoGoParser(antlr4::TokenStream *input);
@@ -63,6 +61,8 @@ public:
   class Assignment_stmtContext;
   class Inc_decContext;
   class Rtrn_stmtContext;
+  class Print_stmtContext;
+  class Printf_stmtContext;
   class Mul_div_opContext;
   class Add_sub_opContext;
   class Rel_opContext;
@@ -95,6 +95,8 @@ public:
     While_loop_stmtContext *while_loop_stmt();
     Func_callContext *func_call();
     Rtrn_stmtContext *rtrn_stmt();
+    Printf_stmtContext *printf_stmt();
+    Print_stmtContext *print_stmt();
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
@@ -423,6 +425,35 @@ public:
   };
 
   Rtrn_stmtContext* rtrn_stmt();
+
+  class  Print_stmtContext : public antlr4::ParserRuleContext {
+  public:
+    Print_stmtContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *PRINT();
+    antlr4::tree::TerminalNode *STRING();
+    ExprContext *expr();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  Print_stmtContext* print_stmt();
+
+  class  Printf_stmtContext : public antlr4::ParserRuleContext {
+  public:
+    Printf_stmtContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *PRINTF();
+    antlr4::tree::TerminalNode *STRING();
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  Printf_stmtContext* printf_stmt();
 
   class  Mul_div_opContext : public antlr4::ParserRuleContext {
   public:

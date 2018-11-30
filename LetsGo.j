@@ -5,8 +5,6 @@
 .field private static _standardIn LPascalTextIn;
 .field private static a I
 .field private static b F
-.field private static turkey I
-.field private static chicken F
 
 .method public <init>()V
 
@@ -39,98 +37,24 @@
 	ldc	3.14
 	putstatic	LetsGo/b F
 
-; turkey:=99;
+; printf("Hello %d, %f",a,b);
 
-	ldc	99
-	putstatic	LetsGo/turkey I
-
-; chicken:=2.56;
-
-	ldc	2.56
-	putstatic	LetsGo/chicken F
-
-; a=(3+5*(9-1)*2);
-
-	ldc	3
-	ldc	5
-	ldc	9
-	ldc	1
-	isub
-	imul
-	ldc	2
-	imul
-	iadd
-	putstatic	LetsGo/a I
-
-; ifa==(419+6){a=10;}
-
-	getstatic	LetsGo/a I
-	ldc	419
-	ldc	6
-	iadd
-	if_icmpeq L01
+	getstatic	java/lang/System/out Ljava/io/PrintStream;
+	ldc 	"Hello %d, %f"
+	iconst_2
+	anewarray	java/lang/Object
+	dup
 	iconst_0
-	goto L02
-L01:
+	getstatic	LetsGo/a I
+	invokestatic	java/lang/Integer.valueOf(I)Ljava/lang/Integer;
+	aastore
+	dup
 	iconst_1
-L02:
-	ifeq L03
-
-; a=10;
-
-	ldc	10
-	putstatic	LetsGo/a I
-L03:
-
-; ifturkey>12{a=a+1;}else{a=a+2;}
-
-	getstatic	LetsGo/turkey I
-	ldc	12
-	if_icmpgt L04
-	iconst_0
-	goto L05
-L04:
-	iconst_1
-L05:
-	ifeq L06
-
-; a=a+1;
-
-	getstatic	LetsGo/a I
-	ldc	1
-	iadd
-	putstatic	LetsGo/a I
-	goto L07
-L06:
-
-; a=a+2;
-
-	getstatic	LetsGo/a I
-	ldc	2
-	iadd
-	putstatic	LetsGo/a I
-L07:
-
-; whilea>=10{a=a+1;}
-
-L08:
-	getstatic	LetsGo/a I
-	ldc	10
-	if_icmpge L09
-	iconst_0
-	goto L010
-L09:
-	iconst_1
-L010:
-	ifeq L011
-
-; a=a+1;
-
-	getstatic	LetsGo/a I
-	ldc	1
-	iadd
-	putstatic	LetsGo/a I
-L011:
+	getstatic	LetsGo/b F
+	invokestatic	java/lang/Float.valueOf(F)Ljava/lang/Float;
+	aastore
+	invokevirtual	java/io/PrintStream.printf(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;
+	pop
 
 	getstatic     LetsGo/_runTimer LRunTimer;
 	invokevirtual RunTimer.printElapsedTime()V

@@ -42,6 +42,8 @@ public:
     antlrcpp::Any visitRelative(GoGoParser::RelativeContext *ctx) override;
     antlrcpp::Any visitIf_stmt(GoGoParser::If_stmtContext *ctx) override;
     antlrcpp::Any visitWhile_loop_stmt(GoGoParser::While_loop_stmtContext *ctx) override;
+    antlrcpp::Any visitPrintf_stmt(GoGoParser::Printf_stmtContext *ctx) override;
+    antlrcpp::Any visitPrint_stmt(GoGoParser::Print_stmtContext *ctx) override;
 };
 
 #endif /* PASS2VISITOR_H_ */

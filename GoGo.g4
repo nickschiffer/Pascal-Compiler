@@ -12,7 +12,9 @@ stat:   inc_dec ';'
     |   func_definition 			
     |   while_loop_stmt    			
     |   func_call ';'				
-    |	rtrn_stmt ';'         		
+    |	rtrn_stmt ';'
+    |   printf_stmt ';'
+    |   print_stmt ';'         		
     ;
 
 expr locals [ TypeSpec *type = nullptr ]
@@ -58,6 +60,9 @@ inc_dec: ID inc_dec_op ;
 
 rtrn_stmt: RETURN expr ;
 
+print_stmt: PRINT'('STRING?')' | PRINT'('expr')';
+printf_stmt: PRINTF'('STRING(',' expr)*')';
+
 
 
 mul_div_op: MUL_OP | DIV_OP;
@@ -74,6 +79,9 @@ ELSE: 'else';
 ELSE_IF: 'else if';
 WHILE: 'while';
 RETURN: 'return';
+PRINT: 'print';
+PRINTF: 'printf';
+
 
 MUL_OP: '*';
 DIV_OP: '/';
@@ -94,6 +102,7 @@ DEC_OP: '--';
 DOUBLE:   INT '.' INT;      // match double datatype
 ID  :   [a-zA-Z][a-zA-Z0-9]* ;         // match identifiers <label id="code.tour.EXPR.3"/>
 INT :   [0-9]+ ;            // match integers
+STRING: '"'[a-zA-Z0-9 !@#$%^&*,]+'"';
 NEWLINE : '\r'? '\n' -> skip ;        // return newlines to parser (is end-statement signal)
 WS  :   ([ \t]+ | ' '+) -> skip ;    // toss out whitespace
 COMMENT: ('//' .*? NEWLINE | '/*' .*? '*/') -> skip ; //skip comments

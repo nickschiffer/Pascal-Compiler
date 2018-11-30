@@ -119,6 +119,14 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitPrint_stmt(GoGoParser::Print_stmtContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitPrintf_stmt(GoGoParser::Printf_stmtContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitMul_div_op(GoGoParser::Mul_div_opContext *ctx) override {
     return visitChildren(ctx);
   }

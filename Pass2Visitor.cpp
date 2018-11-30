@@ -360,3 +360,64 @@ antlrcpp::Any Pass2Visitor::visitWhile_loop_stmt(GoGoParser::While_loop_stmtCont
     return value;
 
 }
+antlrcpp::Any Pass2Visitor::visitPrintf_stmt(GoGoParser::Printf_stmtContext *ctx){
+    string format_string = ctx->STRING()->toString();
+    
+    vector<TypeSpec*> types;
+    vector<string> children_strings;
+    int i = 0;
+    auto somwthing = ctx->expr(0);
+    auto something = ctx->children;
+    auto somwthing_else = something.size();
+
+    int expr_count = 0;
+
+
+    for (auto child : something){
+
+        auto mystery = child->children;
+        if (!mystery.empty()){
+            types.push_back(ctx->expr(expr_count++)->type);
+        }
+    }
+    // TypeSpec* typel = ctx->expr(0)->type;
+    // TypeSpec* typem = ctx->expr(0)->type;
+    // TypeSpec* typen = ctx->expr(1)->type;
+    // TypeSpec* typeo = ctx->expr(2)->type;
+    // // ctx->expr(i)->type;
+    // while((typel = ctx->expr(i++)->type) != nullptr){ 
+    //     types.push_back(typel);
+    // }
+
+    int numIDs = types.size();
+
+    j_file << "\t" <<"getstatic" << "\t" << "java/lang/System/out Ljava/io/PrintStream;" << endl;
+    j_file << "\t" <<"ldc "<< "\t" << format_string << endl;
+    j_file << "\t" <<"iconst_" << numIDs << endl;
+    j_file << "\t" <<"anewarray" << "\t" << "java/lang/Object" << endl;
+    
+
+    for (int i = 0; i < numIDs; i++){
+        j_file << "\t" <<"dup" << endl;
+        j_file << "\t" <<"iconst_" << i << endl;
+        visit(ctx->expr(i));
+        j_file << "\t" <<"invokestatic" << "\t" << "java/lang/";
+        if (types[i] == Predefined::integer_type){
+            j_file << "Integer.valueOf(I)Ljava/lang/Integer;"<< endl;
+        }
+        if (types[i] == Predefined::real_type){
+            j_file << "Float.valueOf(F)Ljava/lang/Float;"<<endl;
+        }
+        j_file << "\t" <<"aastore" << endl;
+        
+    } 
+
+    j_file << "\t" <<"invokevirtual" << "\t" << "java/io/PrintStream.printf(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;" << endl;
+    j_file << "\t" <<"pop" << endl;
+
+
+    return nullptr;
+}
+antlrcpp::Any Pass2Visitor::visitPrint_stmt(GoGoParser::Print_stmtContext *ctx){
+
+}

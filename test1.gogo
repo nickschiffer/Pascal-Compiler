@@ -1,0 +1,7 @@
+
+var a int = 415;
+var b double = 3.14;
+
+
+printf("Hello %d, %f", a, b);
+
