@@ -284,7 +284,7 @@ antlrcpp::Any Pass2Visitor::visitRelative(GoGoParser::RelativeContext *ctx)
     }
 
         if(real_mode) {
-            j_file << "\tdcmp" << endl;
+            j_file << "\tfcmpg" << endl;
 
             if(op == "==") 
                 j_file << "\tifeq L0" << to_string(labelCounter) << endl;
@@ -355,6 +355,7 @@ antlrcpp::Any Pass2Visitor::visitWhile_loop_stmt(GoGoParser::While_loop_stmtCont
     auto value = visit(ctx->expr());    
     j_file << "\tifeq " << "L0" << labelCounter << endl;
     visit(ctx->compound_stmt());
+    j_file << "\tgoto L0" << labelCounter - 3 << endl;
     j_file << "L0" << labelCounter << ":" << endl;
     labelCounter++;
     return value;

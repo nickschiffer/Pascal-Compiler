@@ -102,7 +102,7 @@ DEC_OP: '--';
 DOUBLE:   INT '.' INT;      // match double datatype
 ID  :   [a-zA-Z][a-zA-Z0-9]* ;         // match identifiers <label id="code.tour.EXPR.3"/>
 INT :   [0-9]+ ;            // match integers
-STRING: '"'[a-zA-Z0-9 !@#$%^&*,]+'"';
+STRING: '"'[a-zA-Z0-9 !@#$%^&*,.\\]+'"';
 NEWLINE : '\r'? '\n' -> skip ;        // return newlines to parser (is end-statement signal)
 WS  :   ([ \t]+ | ' '+) -> skip ;    // toss out whitespace
 COMMENT: ('//' .*? NEWLINE | '/*' .*? '*/') -> skip ; //skip comments
