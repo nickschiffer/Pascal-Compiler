@@ -14,10 +14,10 @@ public:
   enum {
     T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, 
     T__7 = 8, T__8 = 9, TYPE = 10, VAR = 11, FUNC = 12, IF = 13, ELSE = 14, 
-    ELSE_IF = 15, WHILE = 16, RETURN = 17, MUL_OP = 18, DIV_OP = 19, ADD_OP = 20, 
-    SUB_OP = 21, EQ_OP = 22, NE_OP = 23, LT_OP = 24, LE_OP = 25, GT_OP = 26, 
-    GE_OP = 27, INC_OP = 28, DEC_OP = 29, DOUBLE = 30, ID = 31, INT = 32, 
-    NEWLINE = 33, WS = 34
+    ELSE_IF = 15, WHILE = 16, RETURN = 17, PRINT = 18, PRINTF = 19, MUL_OP = 20, 
+    DIV_OP = 21, ADD_OP = 22, SUB_OP = 23, EQ_OP = 24, NE_OP = 25, LT_OP = 26, 
+    LE_OP = 27, GT_OP = 28, GE_OP = 29, INC_OP = 30, DEC_OP = 31, DOUBLE = 32, 
+    ID = 33, INT = 34, STRING = 35, NEWLINE = 36, WS = 37, COMMENT = 38
   };
 
   GoGoLexer(antlr4::CharStream *input);

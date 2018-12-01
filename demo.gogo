@@ -1,0 +1,27 @@
+
+var a int = 415;
+var b double = 3.14;
+turkey := 99;
+gravy := 2.56;
+
+a = (3 + 5 * (9 - 1) * 2);
+
+if a == (90 - 7) {
+    turkey = 10;
+}
+
+if gravy > 6.34 {
+    a = a + 10;
+} else {
+    a = turkey * 3;
+}
+
+var count int = 0;
+
+while count <= 5 {
+    printf("The count is %d.\n", count);
+    count = count + 1;
+}
+
+printf("a is %d\nb is %.2f\nturkey is %d\ngravy is %.2f\n", a, b, turkey, gravy);
+printf("That is all folks\n");
