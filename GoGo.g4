@@ -45,13 +45,11 @@ params: (param (',' param)*)? ;
 
 compound_stmt: '{' stat* '}' | stat;
 
-if_stmt: IF expr compound_stmt
-        | if_stmt (else_if_stmt)
-        | if_stmt else_stmt
-        ;
+if_stmt: IF expr compound_stmt ((else_if_stmt)* else_stmt)?;
 
 else_stmt: ELSE compound_stmt ;
 else_if_stmt: ELSE_IF expr compound_stmt ;
+
 while_loop_stmt: WHILE expr (compound_stmt) ; //From C++
 
 assignment_stmt: ID '=' expr ;

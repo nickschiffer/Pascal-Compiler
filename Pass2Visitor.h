@@ -21,6 +21,7 @@ private:
 	string program_name;
 	ostream& j_file;
     int labelCounter = 1;
+    int nextCounter, endCounter;
     bool hasElse = false;
 
 public:
@@ -44,6 +45,7 @@ public:
     antlrcpp::Any visitWhile_loop_stmt(GoGoParser::While_loop_stmtContext *ctx) override;
     antlrcpp::Any visitPrintf_stmt(GoGoParser::Printf_stmtContext *ctx) override;
     antlrcpp::Any visitPrint_stmt(GoGoParser::Print_stmtContext *ctx) override;
+    antlrcpp::Any visitElse_if_stmt(GoGoParser::Else_if_stmtContext *ctx) override;
 };
 
 #endif /* PASS2VISITOR_H_ */

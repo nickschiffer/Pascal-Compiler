@@ -313,39 +313,58 @@ antlrcpp::Any Pass2Visitor::visitRelative(GoGoParser::RelativeContext *ctx)
 antlrcpp::Any Pass2Visitor::visitIf_stmt(GoGoParser::If_stmtContext *ctx)
 {
 
-    if(ctx->else_stmt() != nullptr) {
-        hasElse = true;
-        visit(ctx->if_stmt());
-    }
-
-    if(ctx->expr() != nullptr) {
-        visit(ctx->expr());
-        j_file << "\tifeq L0" << to_string(labelCounter) << endl;
-    }
-
-    if(ctx->compound_stmt() != nullptr) //then
-        visit(ctx->compound_stmt());
+    auto value = visit(ctx->expr());
     
-    if(hasElse && (ctx->expr() == nullptr))
-        j_file << "\tgoto L0" << to_string(labelCounter + 1) << endl;
+    endCounter = labelCounter; //For end-of-statement label
+    labelCounter++;
 
-    if(ctx->else_stmt() != nullptr)
-        j_file << "L0" << to_string(labelCounter) << ":" << endl;
-
-    if(!hasElse) {
-        j_file << "L0" << to_string(labelCounter) << ":" << endl;
-        labelCounter++;
+    if (ctx->else_stmt() != nullptr) {
+        nextCounter = labelCounter; //For next else-if statement
+        labelCounter++;  
+        j_file << "\tifeq L0" << nextCounter << endl;
+    }  else {
+        j_file << "\tifeq L0" << endCounter << endl;
     }
 
-    if(ctx->else_stmt() != nullptr) {
+    visit(ctx->compound_stmt());   
+
+    if (ctx->else_if_stmt(0) != nullptr) {
+        j_file << "\tgoto L0" << endCounter << endl;
+        j_file << "L0" << nextCounter << ":" << endl;
+        nextCounter++;
+        int i = 0;
+        while(ctx->else_if_stmt(i) != nullptr){
+            visit(ctx->else_if_stmt(i));
+            i++;
+        }
+    }
+    
+    if (ctx->else_stmt() != nullptr){
+        if(ctx->else_if_stmt(0) == nullptr){
+            j_file << "\tgoto L0" << endCounter << endl;
+            j_file << "L0" << nextCounter << ":" << endl;
+        }
         visit(ctx->else_stmt());
-        j_file << "L0" << to_string(labelCounter + 1) << ":" << endl;
     }
 
-    if(ctx->if_stmt() != nullptr)
-        labelCounter += 2;
+    j_file << "L0" << endCounter << ":" << endl;
 
-    return nullptr;
+    return value;
+}
+
+antlrcpp::Any Pass2Visitor::visitElse_if_stmt(GoGoParser::Else_if_stmtContext *ctx)
+{
+    auto value = visit(ctx->expr());
+    
+    j_file << "\tifeq L0" << labelCounter << endl;
+    nextCounter = labelCounter;
+    labelCounter++;
+
+    visit(ctx->compound_stmt());
+    j_file << "\tgoto L0" << endCounter << endl;
+    j_file << "L0" << nextCounter << ":" << endl;
+   
+    return value;
 }
 
 antlrcpp::Any Pass2Visitor::visitWhile_loop_stmt(GoGoParser::While_loop_stmtContext *ctx)

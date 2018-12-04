@@ -1,4 +1,3 @@
-
 #include "wci/intermediate/TypeSpec.h"
 using namespace wci::intermediate;
 // Generated from GoGo.g4 by ANTLR 4.7.1
@@ -337,16 +336,16 @@ public:
     antlr4::tree::TerminalNode *IF();
     ExprContext *expr();
     Compound_stmtContext *compound_stmt();
-    If_stmtContext *if_stmt();
-    Else_if_stmtContext *else_if_stmt();
     Else_stmtContext *else_stmt();
+    std::vector<Else_if_stmtContext *> else_if_stmt();
+    Else_if_stmtContext* else_if_stmt(size_t i);
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
   If_stmtContext* if_stmt();
-  If_stmtContext* if_stmt(int precedence);
+
   class  Else_stmtContext : public antlr4::ParserRuleContext {
   public:
     Else_stmtContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -515,7 +514,6 @@ public:
 
   virtual bool sempred(antlr4::RuleContext *_localctx, size_t ruleIndex, size_t predicateIndex) override;
   bool exprSempred(ExprContext *_localctx, size_t predicateIndex);
-  bool if_stmtSempred(If_stmtContext *_localctx, size_t predicateIndex);
 
 private:
   static std::vector<antlr4::dfa::DFA> _decisionToDFA;
