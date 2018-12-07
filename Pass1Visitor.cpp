@@ -65,7 +65,7 @@ antlrcpp::Any Pass1Visitor::visitProg(GoGoParser::ProgContext *ctx)
 
 antlrcpp::Any Pass1Visitor::visitMain(GoGoParser::MainContext *ctx)
 {
-
+    isFunction = false;
     string program_name = "LetsGo";
     // Emit the program header.
     j_file << ".class public " << program_name << endl;
@@ -129,8 +129,11 @@ antlrcpp::Any Pass1Visitor::visitDeclaration(GoGoParser::DeclarationContext *ctx
         id->set_typespec(type);
 
         // Emit a field declaration.
+
+        if(!isFunction) {
         j_file << ".field private static "
                << id->get_name() << " " << type_indicator << endl; //table for one?
+        }
     }
 
     return visitChildren(ctx); //nullptr
@@ -192,8 +195,10 @@ antlrcpp::Any Pass1Visitor::visitDeclaration_implicit(GoGoParser::Declaration_im
         id->set_typespec(type);
 
         // Emit a field declaration.
+        if(!isFunction) {
         j_file << ".field private static "
                << id->get_name() << " " << type_indicator << endl; //table for one?
+        }
     }
 
     return visitChildren(ctx); //nullptr
@@ -201,6 +206,7 @@ antlrcpp::Any Pass1Visitor::visitDeclaration_implicit(GoGoParser::Declaration_im
 
 antlrcpp::Any Pass1Visitor::visitFunc_definition(GoGoParser::Func_definitionContext *ctx){
     
+    isFunction = true;
     variable_id_list.resize(0);
 
     string function_name = ctx->ID()->toString();
@@ -225,7 +231,7 @@ antlrcpp::Any Pass1Visitor::visitFunc_definition(GoGoParser::Func_definitionCont
     }
     else
     {
-        type = nullptr;
+        type = Predefined::undefined_type;
     }
 
     for (SymTabEntry *id : variable_id_list) {

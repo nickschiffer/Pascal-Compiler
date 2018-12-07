@@ -15,14 +15,12 @@
 .limit locals 1
 .limit stack 1
 .end method
-.field private static c I
-.field private static d F
 
-.method static chad(IF)I
-.var 0 is I a
-.var 1 is F b
-.var 2 is I c
-.var 3 is F d
+.method private static chad(IF)F
+.var 0 is a I 
+.var 1 is b F 
+.var 2 is c I 
+.var 3 is d F 
 
 ; varcint=0;
 
@@ -53,38 +51,14 @@
 	ldc	5
 	putstatic	LetsGo/hello I
 
-; returnhello;
+; returnd;
 
-	getstatic	LetsGo/hello I
-	ireturn
-
-.method static palmer(FII)F
-.var 0 is F w
-.var 1 is I p
-.var 2 is I l
-
-; if(p==l){w=hello;}
-
-	iload_1
-	iload_2
-	if_icmpeq L01
-	iconst_0
-	goto L02
-L01:
-	iconst_1
-L02:
-	ifeq L03
-
-; w=hello;
-
-	getstatic	LetsGo/hello I
-	istore_0
-L03:
-
-; returnw;
-
-	fload_0
+	fload_3
 	freturn
+
+.limit stack 16
+.limit locals 4
+.end method
 
 .method public static main([Ljava/lang/String;)V
 
@@ -109,16 +83,16 @@ L03:
 
 ; while(hello<world){hello=hello+1;printf("Tick\n");}
 
-L04:
+L01:
 	getstatic	LetsGo/hello I
 	getstatic	LetsGo/world I
-	if_icmplt L05
+	if_icmplt L02
 	iconst_0
-	goto L06
-L05:
+	goto L03
+L02:
 	iconst_1
-L06:
-	ifeq L07
+L03:
+	ifeq L04
 
 ; hello=hello+1;
 
@@ -135,8 +109,8 @@ L06:
 	anewarray	java/lang/Object
 	invokevirtual	java/io/PrintStream.printf(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;
 	pop
-	goto L04
-L07:
+	goto L01
+L04:
 
 	getstatic     LetsGo/_runTimer LRunTimer;
 	invokevirtual RunTimer.printElapsedTime()V

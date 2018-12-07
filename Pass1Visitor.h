@@ -21,6 +21,7 @@ private:
     SymTabEntry *program_id;
     vector<SymTabEntry *> variable_id_list;
     ofstream j_file;
+    bool isFunction;
 
 public:
     Pass1Visitor();

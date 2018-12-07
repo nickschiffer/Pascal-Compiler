@@ -192,6 +192,7 @@ antlrcpp::Any Pass2Visitor::visitDeclaration_implicit(GoGoParser::Declaration_im
            << "/" << ctx->ID()->toString()
            << " " << type_indicator << endl;
     }
+
     return visitChildren(ctx);    
 }
 
@@ -202,7 +203,7 @@ antlrcpp::Any Pass2Visitor::visitFunc_definition(GoGoParser::Func_definitionCont
     locals.clear();
 
     program_name = "LetsGo";
-    j_file << endl << ".method static " << ctx->ID()->toString() << "(";
+    j_file << endl << ".method private static " << ctx->ID()->toString() << "(";
 
     //Generate method header line
     int i = 0;
@@ -218,18 +219,20 @@ antlrcpp::Any Pass2Visitor::visitFunc_definition(GoGoParser::Func_definitionCont
 
     j_file << ")";
     
-    if(ctx->TYPE()->toString() == "int")
+    if(ctx->TYPE()->toString() == "int") {
         j_file << "I" << endl;
-    else
+    } else if(ctx->TYPE()->toString() == "double") {
         j_file << "F" << endl;
-
+    } else {
+        j_file << "V" << endl;
+    }
     //Add parameter variables
     i = 0;
     while(ctx->params()->param(i) != nullptr) {
         if(ctx->params()->param(i)->TYPE()->toString() == "int") {
-            j_file << ".var " << i << " is I " << ctx->params()->param(i)->ID()->toString() << endl;
+            j_file << ".var " << i << " is " << ctx->params()->param(i)->ID()->toString() << " I " << endl;
         } else {
-            j_file << ".var " << i << " is F " << ctx->params()->param(i)->ID()->toString() << endl;
+            j_file << ".var " << i << " is " << ctx->params()->param(i)->ID()->toString() << " F " << endl;
         }        
         i++;
     }
@@ -239,17 +242,27 @@ antlrcpp::Any Pass2Visitor::visitFunc_definition(GoGoParser::Func_definitionCont
     while(ctx->compound_stmt()->stat(j) != nullptr){
         if(ctx->compound_stmt()->stat(j)->declaration() != nullptr){
             if(ctx->compound_stmt()->stat(j)->declaration()->TYPE()->toString() == "int") {
-                j_file << ".var " << locals.size() << " is I " << ctx->compound_stmt()->stat(j)->declaration()->ID()->toString() << endl;
+                j_file << ".var " << locals.size() << " is " << ctx->compound_stmt()->stat(j)->declaration()->ID()->toString() << " I " << endl;
             } else {
-                j_file << ".var " << locals.size() << " is F " << ctx->compound_stmt()->stat(j)->declaration()->ID()->toString() << endl;
+                j_file << ".var " << locals.size() << " is " << ctx->compound_stmt()->stat(j)->declaration()->ID()->toString() << " F " << endl;
             }
             locals.push_back(ctx->compound_stmt()->stat(j)->declaration()->ID()->toString());
         }
         j++;
     }
 
-    auto value = visitChildren(ctx->compound_stmt());    
-    return nullptr;
+    auto value = visitChildren(ctx->compound_stmt());
+
+    if(ctx->TYPE()->toString() == "void")
+        j_file << endl << "\treturn" << endl;
+    
+
+    //print end of method
+    j_file << endl << ".limit stack 16" << endl;
+    j_file << ".limit locals " << locals.size() << endl;
+    j_file << ".end method" << endl;    
+    
+    return value;
 }
 
 antlrcpp::Any Pass2Visitor::visitRtrn_stmt(GoGoParser::Rtrn_stmtContext *ctx)
@@ -307,6 +320,7 @@ antlrcpp::Any Pass2Visitor::visitAssignment_stmt(GoGoParser::Assignment_stmtCont
            << "/" << ctx->ID()->toString()
            << " " << type_indicator << endl;
     }
+
     return value;
 }
 

@@ -70,7 +70,7 @@ rel_op:     EQ_OP | NE_OP | LT_OP | LE_OP | GT_OP | GE_OP;
 inc_dec_op: INC_OP | DEC_OP;
 
 
-TYPE: 'int' | 'double' ;
+TYPE: 'int' | 'double' | 'void';
 VAR: 'var';
 FUNC: 'func';
 IF: 'if';
