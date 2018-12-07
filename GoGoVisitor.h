@@ -1,4 +1,5 @@
-
+#include "wci/intermediate/TypeSpec.h"
+using namespace wci::intermediate;
 // Generated from GoGo.g4 by ANTLR 4.7.1
 
 #pragma once
@@ -20,6 +21,8 @@ public:
    * Visit parse trees produced by GoGoParser.
    */
     virtual antlrcpp::Any visitProg(GoGoParser::ProgContext *context) = 0;
+
+    virtual antlrcpp::Any visitMain(GoGoParser::MainContext *context) = 0;
 
     virtual antlrcpp::Any visitStat(GoGoParser::StatContext *context) = 0;
 

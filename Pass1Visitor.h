@@ -30,6 +30,7 @@ public:
     SymTabStack* get_symtab_stack() {return symtab_stack;}
     //to keep
     antlrcpp::Any visitProg(GoGoParser::ProgContext *ctx) override;
+    antlrcpp::Any visitMain(GoGoParser::MainContext *ctx) override;
     antlrcpp::Any visitDeclaration(GoGoParser::DeclarationContext *ctx) override;        
     antlrcpp::Any visitDeclaration_implicit(GoGoParser::Declaration_implicitContext *ctx) override;
     antlrcpp::Any visitMulDiv(GoGoParser::MulDivContext *ctx) override;
@@ -40,12 +41,10 @@ public:
     antlrcpp::Any visitDoubleConst(GoGoParser::DoubleConstContext *ctx) override;
     antlrcpp::Any visitParens(GoGoParser::ParensContext *ctx) override;
     antlrcpp::Any visitRelative(GoGoParser::RelativeContext *ctx) override;
-
-
+    antlrcpp::Any visitFunc_definition(GoGoParser::Func_definitionContext *ctx) override;
 
     //extras
     // antlrcpp::Any visitStat(GoGoParser::StatContext *ctx) override;
-    // antlrcpp::Any visitFunc_definition(GoGoParser::Func_definitionContext *ctx) override;
     // antlrcpp::Any visitFunc_call(GoGoParser::Func_callContext *ctx) override;
     // antlrcpp::Any visitFunc_call_params(GoGoParser::Func_call_paramsContext *ctx) override;
     // antlrcpp::Any visitParam(GoGoParser::ParamContext *ctx) override;

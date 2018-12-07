@@ -45,6 +45,28 @@ antlrcpp::Any Pass1Visitor::visitProg(GoGoParser::ProgContext *ctx)
             exit(-99);
     }
 
+    auto value = visit(ctx->main());
+    int i = 0;
+    while(ctx->func_definition(i) != nullptr) {
+         visit(ctx->func_definition(i));
+         i++;
+    }
+   
+    //auto value = visitChildren(ctx);
+
+    cout << "=== visitProg: Printing xref table." << endl;
+
+    // Print the cross-reference table.
+    CrossReferencer cross_referencer;
+    cross_referencer.print(symtab_stack);
+
+    return value;
+}
+
+antlrcpp::Any Pass1Visitor::visitMain(GoGoParser::MainContext *ctx)
+{
+
+    string program_name = "LetsGo";
     // Emit the program header.
     j_file << ".class public " << program_name << endl;
     j_file << ".super java/lang/Object" << endl;
@@ -53,10 +75,6 @@ antlrcpp::Any Pass1Visitor::visitProg(GoGoParser::ProgContext *ctx)
     j_file << endl;
     j_file << ".field private static _runTimer LRunTimer;" << endl;
     j_file << ".field private static _standardIn LPascalTextIn;" << endl;
-
-
-
-
 
     auto value = visitChildren(ctx);
 
@@ -71,14 +89,6 @@ antlrcpp::Any Pass1Visitor::visitProg(GoGoParser::ProgContext *ctx)
     j_file << ".limit locals 1" << endl;
     j_file << ".limit stack 1" << endl;
     j_file << ".end method" << endl;
-
-
-
-     cout << "=== visitProg: Printing xref table." << endl;
-
-    // Print the cross-reference table.
-    CrossReferencer cross_referencer;
-    cross_referencer.print(symtab_stack);
 
     return value;
 }
@@ -187,6 +197,76 @@ antlrcpp::Any Pass1Visitor::visitDeclaration_implicit(GoGoParser::Declaration_im
     }
 
     return visitChildren(ctx); //nullptr
+}
+
+antlrcpp::Any Pass1Visitor::visitFunc_definition(GoGoParser::Func_definitionContext *ctx){
+    
+    variable_id_list.resize(0);
+
+    string function_name = ctx->ID()->toString();
+    SymTabEntry *function_id = symtab_stack->enter_local(function_name);
+    function_id->set_definition((Definition) DF_FUNCTION);
+    variable_id_list.push_back(function_id);
+
+    //////Code for Symbol Table Entry of function name
+    cout << "=== FunctionDefinition: " + ctx->getText() << endl;
+
+    TypeSpec *type;
+    string type_name;
+
+    type_name = ctx->TYPE()->toString();
+    if (type_name == "int")
+    {
+        type = Predefined::integer_type;
+    }
+    else if (type_name == "double")
+    {
+        type = Predefined::real_type;
+    }
+    else
+    {
+        type = nullptr;
+    }
+
+    for (SymTabEntry *id : variable_id_list) {
+        id->set_typespec(type);
+    }
+
+    //////Code for putting parameters in symbol table
+       int i = 0;
+    while(ctx->params()->param(i) != nullptr){
+        variable_id_list.resize(0);
+
+        string variable_name = ctx->params()->param(i)->ID()->toString();
+        SymTabEntry *variable_id = symtab_stack->enter_local(variable_name);
+        variable_id->set_definition((Definition) DF_VARIABLE);
+        variable_id_list.push_back(variable_id);
+
+        cout << "=== FunctionParameter: " + ctx->getText() << endl;
+
+  
+ 
+        type_name = ctx->params()->param(i)->TYPE()->toString();
+        if (type_name == "int")
+        {
+            type = Predefined::integer_type;
+        }
+        else if (type_name == "double")
+        {
+            type = Predefined::real_type;
+        }
+        else
+        {
+            type = nullptr;
+        }
+
+        for (SymTabEntry *id : variable_id_list) {
+            id->set_typespec(type);
+        }
+        i++;
+    }
+
+    return visitChildren(ctx);
 }
 
 antlrcpp::Any Pass1Visitor::visitMulDiv(GoGoParser::MulDivContext *ctx) {

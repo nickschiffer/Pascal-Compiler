@@ -38,17 +38,7 @@ int main(int argc, const char *args[])
     Pass2Visitor *pass2 = new Pass2Visitor(j_file);
     pass2->visit(tree);
     
-    //delete tree;
-
-    // cout << "Tokens:" << endl;
-    // tokens.fill();
-    // for (Token *token : tokens.getTokens())
-    // {
-    //     std::cout << token->toString() << std::endl;
-    // }
-
-    // cout << endl << "Parse tree (Lisp format):" << endl;
-    // std::cout << tree->toStringTree(&parser) << endl;
+    delete pass1, pass2;
 
     return 0;
 }

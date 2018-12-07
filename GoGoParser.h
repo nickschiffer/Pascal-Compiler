@@ -22,13 +22,13 @@ public:
   };
 
   enum {
-    RuleProg = 0, RuleStat = 1, RuleExpr = 2, RuleVariable = 3, RuleNumber = 4, 
-    RuleDeclaration = 5, RuleDeclaration_implicit = 6, RuleFunc_definition = 7, 
-    RuleFunc_call = 8, RuleFunc_call_params = 9, RuleParam = 10, RuleParams = 11, 
-    RuleCompound_stmt = 12, RuleIf_stmt = 13, RuleElse_stmt = 14, RuleElse_if_stmt = 15, 
-    RuleWhile_loop_stmt = 16, RuleAssignment_stmt = 17, RuleInc_dec = 18, 
-    RuleRtrn_stmt = 19, RulePrint_stmt = 20, RulePrintf_stmt = 21, RuleMul_div_op = 22, 
-    RuleAdd_sub_op = 23, RuleRel_op = 24, RuleInc_dec_op = 25
+    RuleProg = 0, RuleMain = 1, RuleStat = 2, RuleExpr = 3, RuleVariable = 4, 
+    RuleNumber = 5, RuleDeclaration = 6, RuleDeclaration_implicit = 7, RuleFunc_definition = 8, 
+    RuleFunc_call = 9, RuleFunc_call_params = 10, RuleParam = 11, RuleParams = 12, 
+    RuleCompound_stmt = 13, RuleIf_stmt = 14, RuleElse_stmt = 15, RuleElse_if_stmt = 16, 
+    RuleWhile_loop_stmt = 17, RuleAssignment_stmt = 18, RuleInc_dec = 19, 
+    RuleRtrn_stmt = 20, RulePrint_stmt = 21, RulePrintf_stmt = 22, RuleMul_div_op = 23, 
+    RuleAdd_sub_op = 24, RuleRel_op = 25, RuleInc_dec_op = 26
   };
 
   GoGoParser(antlr4::TokenStream *input);
@@ -42,6 +42,7 @@ public:
 
 
   class ProgContext;
+  class MainContext;
   class StatContext;
   class ExprContext;
   class VariableContext;
@@ -72,6 +73,20 @@ public:
   public:
     ProgContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
+    MainContext *main();
+    std::vector<Func_definitionContext *> func_definition();
+    Func_definitionContext* func_definition(size_t i);
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  ProgContext* prog();
+
+  class  MainContext : public antlr4::ParserRuleContext {
+  public:
+    MainContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
     std::vector<StatContext *> stat();
     StatContext* stat(size_t i);
 
@@ -79,7 +94,7 @@ public:
    
   };
 
-  ProgContext* prog();
+  MainContext* main();
 
   class  StatContext : public antlr4::ParserRuleContext {
   public:
@@ -91,7 +106,6 @@ public:
     DeclarationContext *declaration();
     Declaration_implicitContext *declaration_implicit();
     If_stmtContext *if_stmt();
-    Func_definitionContext *func_definition();
     While_loop_stmtContext *while_loop_stmt();
     Func_callContext *func_call();
     Rtrn_stmtContext *rtrn_stmt();

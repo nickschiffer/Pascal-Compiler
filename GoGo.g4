@@ -1,15 +1,16 @@
 grammar GoGo;
 
 /** The start rule; begin parsing here. */
-prog:   stat+ ; 
+prog:   func_definition* main;
+
+main:   stat+ ; 
 
 stat:   inc_dec ';'					
     |   expr ';'          			
     |   assignment_stmt ';'			
     |   declaration ';'				
     |   declaration_implicit ';'	
-    |   if_stmt						
-    |   func_definition 			
+    |   if_stmt 			
     |   while_loop_stmt    			
     |   func_call ';'				
     |	rtrn_stmt ';'

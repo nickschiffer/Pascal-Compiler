@@ -23,17 +23,21 @@ private:
     int labelCounter = 1;
     int nextCounter, endCounter;
     bool hasElse = false;
+    vector<string> locals;
+    string currentFunc;
+    bool isFunction;
 
 public:
 	Pass2Visitor(ostream& j_file);
     virtual ~Pass2Visitor();
 
-
-
     antlrcpp::Any visitProg(GoGoParser::ProgContext *ctx) override;
+    antlrcpp::Any visitMain(GoGoParser::MainContext *ctx) override;
     antlrcpp::Any visitStat(GoGoParser::StatContext *ctx) override;
     antlrcpp::Any visitDeclaration(GoGoParser::DeclarationContext *ctx) override;
     antlrcpp::Any visitDeclaration_implicit(GoGoParser::Declaration_implicitContext *ctx) override;
+    antlrcpp::Any visitFunc_definition(GoGoParser::Func_definitionContext *ctx) override;
+    antlrcpp::Any visitRtrn_stmt(GoGoParser::Rtrn_stmtContext *ctx) override;
     antlrcpp::Any visitAssignment_stmt(GoGoParser::Assignment_stmtContext *ctx) override;
     antlrcpp::Any visitAddSub(GoGoParser::AddSubContext *ctx) override;
     antlrcpp::Any visitMulDiv(GoGoParser::MulDivContext *ctx) override;

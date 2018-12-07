@@ -19,6 +19,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitMain(GoGoParser::MainContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitStat(GoGoParser::StatContext *ctx) override {
     return visitChildren(ctx);
   }
