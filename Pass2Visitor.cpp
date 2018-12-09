@@ -662,11 +662,11 @@ antlrcpp::Any Pass2Visitor::visitFunc_call(GoGoParser::Func_callContext *ctx){
 
     j_file << ")";
 
-    if(symtabstack->lookup_local("add")->get_typespec() == Predefined::integer_type) {
+    if(symtabstack->lookup_local(ctx->ID()->toString())->get_typespec() == Predefined::integer_type) {
         j_file << "I";
-    } else if(symtabstack->lookup_local("add")->get_typespec() == Predefined::real_type) {
+    } else if(symtabstack->lookup_local(ctx->ID()->toString())->get_typespec() == Predefined::real_type) {
         j_file << "F";
-    } else if(symtabstack->lookup_local("add")->get_typespec() == Predefined::undefined_type) {
+    } else if(symtabstack->lookup_local(ctx->ID()->toString())->get_typespec() == Predefined::undefined_type) {
         j_file << "V";
     }  else {
         j_file << "?";

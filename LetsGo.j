@@ -3,9 +3,8 @@
 
 .field private static _runTimer LRunTimer;
 .field private static _standardIn LPascalTextIn;
-.field private static hello F
-.field private static world I
-.field private static sum I
+.field private static a I
+.field private static b I
 
 .method public <init>()V
 
@@ -17,21 +16,53 @@
 .limit stack 1
 .end method
 
-.method private static add(II)I
-.var 0 is a I 
-.var 1 is b I 
-.var 2 is test I 
+.method private static factorial(I)I
+.var 0 is n I 
+.var 1 is c I 
+.var 2 is fact I 
 
-; vartestint=5;
+; varcint=1;
 
-	ldc	5
+	ldc	1
+	istore_1
+
+; varfactint=1;
+
+	ldc	1
 	istore_2
 
-; returna+b;
+; while(c<=n){fact=fact*c;c=c+1;}
 
-	iload_0
+L01:
 	iload_1
+	iload_0
+	if_icmple L02
+	iconst_0
+	goto L03
+L02:
+	iconst_1
+L03:
+	ifeq L04
+
+; fact=fact*c;
+
+	iload_2
+	iload_1
+	imul
+	istore_2
+
+; c=c+1;
+
+	iload_1
+	ldc	1
 	iadd
+	istore_1
+	goto L01
+L04:
+
+; returnfact;
+
+	iload_2
 	ireturn
 
 .limit stack 16
@@ -49,44 +80,36 @@
 	invokenonvirtual PascalTextIn/<init>()V
 	putstatic        LetsGo/_standardIn LPascalTextIn;
 
-; varhellodouble=6.5;
+; a:=5;
 
-	ldc	6.5
-	putstatic	LetsGo/hello F
+	ldc	5
+	putstatic	LetsGo/a I
 
-; varworldint=10;
-
-	ldc	10
-	putstatic	LetsGo/world I
-
-; varsumint=0;
+; b:=0;
 
 	ldc	0
-	putstatic	LetsGo/sum I
+	putstatic	LetsGo/b I
 
-; world=world+1;
+; b=factorial(a);
 
-	getstatic	LetsGo/world I
-	ldc	1
-	iadd
-	putstatic	LetsGo/world I
+	getstatic	LetsGo/a I
+	invokestatic LetsGo/factorial(I)I
+	putstatic	LetsGo/b I
 
-; sum=add(world,5);
-
-	getstatic	LetsGo/world I
-	ldc	5
-	invokestatic LetsGo/add(II)I
-	putstatic	LetsGo/sum I
-
-; printf("The sum is %d\n",sum);
+; printf("factorial of %d = %d\n",a,b);
 
 	getstatic	java/lang/System/out Ljava/io/PrintStream;
-	ldc 	"The sum is %d\n"
-	iconst_1
+	ldc 	"factorial of %d = %d\n"
+	iconst_2
 	anewarray	java/lang/Object
 	dup
 	iconst_0
-	getstatic	LetsGo/sum I
+	getstatic	LetsGo/a I
+	invokestatic	java/lang/Integer.valueOf(I)Ljava/lang/Integer;
+	aastore
+	dup
+	iconst_1
+	getstatic	LetsGo/b I
 	invokestatic	java/lang/Integer.valueOf(I)Ljava/lang/Integer;
 	aastore
 	invokevirtual	java/io/PrintStream.printf(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;

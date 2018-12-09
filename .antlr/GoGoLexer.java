@@ -1,4 +1,4 @@
-// Generated from /home/chad/Documents/Pascal-Compiler/GoGo.g4 by ANTLR 4.7.1
+// Generated from /home/nick/Documents/CMPE152/Pascal-Compiler/GoGo.g4 by ANTLR 4.7.1
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -129,7 +129,7 @@ public class GoGoLexer extends Lexer {
 		"\'\3\'\5\'\u0105\n\'\3\'\3\'\4\u00f5\u00ff\2(\3\3\5\4\7\5\t\6\13\7\r\b"+
 		"\17\t\21\n\23\13\25\f\27\r\31\16\33\17\35\20\37\21!\22#\23%\24\'\25)\26"+
 		"+\27-\30/\31\61\32\63\33\65\34\67\359\36;\37= ?!A\"C#E$G%I&K\'M(\3\2\7"+
-		"\4\2C\\c|\5\2\62;C\\c|\3\2\62;\f\2\"#%(,,..\60\60\62;B\\^^``c|\4\2\13"+
+		"\4\2C\\c|\5\2\62;C\\c|\3\2\62;\f\2\"#%(,.\60\60\62<??B\\^^``c|\4\2\13"+
 		"\13\"\"\2\u0113\2\3\3\2\2\2\2\5\3\2\2\2\2\7\3\2\2\2\2\t\3\2\2\2\2\13\3"+
 		"\2\2\2\2\r\3\2\2\2\2\17\3\2\2\2\2\21\3\2\2\2\2\23\3\2\2\2\2\25\3\2\2\2"+
 		"\2\27\3\2\2\2\2\31\3\2\2\2\2\33\3\2\2\2\2\35\3\2\2\2\2\37\3\2\2\2\2!\3"+

@@ -1,6 +1,19 @@
 
+func add(a int, z int) int {
+    var y int = 99;
+    return a + z;
+}
+
+func sub() int {
+    return a - z;
+}
+
+
 var a int = 415;
 var b double = 3.14;
+var f int = 10;
+var g int = 11;
+var h int = 0;
 turkey := 99;
 gravy := 2.56;
 
@@ -16,6 +29,10 @@ if gravy > 6.34 {
     a = turkey * 3;
 }
 
+
+d := 6;
+e := 7;
+
 var count int = 0;
 
 while count <= 5 {
@@ -25,3 +42,6 @@ while count <= 5 {
 
 printf("a is %d\nb is %.2f\nturkey is %d\ngravy is %.2f\n", a, b, turkey, gravy);
 printf("That is all folks\n");
+
+
+printf("f + g = %d\n", add(d,e));

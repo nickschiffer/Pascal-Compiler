@@ -53,6 +53,7 @@ antlrcpp::Any Pass1Visitor::visitProg(GoGoParser::ProgContext *ctx)
          visit(ctx->func_definition(i));
          i++;
     }
+    visitedFuncDef = true;
     visit(ctx->main());
    
     //auto value = visitChildren(ctx);
@@ -218,7 +219,7 @@ antlrcpp::Any Pass1Visitor::visitDeclaration_implicit(GoGoParser::Declaration_im
 
 antlrcpp::Any Pass1Visitor::visitFunc_definition(GoGoParser::Func_definitionContext *ctx){
 
-    visitedFuncDef = true;
+    //visitedFuncDef = true;
     isFunction = true;
     variable_id_list.resize(0);
 
