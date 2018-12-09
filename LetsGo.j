@@ -3,8 +3,9 @@
 
 .field private static _runTimer LRunTimer;
 .field private static _standardIn LPascalTextIn;
-.field private static hello I
+.field private static hello F
 .field private static world I
+.field private static sum I
 
 .method public <init>()V
 
@@ -16,48 +17,25 @@
 .limit stack 1
 .end method
 
-.method private static chad(IF)F
+.method private static add(II)I
 .var 0 is a I 
-.var 1 is b F 
-.var 2 is c I 
-.var 3 is d F 
+.var 1 is b I 
+.var 2 is test I 
 
-; varcint=0;
+; vartestint=5;
 
-	ldc	0
-	istore_2
-
-; varddouble=1.2;
-
-	ldc	1.2
-	fstore_3
-
-; c=a+2*5;
-
-	iload_0
-	ldc	2
 	ldc	5
-	imul
-	iadd
 	istore_2
 
-; d=b;
+; returna+b;
 
+	fload_0
 	fload_1
-	fstore_3
-
-; hello=5;
-
-	ldc	5
-	putstatic	LetsGo/hello I
-
-; returnd;
-
-	fload_3
-	freturn
+	????
+	?????
 
 .limit stack 16
-.limit locals 4
+.limit locals 3
 .end method
 
 .method public static main([Ljava/lang/String;)V
@@ -71,46 +49,48 @@
 	invokenonvirtual PascalTextIn/<init>()V
 	putstatic        LetsGo/_standardIn LPascalTextIn;
 
-; varhelloint=6;
+; varhellodouble=6.5;
 
-	ldc	6
-	putstatic	LetsGo/hello I
+	ldc	6.5
+	putstatic	LetsGo/hello F
 
 ; varworldint=10;
 
 	ldc	10
 	putstatic	LetsGo/world I
 
-; while(hello<world){hello=hello+1;printf("Tick\n");}
+; varsumint=0;
 
-L01:
-	getstatic	LetsGo/hello I
+	ldc	0
+	putstatic	LetsGo/sum I
+
+; world=world+1;
+
 	getstatic	LetsGo/world I
-	if_icmplt L02
-	iconst_0
-	goto L03
-L02:
-	iconst_1
-L03:
-	ifeq L04
-
-; hello=hello+1;
-
-	getstatic	LetsGo/hello I
 	ldc	1
 	iadd
-	putstatic	LetsGo/hello I
+	putstatic	LetsGo/world I
 
-; printf("Tick\n");
+; sum=add(world,5);
+
+	getstatic	LetsGo/world ?
+	ldc	5
+	invokestatic LetsGo/add(??)I
+	putstatic	LetsGo/sum I
+
+; printf("The sum is %d\n",sum);
 
 	getstatic	java/lang/System/out Ljava/io/PrintStream;
-	ldc 	"Tick\n"
-	iconst_0
+	ldc 	"The sum is %d\n"
+	iconst_1
 	anewarray	java/lang/Object
+	dup
+	iconst_0
+	getstatic	LetsGo/sum I
+	invokestatic	java/lang/Integer.valueOf(I)Ljava/lang/Integer;
+	aastore
 	invokevirtual	java/io/PrintStream.printf(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;
 	pop
-	goto L01
-L04:
 
 	getstatic     LetsGo/_runTimer LRunTimer;
 	invokevirtual RunTimer.printElapsedTime()V

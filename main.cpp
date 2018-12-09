@@ -32,10 +32,12 @@ int main(int argc, const char *args[])
 
     Pass1Visitor *pass1 = new Pass1Visitor();
     pass1->visit(tree);
+    SymTabStack *symtab = pass1->get_symtab_stack();
 
     ostream& j_file = pass1->get_assembly_file();
 
     Pass2Visitor *pass2 = new Pass2Visitor(j_file);
+    pass2->setSymTabStack(symtab);
     pass2->visit(tree);
     
     delete pass1, pass2;

@@ -22,6 +22,7 @@ private:
     vector<SymTabEntry *> variable_id_list;
     ofstream j_file;
     bool isFunction;
+    bool visitedFuncDef = false;
 
 public:
     Pass1Visitor();
@@ -43,6 +44,7 @@ public:
     antlrcpp::Any visitParens(GoGoParser::ParensContext *ctx) override;
     antlrcpp::Any visitRelative(GoGoParser::RelativeContext *ctx) override;
     antlrcpp::Any visitFunc_definition(GoGoParser::Func_definitionContext *ctx) override;
+    antlrcpp::Any visitFuncCall(GoGoParser::FuncCallContext *ctx) override;
 
     //extras
     // antlrcpp::Any visitStat(GoGoParser::StatContext *ctx) override;

@@ -26,10 +26,13 @@ private:
     vector<string> locals;
     string currentFunc;
     bool isFunction;
+    SymTabStack *symtabstack;
 
 public:
 	Pass2Visitor(ostream& j_file);
     virtual ~Pass2Visitor();
+    void setSymTabStack(SymTabStack* stack) { symtabstack = stack; }
+
 
     antlrcpp::Any visitProg(GoGoParser::ProgContext *ctx) override;
     antlrcpp::Any visitMain(GoGoParser::MainContext *ctx) override;
@@ -50,6 +53,7 @@ public:
     antlrcpp::Any visitPrintf_stmt(GoGoParser::Printf_stmtContext *ctx) override;
     antlrcpp::Any visitPrint_stmt(GoGoParser::Print_stmtContext *ctx) override;
     antlrcpp::Any visitElse_if_stmt(GoGoParser::Else_if_stmtContext *ctx) override;
+    antlrcpp::Any visitFunc_call(GoGoParser::Func_callContext *ctx) override;
 };
 
 #endif /* PASS2VISITOR_H_ */

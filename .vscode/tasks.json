@@ -6,7 +6,9 @@
         {
             "label": "antlr generate",
             "type": "shell",
-            "command": "antlr4 -Dlanguage=Cpp -visitor -no-listener *.g4 ",
+            "command": "antlr4 -Dlanguage=Cpp -visitor -no-listener *.g4 ;
+            echo -e \"#include \"wci/intermediate/TypeSpec.h\"\n
+            using namespace wci::intermediate\;\n$(cat GoGoParser.h)\" > GoGoParser.h",
             "group": {
                 "kind": "build",
                 "isDefault": true

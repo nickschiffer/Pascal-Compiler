@@ -107,7 +107,6 @@ public:
     Declaration_implicitContext *declaration_implicit();
     If_stmtContext *if_stmt();
     While_loop_stmtContext *while_loop_stmt();
-    Func_callContext *func_call();
     Rtrn_stmtContext *rtrn_stmt();
     Printf_stmtContext *printf_stmt();
     Print_stmtContext *print_stmt();
@@ -173,6 +172,14 @@ public:
     NumberExprContext(ExprContext *ctx);
 
     NumberContext *number();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  FuncCallContext : public ExprContext {
+  public:
+    FuncCallContext(ExprContext *ctx);
+
+    Func_callContext *func_call();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 

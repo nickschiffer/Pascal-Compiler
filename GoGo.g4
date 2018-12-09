@@ -11,8 +11,7 @@ stat:   inc_dec ';'
     |   declaration ';'				
     |   declaration_implicit ';'	
     |   if_stmt 			
-    |   while_loop_stmt    			
-    |   func_call ';'				
+    |   while_loop_stmt    							
     |	rtrn_stmt ';'
     |   printf_stmt ';'
     |   print_stmt ';'         		
@@ -25,6 +24,7 @@ expr locals [ TypeSpec *type = nullptr ]
     |   variable               		# varExpr
     |   '(' expr ')'				# parens
     |   expr rel_op  expr  			# relative
+    |   func_call                   # funcCall
     ;
 
 variable : ID ;

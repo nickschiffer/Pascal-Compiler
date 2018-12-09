@@ -35,6 +35,8 @@ public:
 
     virtual antlrcpp::Any visitNumberExpr(GoGoParser::NumberExprContext *context) = 0;
 
+    virtual antlrcpp::Any visitFuncCall(GoGoParser::FuncCallContext *context) = 0;
+
     virtual antlrcpp::Any visitRelative(GoGoParser::RelativeContext *context) = 0;
 
     virtual antlrcpp::Any visitVariable(GoGoParser::VariableContext *context) = 0;

@@ -276,8 +276,10 @@ antlrcpp::Any Pass2Visitor::visitRtrn_stmt(GoGoParser::Rtrn_stmtContext *ctx)
 
         if(type_indicator == "I"){
             j_file << "\tireturn" << endl;
-        } else {
+        } else if(type_indicator == "F"){
             j_file << "\tfreturn" << endl;
+        } else {
+            j_file << "\t?????" << endl;
         }
 
     return value;
@@ -640,4 +642,37 @@ antlrcpp::Any Pass2Visitor::visitPrintf_stmt(GoGoParser::Printf_stmtContext *ctx
 }
 antlrcpp::Any Pass2Visitor::visitPrint_stmt(GoGoParser::Print_stmtContext *ctx){
 
+}
+
+antlrcpp::Any Pass2Visitor::visitFunc_call(GoGoParser::Func_callContext *ctx){
+    auto value = visitChildren(ctx);
+    j_file << "\tinvokestatic " << program_name << "/" << ctx->ID()->toString() << "(";
+    
+    int i = 0;
+    while(ctx->func_call_params()->expr(i) != nullptr) {
+        if(ctx->func_call_params()->expr(i)->type == Predefined::integer_type) {
+            j_file << "I";
+        } else if(ctx->func_call_params()->expr(i)->type == Predefined::real_type) {
+            j_file << "F";
+        }  else {
+            j_file << "?";
+        }    
+        i++;
+    }
+
+    j_file << ")";
+
+    if(symtabstack->lookup_local("add")->get_typespec() == Predefined::integer_type) {
+        j_file << "I";
+    } else if(symtabstack->lookup_local("add")->get_typespec() == Predefined::real_type) {
+        j_file << "F";
+    } else if(symtabstack->lookup_local("add")->get_typespec() == Predefined::undefined_type) {
+        j_file << "V";
+    }  else {
+        j_file << "?";
+    }
+
+    j_file << endl;
+
+    return value;
 }
