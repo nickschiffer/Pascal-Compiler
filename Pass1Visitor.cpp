@@ -289,9 +289,9 @@ antlrcpp::Any Pass1Visitor::visitFunc_definition(GoGoParser::Func_definitionCont
 }
 
 antlrcpp::Any Pass1Visitor::visitMulDiv(GoGoParser::MulDivContext *ctx) {
-    if(visitedFuncDef) {
-        return visitChildren(ctx);
-    }
+    // if(visitedFuncDef) {
+    //     return visitChildren(ctx);
+    // }
     cout << "=== visitMulDiv: " + ctx->getText() << endl;
 
     auto value = visitChildren(ctx);
@@ -313,9 +313,9 @@ antlrcpp::Any Pass1Visitor::visitMulDiv(GoGoParser::MulDivContext *ctx) {
 }
 
 antlrcpp::Any Pass1Visitor::visitAddSub(GoGoParser::AddSubContext *ctx) {
-    if(visitedFuncDef) {
-        return visitChildren(ctx);
-    }
+    // if(visitedFuncDef) {
+    //     return visitChildren(ctx);
+    // }
     cout << "=== visitAddSub: " + ctx->getText() << endl;
 
     auto value = visitChildren(ctx);
@@ -337,9 +337,9 @@ antlrcpp::Any Pass1Visitor::visitAddSub(GoGoParser::AddSubContext *ctx) {
 }
 
 antlrcpp::Any Pass1Visitor::visitVarExpr(GoGoParser::VarExprContext *ctx) {
-     if(visitedFuncDef) {
-        return visitChildren(ctx);
-    }
+    //  if(visitedFuncDef) {
+    //     return visitChildren(ctx);
+    // }
     cout << "=== visitVariableExpr: " + ctx->getText() << endl;
 
     string variable_name = ctx->variable()->ID()->toString();
@@ -350,9 +350,9 @@ antlrcpp::Any Pass1Visitor::visitVarExpr(GoGoParser::VarExprContext *ctx) {
 }
 
 antlrcpp::Any Pass1Visitor::visitNumberExpr(GoGoParser::NumberExprContext *ctx) {
-    if(visitedFuncDef) {
-        return visitChildren(ctx);
-    }
+    // if(visitedFuncDef) {
+    //     return visitChildren(ctx);
+    // }
     cout << "=== visitUnsignedNumberExpr: " + ctx->getText() << endl;
 
     auto value = visit(ctx->number());
@@ -361,9 +361,9 @@ antlrcpp::Any Pass1Visitor::visitNumberExpr(GoGoParser::NumberExprContext *ctx) 
 }
 
 antlrcpp::Any Pass1Visitor::visitIntegerConst(GoGoParser::IntegerConstContext *ctx) {
-    if(visitedFuncDef) {
-        return visitChildren(ctx);
-    }
+    // if(visitedFuncDef) {
+    //     return visitChildren(ctx);
+    // }
     cout << "=== visitIntegerConst: " + ctx->getText() << endl;
 
     ctx->type = Predefined::integer_type;
@@ -371,9 +371,9 @@ antlrcpp::Any Pass1Visitor::visitIntegerConst(GoGoParser::IntegerConstContext *c
 }
 
 antlrcpp::Any Pass1Visitor::visitDoubleConst(GoGoParser::DoubleConstContext *ctx) {
-    if(visitedFuncDef) {
-        return visitChildren(ctx);
-    }
+    // if(visitedFuncDef) {
+    //     return visitChildren(ctx);
+    // }
     cout << "=== visitFloatConst: " + ctx->getText() << endl;
 
     ctx->type = Predefined::real_type;
@@ -381,9 +381,9 @@ antlrcpp::Any Pass1Visitor::visitDoubleConst(GoGoParser::DoubleConstContext *ctx
 }
 
 antlrcpp::Any Pass1Visitor::visitParens(GoGoParser::ParensContext *ctx) {
-    if(visitedFuncDef) {
-        return visitChildren(ctx);
-    }
+    // if(visitedFuncDef) {
+    //     return visitChildren(ctx);
+    // }
     cout << "=== visitParenExpr: " + ctx->getText() << endl;
 
     auto value = visitChildren(ctx);
@@ -392,9 +392,9 @@ antlrcpp::Any Pass1Visitor::visitParens(GoGoParser::ParensContext *ctx) {
 }
 
 antlrcpp::Any Pass1Visitor::visitRelative(GoGoParser::RelativeContext *ctx) {
-    if(visitedFuncDef) {
-        return visitChildren(ctx);
-    }
+    // if(visitedFuncDef) {
+    //     return visitChildren(ctx);
+    // }
     cout << "=== visitRelative: " + ctx->getText() << endl;
 
     auto value = visitChildren(ctx);

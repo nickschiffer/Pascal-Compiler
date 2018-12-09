@@ -29,10 +29,10 @@
 
 ; returna+b;
 
-	fload_0
-	fload_1
-	????
-	?????
+	iload_0
+	iload_1
+	iadd
+	ireturn
 
 .limit stack 16
 .limit locals 3
@@ -73,9 +73,9 @@
 
 ; sum=add(world,5);
 
-	getstatic	LetsGo/world ?
+	getstatic	LetsGo/world I
 	ldc	5
-	invokestatic LetsGo/add(??)I
+	invokestatic LetsGo/add(II)I
 	putstatic	LetsGo/sum I
 
 ; printf("The sum is %d\n",sum);
