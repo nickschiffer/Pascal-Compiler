@@ -4,8 +4,8 @@ func add(a int, z int) int {
     return a + z;
 }
 
-func sub() int {
-    return a - z;
+func sub(j int, k int) int {
+    return j - k;
 }
 
 
