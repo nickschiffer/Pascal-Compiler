@@ -7,12 +7,12 @@ var hello double = 6.5;
 var world int = 10;
 var sum int = 0;
 
-/*
+
 while (hello < world) {
     hello = hello + 1;
     printf("Tick\n");
 }
-*/
+
 world = world + 1;
 
 sum = add(world, 5);

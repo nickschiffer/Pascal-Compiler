@@ -126,8 +126,24 @@ antlrcpp::Any Pass2Visitor::visitDeclaration(GoGoParser::DeclarationContext *ctx
 
 antlrcpp::Any Pass2Visitor::visitDeclaration_implicit(GoGoParser::Declaration_implicitContext *ctx)
 {
-    string type_indicator;
+
     string type_name;
+    string type_indicator;
+
+    auto typenode = ctx->INT();
+    if (typenode == nullptr){
+        typenode = ctx->DOUBLE();
+        if (typenode == nullptr){
+            type_name = "Jank";
+        }
+        else {
+            type_name = "double";
+        }
+
+    }
+    else{
+        type_name = "int";
+    }
 
     //Is function?
     if (isFunction) {
@@ -158,20 +174,7 @@ antlrcpp::Any Pass2Visitor::visitDeclaration_implicit(GoGoParser::Declaration_im
     } else {
 
     //Is not function    
-    auto typenode = ctx->INT();
-    if (typenode == nullptr){
-        typenode = ctx->DOUBLE();
-        if (typenode == nullptr){
-            type_name = "Jank";
-        }
-        else {
-            type_name = "double";
-        }
 
-    }
-    else{
-        type_name = "int";
-    }
 
     if (type_name == "int")
     {
@@ -238,6 +241,7 @@ antlrcpp::Any Pass2Visitor::visitFunc_definition(GoGoParser::Func_definitionCont
     }
 
     //Add local variables
+    string type_name;
     int j = 0;
     while(ctx->compound_stmt()->stat(j) != nullptr){
         if(ctx->compound_stmt()->stat(j)->declaration() != nullptr){
@@ -247,6 +251,30 @@ antlrcpp::Any Pass2Visitor::visitFunc_definition(GoGoParser::Func_definitionCont
                 j_file << ".var " << locals.size() << " is " << ctx->compound_stmt()->stat(j)->declaration()->ID()->toString() << " F " << endl;
             }
             locals.push_back(ctx->compound_stmt()->stat(j)->declaration()->ID()->toString());
+        } else if(ctx->compound_stmt()->stat(j)->declaration_implicit() != nullptr) {
+            auto typenode = ctx->compound_stmt()->stat(j)->declaration_implicit()->INT();
+                if (typenode == nullptr){
+                    typenode = ctx->compound_stmt()->stat(j)->declaration_implicit()->DOUBLE();
+                    if (typenode == nullptr){
+                        type_name = "Jank";
+                    }
+                    else {
+                        type_name = "double";
+                    }
+                }
+                else{
+                    type_name = "int";
+                }
+
+                if (type_name == "int")
+                {
+                    j_file << ".var " << locals.size() << " is " << ctx->compound_stmt()->stat(j)->declaration_implicit()->ID()->toString() << " I " << endl;
+                }
+                else {
+                    j_file << ".var " << locals.size() << " is " << ctx->compound_stmt()->stat(j)->declaration_implicit()->ID()->toString() << " F " << endl;
+                }
+
+            locals.push_back(ctx->compound_stmt()->stat(j)->declaration_implicit()->ID()->toString());
         }
         j++;
     }
@@ -571,14 +599,18 @@ antlrcpp::Any Pass2Visitor::visitElse_if_stmt(GoGoParser::Else_if_stmtContext *c
 
 antlrcpp::Any Pass2Visitor::visitWhile_loop_stmt(GoGoParser::While_loop_stmtContext *ctx)
 {
+    int labelCounterTop, labelCounterEnd;
     j_file << "L0" << labelCounter << ":" << endl;
+    labelCounterTop = labelCounter;
     labelCounter++;
     auto value = visit(ctx->expr());    
     j_file << "\tifeq " << "L0" << labelCounter << endl;
-    visit(ctx->compound_stmt());
-    j_file << "\tgoto L0" << labelCounter - 3 << endl;
-    j_file << "L0" << labelCounter << ":" << endl;
+    labelCounterEnd = labelCounter;
     labelCounter++;
+    visit(ctx->compound_stmt());
+    j_file << "\tgoto L0" << labelCounterTop << endl;
+    j_file << "L0" << labelCounterEnd << ":" << endl;
+
     return value;
 
 }

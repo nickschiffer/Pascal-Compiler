@@ -1,8 +1,6 @@
-
-
 func factorial(n int) int {
-    var c int = 1;
-    var fact int = 1;
+    c := 1;
+    fact := 1;
     while (c <= n){
         fact = fact * c;
         c = c + 1;
@@ -10,8 +8,7 @@ func factorial(n int) int {
     return fact;
 }
 
-a := 5;
-
+a := 6;
 b := 0;
 
 b = factorial(a);

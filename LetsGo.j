@@ -4,7 +4,6 @@
 .field private static _runTimer LRunTimer;
 .field private static _standardIn LPascalTextIn;
 .field private static a I
-.field private static b I
 
 .method public <init>()V
 
@@ -16,22 +15,22 @@
 .limit stack 1
 .end method
 
-.method private static factorial(I)I
-.var 0 is n I 
-.var 1 is c I 
-.var 2 is fact I 
+.method private static pyramid(I)V
+.var 0 is rows I 
+.var 1 is i I 
+.var 2 is j I 
 
-; varcint=1;
+; variint=1;
 
 	ldc	1
 	istore_1
 
-; varfactint=1;
+; varjint=1;
 
 	ldc	1
 	istore_2
 
-; while(c<=n){fact=fact*c;c=c+1;}
+; while(i<=rows){j=1;while(j<=i){printf("*",j);j=j+1;}printf("\n");i=i+1;}
 
 L01:
 	iload_1
@@ -44,14 +43,57 @@ L02:
 L03:
 	ifeq L04
 
-; fact=fact*c;
+; j=1;
 
-	iload_2
-	iload_1
-	imul
+	ldc	1
 	istore_2
 
-; c=c+1;
+; while(j<=i){printf("*",j);j=j+1;}
+
+L05:
+	iload_2
+	iload_1
+	if_icmple L06
+	iconst_0
+	goto L07
+L06:
+	iconst_1
+L07:
+	ifeq L08
+
+; printf("*",j);
+
+	getstatic	java/lang/System/out Ljava/io/PrintStream;
+	ldc 	"*"
+	iconst_1
+	anewarray	java/lang/Object
+	dup
+	iconst_0
+	iload_2
+	invokestatic	java/lang/Integer.valueOf(I)Ljava/lang/Integer;
+	aastore
+	invokevirtual	java/io/PrintStream.printf(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;
+	pop
+
+; j=j+1;
+
+	iload_2
+	ldc	1
+	iadd
+	istore_2
+	goto L05
+L08:
+
+; printf("\n");
+
+	getstatic	java/lang/System/out Ljava/io/PrintStream;
+	ldc 	"\n"
+	iconst_0
+	anewarray	java/lang/Object
+	invokevirtual	java/io/PrintStream.printf(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;
+	pop
+
+; i=i+1;
 
 	iload_1
 	ldc	1
@@ -60,10 +102,7 @@ L03:
 	goto L01
 L04:
 
-; returnfact;
-
-	iload_2
-	ireturn
+	return
 
 .limit stack 16
 .limit locals 3
@@ -85,35 +124,10 @@ L04:
 	ldc	5
 	putstatic	LetsGo/a I
 
-; b:=0;
-
-	ldc	0
-	putstatic	LetsGo/b I
-
-; b=factorial(a);
+; pyramid(a);
 
 	getstatic	LetsGo/a I
-	invokestatic LetsGo/factorial(I)I
-	putstatic	LetsGo/b I
-
-; printf("factorial of %d = %d\n",a,b);
-
-	getstatic	java/lang/System/out Ljava/io/PrintStream;
-	ldc 	"factorial of %d = %d\n"
-	iconst_2
-	anewarray	java/lang/Object
-	dup
-	iconst_0
-	getstatic	LetsGo/a I
-	invokestatic	java/lang/Integer.valueOf(I)Ljava/lang/Integer;
-	aastore
-	dup
-	iconst_1
-	getstatic	LetsGo/b I
-	invokestatic	java/lang/Integer.valueOf(I)Ljava/lang/Integer;
-	aastore
-	invokevirtual	java/io/PrintStream.printf(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;
-	pop
+	invokestatic LetsGo/pyramid(I)V
 
 	getstatic     LetsGo/_runTimer LRunTimer;
 	invokevirtual RunTimer.printElapsedTime()V
