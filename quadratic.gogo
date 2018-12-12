@@ -1,0 +1,28 @@
+func mod(number int, divisor int) int {
+    while (number >= divisor){
+        number = number - divisor;
+    }
+
+    return number;
+}
+
+num := 17; //Number to check for Prime
+
+flag := 0;
+temp := 0;
+i := 2;
+
+while (i <= (num/2)) {
+    temp = mod(num, i);
+    if (temp == 0) {
+        flag = 1;
+        i = 1000000;
+    }
+    i = i + 1;
+}
+
+if (flag == 0) {
+    printf("%d is a prime number.\n", num);
+} else {
+    printf("%d is not a prime number.\n", num);
+}

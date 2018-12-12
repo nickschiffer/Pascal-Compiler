@@ -411,7 +411,7 @@ antlrcpp::Any Pass2Visitor::visitMulDiv(GoGoParser::MulDivContext *ctx)
     }
     else
     {
-        opcode = integer_mode ? "idpv"
+        opcode = integer_mode ? "idiv"
                : real_mode    ? "fdiv"
                :                "????";
     }

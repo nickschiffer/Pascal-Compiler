@@ -1,20 +1,5 @@
-func add(a int, b int) int {
-    var test int = 5;
-   return a + b;
+var c int = 10;
+
+if (a == c) {
+    b = 5;
 }
-
-var hello double = 6.5;
-var world int = 10;
-var sum int = 0;
-
-
-while (hello < world) {
-    hello = hello + 1;
-    printf("Tick\n");
-}
-
-world = world + 1;
-
-sum = add(world, 5);
-
-printf("The sum is %d\n", sum);

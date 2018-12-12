@@ -3,7 +3,10 @@
 
 .field private static _runTimer LRunTimer;
 .field private static _standardIn LPascalTextIn;
-.field private static a I
+.field private static num I
+.field private static flag I
+.field private static temp I
+.field private static i I
 
 .method public <init>()V
 
@@ -15,27 +18,16 @@
 .limit stack 1
 .end method
 
-.method private static pyramid(I)V
-.var 0 is rows I 
-.var 1 is i I 
-.var 2 is j I 
+.method private static mod(II)I
+.var 0 is number I 
+.var 1 is divisor I 
 
-; variint=1;
-
-	ldc	1
-	istore_1
-
-; varjint=1;
-
-	ldc	1
-	istore_2
-
-; while(i<=rows){j=1;while(j<=i){printf("*",j);j=j+1;}printf("\n");i=i+1;}
+; while(number>=divisor){number=number-divisor;}
 
 L01:
-	iload_1
 	iload_0
-	if_icmple L02
+	iload_1
+	if_icmpge L02
 	iconst_0
 	goto L03
 L02:
@@ -43,69 +35,22 @@ L02:
 L03:
 	ifeq L04
 
-; j=1;
+; number=number-divisor;
 
-	ldc	1
-	istore_2
-
-; while(j<=i){printf("*",j);j=j+1;}
-
-L05:
-	iload_2
+	iload_0
 	iload_1
-	if_icmple L06
-	iconst_0
-	goto L07
-L06:
-	iconst_1
-L07:
-	ifeq L08
-
-; printf("*",j);
-
-	getstatic	java/lang/System/out Ljava/io/PrintStream;
-	ldc 	"*"
-	iconst_1
-	anewarray	java/lang/Object
-	dup
-	iconst_0
-	iload_2
-	invokestatic	java/lang/Integer.valueOf(I)Ljava/lang/Integer;
-	aastore
-	invokevirtual	java/io/PrintStream.printf(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;
-	pop
-
-; j=j+1;
-
-	iload_2
-	ldc	1
-	iadd
-	istore_2
-	goto L05
-L08:
-
-; printf("\n");
-
-	getstatic	java/lang/System/out Ljava/io/PrintStream;
-	ldc 	"\n"
-	iconst_0
-	anewarray	java/lang/Object
-	invokevirtual	java/io/PrintStream.printf(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;
-	pop
-
-; i=i+1;
-
-	iload_1
-	ldc	1
-	iadd
-	istore_1
+	isub
+	istore_0
 	goto L01
 L04:
 
-	return
+; returnnumber;
+
+	iload_0
+	ireturn
 
 .limit stack 16
-.limit locals 3
+.limit locals 2
 .end method
 
 .method public static main([Ljava/lang/String;)V
@@ -119,15 +64,122 @@ L04:
 	invokenonvirtual PascalTextIn/<init>()V
 	putstatic        LetsGo/_standardIn LPascalTextIn;
 
-; a:=5;
+; num:=17;
 
-	ldc	5
-	putstatic	LetsGo/a I
+	ldc	17
+	putstatic	LetsGo/num I
 
-; pyramid(a);
+; flag:=0;
 
-	getstatic	LetsGo/a I
-	invokestatic LetsGo/pyramid(I)V
+	ldc	0
+	putstatic	LetsGo/flag I
+
+; temp:=0;
+
+	ldc	0
+	putstatic	LetsGo/temp I
+
+; i:=2;
+
+	ldc	2
+	putstatic	LetsGo/i I
+
+; while(i<=(num/2)){temp=mod(num,i);if(temp==0){flag=1;i=1000000;}i=i+1;}
+
+L05:
+	getstatic	LetsGo/i I
+	getstatic	LetsGo/num I
+	ldc	2
+	idiv
+	if_icmple L06
+	iconst_0
+	goto L07
+L06:
+	iconst_1
+L07:
+	ifeq L08
+
+; temp=mod(num,i);
+
+	getstatic	LetsGo/num I
+	getstatic	LetsGo/i I
+	invokestatic LetsGo/mod(II)I
+	putstatic	LetsGo/temp I
+
+; if(temp==0){flag=1;i=1000000;}
+
+	getstatic	LetsGo/temp I
+	ldc	0
+	if_icmpeq L09
+	iconst_0
+	goto L010
+L09:
+	iconst_1
+L010:
+	ifeq L011
+
+; flag=1;
+
+	ldc	1
+	putstatic	LetsGo/flag I
+
+; i=1000000;
+
+	ldc	1000000
+	putstatic	LetsGo/i I
+L011:
+
+; i=i+1;
+
+	getstatic	LetsGo/i I
+	ldc	1
+	iadd
+	putstatic	LetsGo/i I
+	goto L05
+L08:
+
+; if(flag==0){printf("%d is a prime number.\n",num);}else{printf("%d is not a prime number.\n",num);}
+
+	getstatic	LetsGo/flag I
+	ldc	0
+	if_icmpeq L012
+	iconst_0
+	goto L013
+L012:
+	iconst_1
+L013:
+	ifeq L015
+
+; printf("%d is a prime number.\n",num);
+
+	getstatic	java/lang/System/out Ljava/io/PrintStream;
+	ldc 	"%d is a prime number.\n"
+	iconst_1
+	anewarray	java/lang/Object
+	dup
+	iconst_0
+	getstatic	LetsGo/num I
+	invokestatic	java/lang/Integer.valueOf(I)Ljava/lang/Integer;
+	aastore
+	invokevirtual	java/io/PrintStream.printf(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;
+	pop
+	goto L014
+L015:
+
+; printf("%d is not a prime number.\n",num);
+
+	getstatic	java/lang/System/out Ljava/io/PrintStream;
+	ldc 	"%d is not a prime number.\n"
+	iconst_1
+	anewarray	java/lang/Object
+	dup
+	iconst_0
+	getstatic	LetsGo/num I
+	invokestatic	java/lang/Integer.valueOf(I)Ljava/lang/Integer;
+	aastore
+	invokevirtual	java/io/PrintStream.printf(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;
+	pop
+L014:
 
 	getstatic     LetsGo/_runTimer LRunTimer;
 	invokevirtual RunTimer.printElapsedTime()V
