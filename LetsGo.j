@@ -3,11 +3,10 @@
 
 .field private static _runTimer LRunTimer;
 .field private static _standardIn LPascalTextIn;
-.field private static a I
-.field private static b F
-.field private static turkey I
-.field private static gravy F
-.field private static count I
+.field private static num I
+.field private static flag I
+.field private static temp I
+.field private static i I
 
 .method public <init>()V
 
@@ -17,6 +16,41 @@
 
 .limit locals 1
 .limit stack 1
+.end method
+
+.method private static mod(II)I
+.var 0 is number I 
+.var 1 is divisor I 
+
+; while(number>=divisor){number=number-divisor;}
+
+L01:
+	iload_0
+	iload_1
+	if_icmpge L02
+	iconst_0
+	goto L03
+L02:
+	iconst_1
+L03:
+	ifeq L04
+
+; number=number-divisor;
+
+	iload_0
+	iload_1
+	isub
+	istore_0
+	goto L01
+L04:
+
+; returnnumber;
+
+	iload_0
+	ireturn
+
+.limit stack 16
+.limit locals 2
 .end method
 
 .method public static main([Ljava/lang/String;)V
@@ -30,100 +64,53 @@
 	invokenonvirtual PascalTextIn/<init>()V
 	putstatic        LetsGo/_standardIn LPascalTextIn;
 
-; varaint=415;
+; num:=17;
 
-	ldc	415
-	putstatic	LetsGo/a I
+	ldc	17
+	putstatic	LetsGo/num I
 
-; varbdouble=3.14;
-
-	ldc	3.14
-	putstatic	LetsGo/b F
-
-; turkey:=99;
-
-	ldc	99
-	putstatic	LetsGo/turkey I
-
-; gravy:=2.56;
-
-	ldc	2.56
-	putstatic	LetsGo/gravy F
-
-; a=(3+5*(9-1)*2);
-
-	ldc	3
-	ldc	5
-	ldc	9
-	ldc	1
-	isub
-	imul
-	ldc	2
-	imul
-	iadd
-	putstatic	LetsGo/a I
-
-; ifa==(90-7){turkey=10;}
-
-	getstatic	LetsGo/a I
-	ldc	90
-	ldc	7
-	isub
-	if_icmpeq L01
-	iconst_0
-	goto L02
-L01:
-	iconst_1
-L02:
-	ifeq L03
-
-; turkey=10;
-
-	ldc	10
-	putstatic	LetsGo/turkey I
-L03:
-
-; ifgravy>6.34{a=a+10;}else{a=turkey*3;}
-
-	getstatic	LetsGo/gravy F
-	ldc	6.34
-	fcmpg
-	ifgt L04
-	iconst_0
-	goto L05
-L04:
-	iconst_1
-L05:
-	ifeq L06
-
-; a=a+10;
-
-	getstatic	LetsGo/a I
-	ldc	10
-	iadd
-	putstatic	LetsGo/a I
-	goto L07
-L06:
-
-; a=turkey*3;
-
-	getstatic	LetsGo/turkey I
-	ldc	3
-	imul
-	putstatic	LetsGo/a I
-L07:
-
-; varcountint=0;
+; flag:=0;
 
 	ldc	0
-	putstatic	LetsGo/count I
+	putstatic	LetsGo/flag I
 
-; whilecount<=5{printf("The count is %d.\n",count);count=count+1;}
+; temp:=0;
 
-L08:
-	getstatic	LetsGo/count I
-	ldc	5
-	if_icmple L09
+	ldc	0
+	putstatic	LetsGo/temp I
+
+; i:=2;
+
+	ldc	2
+	putstatic	LetsGo/i I
+
+; while(i<=(num/2)){temp=mod(num,i);if(temp==0){flag=1;i=1000000;}i=i+1;}
+
+L05:
+	getstatic	LetsGo/i I
+	getstatic	LetsGo/num I
+	ldc	2
+	idiv
+	if_icmple L06
+	iconst_0
+	goto L07
+L06:
+	iconst_1
+L07:
+	ifeq L08
+
+; temp=mod(num,i);
+
+	getstatic	LetsGo/num I
+	getstatic	LetsGo/i I
+	invokestatic LetsGo/mod(II)I
+	putstatic	LetsGo/temp I
+
+; if(temp==0){flag=1;i=1000000;}
+
+	getstatic	LetsGo/temp I
+	ldc	0
+	if_icmpeq L09
 	iconst_0
 	goto L010
 L09:
@@ -131,66 +118,68 @@ L09:
 L010:
 	ifeq L011
 
-; printf("The count is %d.\n",count);
+; flag=1;
 
-	getstatic	java/lang/System/out Ljava/io/PrintStream;
-	ldc 	"The count is %d.\n"
-	iconst_1
-	anewarray	java/lang/Object
-	dup
-	iconst_0
-	getstatic	LetsGo/count I
-	invokestatic	java/lang/Integer.valueOf(I)Ljava/lang/Integer;
-	aastore
-	invokevirtual	java/io/PrintStream.printf(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;
-	pop
-
-; count=count+1;
-
-	getstatic	LetsGo/count I
 	ldc	1
-	iadd
-	putstatic	LetsGo/count I
-	goto L08
+	putstatic	LetsGo/flag I
+
+; i=1000000;
+
+	ldc	1000000
+	putstatic	LetsGo/i I
 L011:
 
-; printf("a is %d\nb is %.2f\nturkey is %d\ngravy is %.2f\n",a,b,turkey,gravy);
+; i=i+1;
 
-	getstatic	java/lang/System/out Ljava/io/PrintStream;
-	ldc 	"a is %d\nb is %.2f\nturkey is %d\ngravy is %.2f\n"
-	iconst_4
-	anewarray	java/lang/Object
-	dup
+	getstatic	LetsGo/i I
+	ldc	1
+	iadd
+	putstatic	LetsGo/i I
+	goto L05
+L08:
+
+; if(flag==0){printf("%d is a prime number.\n",num);}else{printf("%d is not a prime number.\n",num);}
+
+	getstatic	LetsGo/flag I
+	ldc	0
+	if_icmpeq L012
 	iconst_0
-	getstatic	LetsGo/a I
-	invokestatic	java/lang/Integer.valueOf(I)Ljava/lang/Integer;
-	aastore
-	dup
+	goto L013
+L012:
 	iconst_1
-	getstatic	LetsGo/b F
-	invokestatic	java/lang/Float.valueOf(F)Ljava/lang/Float;
-	aastore
-	dup
-	iconst_2
-	getstatic	LetsGo/turkey I
-	invokestatic	java/lang/Integer.valueOf(I)Ljava/lang/Integer;
-	aastore
-	dup
-	iconst_3
-	getstatic	LetsGo/gravy F
-	invokestatic	java/lang/Float.valueOf(F)Ljava/lang/Float;
-	aastore
-	invokevirtual	java/io/PrintStream.printf(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;
-	pop
+L013:
+	ifeq L015
 
-; printf("Thats all folks\n");
+; printf("%d is a prime number.\n",num);
 
 	getstatic	java/lang/System/out Ljava/io/PrintStream;
-	ldc 	"Thats all folks\n"
-	iconst_0
+	ldc 	"%d is a prime number.\n"
+	iconst_1
 	anewarray	java/lang/Object
+	dup
+	iconst_0
+	getstatic	LetsGo/num I
+	invokestatic	java/lang/Integer.valueOf(I)Ljava/lang/Integer;
+	aastore
 	invokevirtual	java/io/PrintStream.printf(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;
 	pop
+	goto L014
+L015:
+
+; printf("%d is not a prime number.\n",num);
+
+	getstatic	java/lang/System/out Ljava/io/PrintStream;
+	ldc 	"%d is not a prime number.\n"
+	iconst_1
+	anewarray	java/lang/Object
+	dup
+	iconst_0
+	getstatic	LetsGo/num I
+	invokestatic	java/lang/Integer.valueOf(I)Ljava/lang/Integer;
+	aastore
+	invokevirtual	java/io/PrintStream.printf(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;
+	pop
+L014:
 
 	getstatic     LetsGo/_runTimer LRunTimer;
 	invokevirtual RunTimer.printElapsedTime()V

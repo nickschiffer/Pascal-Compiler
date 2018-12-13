@@ -19,6 +19,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitMain(GoGoParser::MainContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitStat(GoGoParser::StatContext *ctx) override {
     return visitChildren(ctx);
   }
@@ -40,6 +44,10 @@ public:
   }
 
   virtual antlrcpp::Any visitNumberExpr(GoGoParser::NumberExprContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitFuncCall(GoGoParser::FuncCallContext *ctx) override {
     return visitChildren(ctx);
   }
 

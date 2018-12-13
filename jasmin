@@ -1,2 +1,2 @@
 #!/bin/bash
-java -jar /home/chad/Documents/jasmin-2.4/jasmin.jar $1
+java -jar /home/*/Documents/jasmin-2.4/jasmin.jar $1

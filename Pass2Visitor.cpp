@@ -20,6 +20,13 @@ Pass2Visitor::~Pass2Visitor() {}
 
 antlrcpp::Any Pass2Visitor::visitProg(GoGoParser::ProgContext *ctx)
 {
+    auto value = visitChildren(ctx);
+    return value;
+}
+
+antlrcpp::Any Pass2Visitor::visitMain(GoGoParser::MainContext *ctx)
+{
+    isFunction = false;
     program_name = "LetsGo";
 
 // Emit the main program header.
@@ -65,7 +72,36 @@ antlrcpp::Any Pass2Visitor::visitDeclaration(GoGoParser::DeclarationContext *ctx
 {
     string type_name = ctx->TYPE()->toString();
     string type_indicator;
+    
+    //Is function?
+    if (isFunction) {
+        if (type_name == "int") {
+            j_file << "\tldc\t" << ctx->INT()->toString() << endl;
+        }
+        else if (type_name == "double") {
+            j_file << "\tldc\t" << ctx->DOUBLE()->toString() << endl;
+        }
+        else {
+            j_file << "\tldc\t" << "?" << endl;
+        }
+        int index;
+        for(int i = 0; i < locals.size(); i++) {
+            if(locals.at(i) == ctx->ID()->toString())
+                index = i;
+        }
+        if (type_name == "int") {
+            j_file << "\tistore_" << index << endl;
+        }
+        else if (type_name == "double") {
+            j_file << "\tfstore_" << index << endl;
+        }
+        else {
+            j_file << "\t????" << "?" << endl;
+        }
 
+    } else {
+    
+    //Not a function
     if (type_name == "int")
     {
         type_indicator = "I";
@@ -84,14 +120,16 @@ antlrcpp::Any Pass2Visitor::visitDeclaration(GoGoParser::DeclarationContext *ctx
     j_file << "\tputstatic\t" << program_name
            << "/" << ctx->ID()->toString()
            << " " << type_indicator << endl;
-
+    }
     return visitChildren(ctx);    
 }
 
 antlrcpp::Any Pass2Visitor::visitDeclaration_implicit(GoGoParser::Declaration_implicitContext *ctx)
 {
-    string type_indicator;
+
     string type_name;
+    string type_indicator;
+
     auto typenode = ctx->INT();
     if (typenode == nullptr){
         typenode = ctx->DOUBLE();
@@ -107,6 +145,37 @@ antlrcpp::Any Pass2Visitor::visitDeclaration_implicit(GoGoParser::Declaration_im
         type_name = "int";
     }
 
+    //Is function?
+    if (isFunction) {
+        if (type_name == "int") {
+            j_file << "\tldc\t" << ctx->INT()->toString() << endl;
+        }
+        else if (type_name == "double") {
+            j_file << "\tldc\t" << ctx->DOUBLE()->toString() << endl;
+        }
+        else {
+            j_file << "\tldc\t" << "?" << endl;
+        }
+        int index;
+        for(int i = 0; i < locals.size(); i++) {
+            if(locals.at(i) == ctx->ID()->toString())
+                index = i;
+        }
+        if (type_name == "int") {
+            j_file << "\tistore_" << index << endl;
+        }
+        else if (type_name == "double") {
+            j_file << "\tfstore_" << index << endl;
+        }
+        else {
+            j_file << "\t????" << "?" << endl;
+        }
+
+    } else {
+
+    //Is not function    
+
+
     if (type_name == "int")
     {
         type_indicator = "I";
@@ -125,8 +194,123 @@ antlrcpp::Any Pass2Visitor::visitDeclaration_implicit(GoGoParser::Declaration_im
     j_file << "\tputstatic\t" << program_name
            << "/" << ctx->ID()->toString()
            << " " << type_indicator << endl;
+    }
 
     return visitChildren(ctx);    
+}
+
+antlrcpp::Any Pass2Visitor::visitFunc_definition(GoGoParser::Func_definitionContext *ctx)
+{
+    isFunction = true;
+    currentFunc = ctx->ID()->toString();
+    locals.clear();
+
+    program_name = "LetsGo";
+    j_file << endl << ".method private static " << ctx->ID()->toString() << "(";
+
+    //Generate method header line
+    int i = 0;
+    while(ctx->params()->param(i) != nullptr) {
+        if(ctx->params()->param(i)->TYPE()->toString() == "int") {
+            j_file << "I";
+        } else {
+            j_file << "F";
+        }  
+        locals.push_back(ctx->params()->param(i)->ID()->toString());      
+        i++;
+    }
+
+    j_file << ")";
+    
+    if(ctx->TYPE()->toString() == "int") {
+        j_file << "I" << endl;
+    } else if(ctx->TYPE()->toString() == "double") {
+        j_file << "F" << endl;
+    } else {
+        j_file << "V" << endl;
+    }
+    //Add parameter variables
+    i = 0;
+    while(ctx->params()->param(i) != nullptr) {
+        if(ctx->params()->param(i)->TYPE()->toString() == "int") {
+            j_file << ".var " << i << " is " << ctx->params()->param(i)->ID()->toString() << " I " << endl;
+        } else {
+            j_file << ".var " << i << " is " << ctx->params()->param(i)->ID()->toString() << " F " << endl;
+        }        
+        i++;
+    }
+
+    //Add local variables
+    string type_name;
+    int j = 0;
+    while(ctx->compound_stmt()->stat(j) != nullptr){
+        if(ctx->compound_stmt()->stat(j)->declaration() != nullptr){
+            if(ctx->compound_stmt()->stat(j)->declaration()->TYPE()->toString() == "int") {
+                j_file << ".var " << locals.size() << " is " << ctx->compound_stmt()->stat(j)->declaration()->ID()->toString() << " I " << endl;
+            } else {
+                j_file << ".var " << locals.size() << " is " << ctx->compound_stmt()->stat(j)->declaration()->ID()->toString() << " F " << endl;
+            }
+            locals.push_back(ctx->compound_stmt()->stat(j)->declaration()->ID()->toString());
+        } else if(ctx->compound_stmt()->stat(j)->declaration_implicit() != nullptr) {
+            auto typenode = ctx->compound_stmt()->stat(j)->declaration_implicit()->INT();
+                if (typenode == nullptr){
+                    typenode = ctx->compound_stmt()->stat(j)->declaration_implicit()->DOUBLE();
+                    if (typenode == nullptr){
+                        type_name = "Jank";
+                    }
+                    else {
+                        type_name = "double";
+                    }
+                }
+                else{
+                    type_name = "int";
+                }
+
+                if (type_name == "int")
+                {
+                    j_file << ".var " << locals.size() << " is " << ctx->compound_stmt()->stat(j)->declaration_implicit()->ID()->toString() << " I " << endl;
+                }
+                else {
+                    j_file << ".var " << locals.size() << " is " << ctx->compound_stmt()->stat(j)->declaration_implicit()->ID()->toString() << " F " << endl;
+                }
+
+            locals.push_back(ctx->compound_stmt()->stat(j)->declaration_implicit()->ID()->toString());
+        }
+        j++;
+    }
+
+    auto value = visitChildren(ctx->compound_stmt());
+
+    if(ctx->TYPE()->toString() == "void")
+        j_file << endl << "\treturn" << endl;
+    
+
+    //print end of method
+    j_file << endl << ".limit stack 16" << endl;
+    j_file << ".limit locals " << locals.size() << endl;
+    j_file << ".end method" << endl;    
+    
+    return value;
+}
+
+antlrcpp::Any Pass2Visitor::visitRtrn_stmt(GoGoParser::Rtrn_stmtContext *ctx)
+{
+    auto value = visit(ctx->expr());
+
+    string type_indicator =
+                (ctx->expr()->type == Predefined::integer_type) ? "I"
+            :   (ctx->expr()->type == Predefined::real_type)    ? "F"
+            :                                                   "?";
+
+        if(type_indicator == "I"){
+            j_file << "\tireturn" << endl;
+        } else if(type_indicator == "F"){
+            j_file << "\tfreturn" << endl;
+        } else {
+            j_file << "\t?????" << endl;
+        }
+
+    return value;
 }
 
 antlrcpp::Any Pass2Visitor::visitAssignment_stmt(GoGoParser::Assignment_stmtContext *ctx)
@@ -138,10 +322,34 @@ antlrcpp::Any Pass2Visitor::visitAssignment_stmt(GoGoParser::Assignment_stmtCont
                 : (ctx->expr()->type == Predefined::real_type)    ? "F"
                 :                                                   "?";
 
+
+    //Is function?
+    if (isFunction) {
+        int index = -1;
+        for(int i = 0; i < locals.size(); i++) {
+            if(locals.at(i) == ctx->ID()->toString())
+                index = i;
+        }
+        if(index != -1){
+            if(type_indicator == "I"){
+                j_file << "\tistore_" << index << endl;
+            } else {
+                j_file << "\tfstore_" << index << endl;
+            }
+        } else {
+            j_file << "\tputstatic\t" << program_name
+                   << "/" << ctx->ID()->toString()
+                   << " " << type_indicator << endl;
+        }
+            
+    } else {
+
+
     // Emit a field put instruction.
     j_file << "\tputstatic\t" << program_name
            << "/" << ctx->ID()->toString()
            << " " << type_indicator << endl;
+    }
 
     return value;
 }
@@ -203,7 +411,7 @@ antlrcpp::Any Pass2Visitor::visitMulDiv(GoGoParser::MulDivContext *ctx)
     }
     else
     {
-        opcode = integer_mode ? "idpv"
+        opcode = integer_mode ? "idiv"
                : real_mode    ? "fdiv"
                :                "????";
     }
@@ -223,10 +431,32 @@ antlrcpp::Any Pass2Visitor::visitVarExpr(GoGoParser::VarExprContext *ctx)
                           : (type == Predefined::real_type)    ? "F"
                           :                                      "?";
 
+    //Is function?
+    if (isFunction) {
+        int index = -1;
+        for(int i = 0; i < locals.size(); i++) {
+            if(locals.at(i) == ctx->variable()->ID()->toString())
+                index = i;
+        }
+        if(index != -1){
+            if(type_indicator == "I"){
+                j_file << "\tiload_" << index << endl;
+            } else {
+                j_file << "\tfload_" << index << endl;
+            }
+        } else {
+            j_file << "\tgetstatic\t" << program_name
+                   << "/" << ctx->variable()->ID()->toString()
+                   << " " << type_indicator << endl;
+        }
+            
+    } else {
+
+
     // Emit a field get instruction.
     j_file << "\tgetstatic\t" << program_name
            << "/" << variable_name << " " << type_indicator << endl;
-
+    }
     return visitChildren(ctx);
 }
 
@@ -313,51 +543,74 @@ antlrcpp::Any Pass2Visitor::visitRelative(GoGoParser::RelativeContext *ctx)
 antlrcpp::Any Pass2Visitor::visitIf_stmt(GoGoParser::If_stmtContext *ctx)
 {
 
-    if(ctx->else_stmt() != nullptr) {
-        hasElse = true;
-        visit(ctx->if_stmt());
-    }
-
-    if(ctx->expr() != nullptr) {
-        visit(ctx->expr());
-        j_file << "\tifeq L0" << to_string(labelCounter) << endl;
-    }
-
-    if(ctx->compound_stmt() != nullptr) //then
-        visit(ctx->compound_stmt());
+    auto value = visit(ctx->expr());
     
-    if(hasElse && (ctx->expr() == nullptr))
-        j_file << "\tgoto L0" << to_string(labelCounter + 1) << endl;
+    endCounter = labelCounter; //For end-of-statement label
+    labelCounter++;
 
-    if(ctx->else_stmt() != nullptr)
-        j_file << "L0" << to_string(labelCounter) << ":" << endl;
-
-    if(!hasElse) {
-        j_file << "L0" << to_string(labelCounter) << ":" << endl;
-        labelCounter++;
+    if (ctx->else_stmt() != nullptr) {
+        nextCounter = labelCounter; //For next else-if statement
+        labelCounter++;  
+        j_file << "\tifeq L0" << nextCounter << endl;
+    }  else {
+        j_file << "\tifeq L0" << endCounter << endl;
     }
 
-    if(ctx->else_stmt() != nullptr) {
+    visit(ctx->compound_stmt());   
+
+    if (ctx->else_if_stmt(0) != nullptr) {
+        j_file << "\tgoto L0" << endCounter << endl;
+        j_file << "L0" << nextCounter << ":" << endl;
+        nextCounter++;
+        int i = 0;
+        while(ctx->else_if_stmt(i) != nullptr){
+            visit(ctx->else_if_stmt(i));
+            i++;
+        }
+    }
+    
+    if (ctx->else_stmt() != nullptr){
+        if(ctx->else_if_stmt(0) == nullptr){
+            j_file << "\tgoto L0" << endCounter << endl;
+            j_file << "L0" << nextCounter << ":" << endl;
+        }
         visit(ctx->else_stmt());
-        j_file << "L0" << to_string(labelCounter + 1) << ":" << endl;
     }
 
-    if(ctx->if_stmt() != nullptr)
-        labelCounter += 2;
+    j_file << "L0" << endCounter << ":" << endl;
 
-    return nullptr;
+    return value;
+}
+
+antlrcpp::Any Pass2Visitor::visitElse_if_stmt(GoGoParser::Else_if_stmtContext *ctx)
+{
+    auto value = visit(ctx->expr());
+    
+    j_file << "\tifeq L0" << labelCounter << endl;
+    nextCounter = labelCounter;
+    labelCounter++;
+
+    visit(ctx->compound_stmt());
+    j_file << "\tgoto L0" << endCounter << endl;
+    j_file << "L0" << nextCounter << ":" << endl;
+   
+    return value;
 }
 
 antlrcpp::Any Pass2Visitor::visitWhile_loop_stmt(GoGoParser::While_loop_stmtContext *ctx)
 {
+    int labelCounterTop, labelCounterEnd;
     j_file << "L0" << labelCounter << ":" << endl;
+    labelCounterTop = labelCounter;
     labelCounter++;
     auto value = visit(ctx->expr());    
     j_file << "\tifeq " << "L0" << labelCounter << endl;
-    visit(ctx->compound_stmt());
-    j_file << "\tgoto L0" << labelCounter - 3 << endl;
-    j_file << "L0" << labelCounter << ":" << endl;
+    labelCounterEnd = labelCounter;
     labelCounter++;
+    visit(ctx->compound_stmt());
+    j_file << "\tgoto L0" << labelCounterTop << endl;
+    j_file << "L0" << labelCounterEnd << ":" << endl;
+
     return value;
 
 }
@@ -421,4 +674,37 @@ antlrcpp::Any Pass2Visitor::visitPrintf_stmt(GoGoParser::Printf_stmtContext *ctx
 }
 antlrcpp::Any Pass2Visitor::visitPrint_stmt(GoGoParser::Print_stmtContext *ctx){
 
+}
+
+antlrcpp::Any Pass2Visitor::visitFunc_call(GoGoParser::Func_callContext *ctx){
+    auto value = visitChildren(ctx);
+    j_file << "\tinvokestatic " << program_name << "/" << ctx->ID()->toString() << "(";
+    
+    int i = 0;
+    while(ctx->func_call_params()->expr(i) != nullptr) {
+        if(ctx->func_call_params()->expr(i)->type == Predefined::integer_type) {
+            j_file << "I";
+        } else if(ctx->func_call_params()->expr(i)->type == Predefined::real_type) {
+            j_file << "F";
+        }  else {
+            j_file << "?";
+        }    
+        i++;
+    }
+
+    j_file << ")";
+
+    if(symtabstack->lookup_local(ctx->ID()->toString())->get_typespec() == Predefined::integer_type) {
+        j_file << "I";
+    } else if(symtabstack->lookup_local(ctx->ID()->toString())->get_typespec() == Predefined::real_type) {
+        j_file << "F";
+    } else if(symtabstack->lookup_local(ctx->ID()->toString())->get_typespec() == Predefined::undefined_type) {
+        j_file << "V";
+    }  else {
+        j_file << "?";
+    }
+
+    j_file << endl;
+
+    return value;
 }

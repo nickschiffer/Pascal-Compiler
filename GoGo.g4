@@ -1,17 +1,17 @@
 grammar GoGo;
 
 /** The start rule; begin parsing here. */
-prog:   stat+ ; 
+prog:   func_definition* main;
+
+main:   stat+ ; 
 
 stat:   inc_dec ';'					
     |   expr ';'          			
     |   assignment_stmt ';'			
     |   declaration ';'				
     |   declaration_implicit ';'	
-    |   if_stmt						
-    |   func_definition 			
-    |   while_loop_stmt    			
-    |   func_call ';'				
+    |   if_stmt 			
+    |   while_loop_stmt    							
     |	rtrn_stmt ';'
     |   printf_stmt ';'
     |   print_stmt ';'         		
@@ -24,6 +24,7 @@ expr locals [ TypeSpec *type = nullptr ]
     |   variable               		# varExpr
     |   '(' expr ')'				# parens
     |   expr rel_op  expr  			# relative
+    |   func_call                   # funcCall
     ;
 
 variable : ID ;
@@ -45,13 +46,11 @@ params: (param (',' param)*)? ;
 
 compound_stmt: '{' stat* '}' | stat;
 
-if_stmt: IF expr compound_stmt
-        | if_stmt (else_if_stmt)
-        | if_stmt else_stmt
-        ;
+if_stmt: IF expr compound_stmt ((else_if_stmt)* else_stmt)?;
 
 else_stmt: ELSE compound_stmt ;
 else_if_stmt: ELSE_IF expr compound_stmt ;
+
 while_loop_stmt: WHILE expr (compound_stmt) ; //From C++
 
 assignment_stmt: ID '=' expr ;
@@ -71,7 +70,7 @@ rel_op:     EQ_OP | NE_OP | LT_OP | LE_OP | GT_OP | GE_OP;
 inc_dec_op: INC_OP | DEC_OP;
 
 
-TYPE: 'int' | 'double' ;
+TYPE: 'int' | 'double' | 'void';
 VAR: 'var';
 FUNC: 'func';
 IF: 'if';
@@ -102,7 +101,7 @@ DEC_OP: '--';
 DOUBLE:   INT '.' INT;      // match double datatype
 ID  :   [a-zA-Z][a-zA-Z0-9]* ;         // match identifiers <label id="code.tour.EXPR.3"/>
 INT :   [0-9]+ ;            // match integers
-STRING: '"'[a-zA-Z0-9 !@#$%^&*,.\\]+'"';
+STRING: '"'[a-zA-Z0-9 !@#$%^&*+=:,.\\]+'"';
 NEWLINE : '\r'? '\n' -> skip ;        // return newlines to parser (is end-statement signal)
 WS  :   ([ \t]+ | ' '+) -> skip ;    // toss out whitespace
 COMMENT: ('//' .*? NEWLINE | '/*' .*? '*/') -> skip ; //skip comments

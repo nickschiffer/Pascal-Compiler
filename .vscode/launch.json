@@ -10,7 +10,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/GoGo",
-            "args": ["test1.gogo"],
+            "args": ["factorial.gogo"],
             "stopAtEntry": true,
             "cwd": "${workspaceFolder}",
             "environment": [],
@@ -28,7 +28,7 @@
             "type": "antlr-debug",
             "request": "launch",
             "name": "Run Parser",
-            "input": "test.gogo",
+            "input": "chad.gogo",
             "grammar": "GoGo.g4",
             "startRule": "prog",
             "visualParseTree": true

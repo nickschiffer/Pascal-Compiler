@@ -1,0 +1,16 @@
+func factorial(n int) int {
+    c := 1;
+    fact := 1;
+    while (c <= n){
+        fact = fact * c;
+        c = c + 1;
+    }
+    return fact;
+}
+
+a := 6;
+b := 0;
+
+b = factorial(a);
+
+printf("factorial of %d = %d\n", a, b);

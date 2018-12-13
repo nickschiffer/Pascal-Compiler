@@ -21,6 +21,8 @@ public:
    */
     virtual antlrcpp::Any visitProg(GoGoParser::ProgContext *context) = 0;
 
+    virtual antlrcpp::Any visitMain(GoGoParser::MainContext *context) = 0;
+
     virtual antlrcpp::Any visitStat(GoGoParser::StatContext *context) = 0;
 
     virtual antlrcpp::Any visitVarExpr(GoGoParser::VarExprContext *context) = 0;
@@ -32,6 +34,8 @@ public:
     virtual antlrcpp::Any visitAddSub(GoGoParser::AddSubContext *context) = 0;
 
     virtual antlrcpp::Any visitNumberExpr(GoGoParser::NumberExprContext *context) = 0;
+
+    virtual antlrcpp::Any visitFuncCall(GoGoParser::FuncCallContext *context) = 0;
 
     virtual antlrcpp::Any visitRelative(GoGoParser::RelativeContext *context) = 0;
 
